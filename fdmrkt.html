@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <title>Bootstrap 101 Template</title>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+  <body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1>Фдмркт Прттп</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form>
+                    <div class="form-group">
+                        <input id="food" type="text" class="form-control" placeholder="Какие продукты есть?">
+                    </div>
+                </form>
+            </div>
+        </div>
+        
+        <div class="row" style="margin-top: 40px;">
+            <div class="col-md-6 col-md-offset-3">
+                <button class="btn btn-default" type="submit">
+                    Лук &nbsp; <span aria-hidden="true">&times;</span>
+                </button>
+               <button class="btn btn-default" type="submit">
+                    Морковка &nbsp; <span aria-hidden="true">&times;</span>
+                </button>
+                <button class="btn btn-default" type="submit">
+                    Яйца дракона &nbsp; <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+        
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="media">
+                  <div class="media-left">
+                        <a href="#">
+                          <img class="media-object" src="http://placehold.it/200x200" alt="...">
+                        </a>
+                  </div>
+                  <div class="media-body">
+                        <h4 class="media-heading">Борщ</h4>
+                        <p>Для борща нужна морковка</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="media">
+                  <div class="media-left">
+                        <a href="#">
+                          <img class="media-object" src="http://placehold.it/200x200" alt="...">
+                        </a>
+                  </div>
+                  <div class="media-body">
+                        <h4 class="media-heading">Шкварки по-венски</h4>
+                        <p>Для шкварок нужно оливковое масло</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row" style="margin-top: 20px;">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="media">
+                  <div class="media-left">
+                        <a href="#">
+                          <img class="media-object" src="http://placehold.it/200x200" alt="...">
+                        </a>
+                  </div>
+                  <div class="media-body">
+                        <h4 class="media-heading">Тульский сендвич</h4>
+                        <p>Для сендвича нужен самовар</p>
+                  </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<script>
+    $(function() {
+        var availableTags = [
+          "Лук",
+          "Лук порей",
+          "Морква",
+          "Яйца дракона",
+        ];
+        
+        $( "#food" ).autocomplete({
+          source: availableTags
+        });
+    });
+</script>
+
+</body>
+</html>
