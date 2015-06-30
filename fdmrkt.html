@@ -2,121 +2,203 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-    <title>Bootstrap 101 Template</title>
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css">
-
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>
+      Фдмркт Прототип
+    </title><!--Bootstrap-->
+    <link href=
+    "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css" rel=
+    "stylesheet"><!--Bootstrap Tokenfield-->
+    <link href=
+    "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.min.css"
+    rel="stylesheet"><!--Tokenfield Typeahead-->
+    <link href=
+    "https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/tokenfield-typeahead.min.css"
+    rel="stylesheet"><!--JQueryUI CSS-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css" rel=
+    "stylesheet">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
   </head>
   <body>
     <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <h1>Фдмркт Прттп</h1>
-            </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <h1>
+            Фдмркт Прототип
+          </h1>
         </div>
-        <div class="row">
-            <div class="col-md-6 col-md-offset-3">
-                <form>
-                    <div class="form-group">
-                        <input id="food" type="text" class="form-control" placeholder="Какие продукты есть?">
-                    </div>
-                </form>
+      </div>
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <form>
+            <div class="form-group">
+              <input class="form-control" id="food" placeholder="Какие продукты есть?" type="text">
             </div>
+          </form>
         </div>
-        
-        <div class="row" style="margin-top: 40px;">
-            <div class="col-md-6 col-md-offset-3">
-                <button class="btn btn-default" type="submit">
-                    Лук &nbsp; <span aria-hidden="true">&times;</span>
-                </button>
-               <button class="btn btn-default" type="submit">
-                    Морковка &nbsp; <span aria-hidden="true">&times;</span>
-                </button>
-                <button class="btn btn-default" type="submit">
-                    Яйца дракона &nbsp; <span aria-hidden="true">&times;</span>
-                </button>
+      </div>
+      <div class="row">
+        <div class="col-md-3 col-md-offset-3">
+          <h2>
+            Купить <button class="btn btn-default" type="button">Отправить</button>
+          </h2>
+          <div class="checkbox">
+            <input id="tobuy" type="text" class="form-control" placeholder="Что купить?">
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value=""> Чеснок</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value=""> Сметана</label>
+          </div>
+          <div class="checkbox">
+            <label><input type="checkbox" value=""> Фарш свиной</label>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7 col-md-offset-3">
+          <h2>
+            Готовить
+          </h2>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-7 col-md-offset-3">
+          <div class="media">
+            <div class="media-left">
+              <a href="#"><img alt="..." class="media-object" src=
+              "http://placehold.it/200x200"></a>
             </div>
-        </div>
-        
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="media">
-                  <div class="media-left">
-                        <a href="#">
-                          <img class="media-object" src="http://placehold.it/200x200" alt="...">
-                        </a>
-                  </div>
-                  <div class="media-body">
-                        <h4 class="media-heading">Борщ</h4>
-                        <p>Для борща нужна морковка</p>
-                  </div>
-                </div>
+            <div class="media-body">
+              <h3 class="media-heading">
+                Борщ <span class="label label-default">1ч 20мин</span>
+              </h3>
+              <h4>
+                Рецепт
+              </h4>
+              <p>
+                Для борща нужна морковка.
+              </p>
+              <h4 style="margin-top: 40px;">
+                Не хватает
+              </h4>
+              <p>
+                <button class="btn btn-default" type="button">Все&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Свекла&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button> <button class="btn btn-default" type=
+                "button">Говяжьи косточки&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button>
+              </p>
             </div>
+          </div>
         </div>
-        
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="media">
-                  <div class="media-left">
-                        <a href="#">
-                          <img class="media-object" src="http://placehold.it/200x200" alt="...">
-                        </a>
-                  </div>
-                  <div class="media-body">
-                        <h4 class="media-heading">Шкварки по-венски</h4>
-                        <p>Для шкварок нужно оливковое масло</p>
-                  </div>
-                </div>
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-7 col-md-offset-3">
+          <div class="media">
+            <div class="media-left">
+              <a href="#"><img alt="..." class="media-object" src=
+              "http://placehold.it/200x200"></a>
             </div>
-        </div>
-        
-        <div class="row" style="margin-top: 20px;">
-            <div class="col-md-6 col-md-offset-3">
-                <div class="media">
-                  <div class="media-left">
-                        <a href="#">
-                          <img class="media-object" src="http://placehold.it/200x200" alt="...">
-                        </a>
-                  </div>
-                  <div class="media-body">
-                        <h4 class="media-heading">Тульский сендвич</h4>
-                        <p>Для сендвича нужен самовар</p>
-                  </div>
-                </div>
+            <div class="media-body">
+              <h3 class="media-heading">
+                Шкварки по-венски <span class="label label-default">30мин</span>
+              </h3>
+              <h4>
+                Рецепт
+              </h4>
+              <p>
+                Возьми кошачью жопу, нарви мешок укропу...
+              </p>
+              <h4 style="margin-top: 40px;">
+                Не хватает
+              </h4>
+              <p>
+              <button class="btn btn-default" type="button">Все&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Свинина&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button> <button class="btn btn-default" type=
+                "button">Лук&nbsp; <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Чеснок&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button>
+              </p>
             </div>
+          </div>
         </div>
-        
-    </div>
-    
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-
-<script>
-    $(function() {
-        var availableTags = [
-          "Лук",
-          "Лук порей",
-          "Морква",
-          "Яйца дракона",
-        ];
-        
-        $( "#food" ).autocomplete({
-          source: availableTags
+      </div>
+      <div class="row" style="margin-top: 20px;">
+        <div class="col-md-7 col-md-offset-3">
+          <div class="media">
+            <div class="media-left">
+              <a href="#"><img alt="..." class="media-object" src=
+              "http://placehold.it/200x200"></a>
+            </div>
+            <div class="media-body">
+              <h3 class="media-heading">
+                Тульский сендвич <span class="label label-default">4мин</span>
+              </h3>
+              <h4>
+                Рецепт
+              </h4>
+              <p>
+                Уронить кусок хлеба на пол.
+              </p>
+              <h4 style="margin-top: 40px;">
+                Не хватает
+              </h4>
+              <p>
+                <button class="btn btn-default" type="button">Все&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button> 
+                <button class="btn btn-default" type="button">Самовар&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button> <button class="btn btn-default" type=
+                "button">Печенье&nbsp; <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Варенье смородиновое&nbsp;
+                <span class="glyphicon glyphicon-plus"></span></button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
+    <script>
+      $('#food').tokenfield({
+        autocomplete: {
+          source: [
+              'Картофель',
+              'Лук',
+              'Морковь',
+              'Помидоры',
+              'Яйца куриные',
+              'Яйца перепелиные',
+              'Яйца дракона',
+          ],
+          delay: 100
+        }//,
+        //showAutocompleteOnFocus: true
         });
-    });
-</script>
-
-</body>
+      
+        $('#tobuy').autocomplete({
+            source: [
+              'Картофель',
+              'Лук',
+              'Морковь',
+              'Помидоры',
+              'Яйца куриные',
+              'Яйца перепелиные',
+              'Яйца дракона',
+            ]
+        });
+    </script>
+  </body>
 </html>
