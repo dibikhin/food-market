@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html>
+<head>
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>
-      Фдмркт Прототип
+        Фдмркт Прототип
     </title><!--Bootstrap-->
     <link href=
     "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css" rel=
@@ -21,184 +21,220 @@
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+<![endif]-->
+</head>
+<body>
+<div class="container">
+    <!--<div class="row">-->
+    <!--  <div class="col-md-6 col-md-offset-3">-->
+    <!--    <h1>-->
+    <!--      Фдмркт Прототип-->
+    <!--    </h1>-->
+    <!--  </div>-->
+    <!--</div>-->
+    <div class="row" style="margin-top: 20px;">
         <div class="col-md-6 col-md-offset-3">
-          <h1>
-            Фдмркт Прототип
-          </h1>
+            <form>
+                <div class="form-group">
+                    <input class="form-control" id="food" placeholder=
+                    "Какие продукты есть?" type="text">
+                </div>
+            </form>
         </div>
-      </div>
-      <div class="row">
+    </div>
+    
+    <div class="row" id="not-found" style="margin-top: 20px;">
         <div class="col-md-6 col-md-offset-3">
-          <form>
-            <div class="form-group">
-              <input class="form-control" id="food" placeholder="Какие продукты есть?" type="text">
-            </div>
-          </form>
+            <p>
+                Введите продукты, и тут появятся блюда.
+            </p>
         </div>
-      </div>
-      <div class="row">
-        <div class="col-md-3 col-md-offset-3">
-          <h2>
-            Купить <button class="btn btn-default" type="button">Отправить</button>
-          </h2>
-          <div class="checkbox">
-            <input id="tobuy" type="text" class="form-control" placeholder="Что купить?">
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" value=""> Чеснок</label>
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" value=""> Сметана</label>
-          </div>
-          <div class="checkbox">
-            <label><input type="checkbox" value=""> Фарш свиной</label>
-          </div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-7 col-md-offset-3">
-          <h2>
-            Готовить
-          </h2>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-md-7 col-md-offset-3">
-          <div class="media">
-            <div class="media-left">
-              <a href="#"><img alt="..." class="media-object" src=
-              "http://placehold.it/200x200"></a>
-            </div>
-            <div class="media-body">
-              <h3 class="media-heading">
-                Борщ <span class="label label-default">1ч 20мин</span>
-              </h3>
-              <h4>
-                Рецепт
-              </h4>
-              <p>
+    </div>
+    
+    <!--Купить-->
+    <!--<div class="row">-->
+    <!--  <div class="col-md-3 col-md-offset-3">-->
+    <!--    <h2>-->
+    <!--      Купить <button class="btn btn-default" type="button">Отправить</button>-->
+    <!--    </h2>-->
+    <!--    <div class="checkbox">-->
+    <!--      <input id="tobuy" type="text" class="form-control" placeholder="Что купить?">-->
+    <!--    </div>-->
+    <!--    <div class="checkbox">-->
+    <!--      <label><input type="checkbox" value=""> Чеснок</label>-->
+    <!--    </div>-->
+    <!--    <div class="checkbox">-->
+    <!--      <label><input type="checkbox" value=""> Сметана</label>-->
+    <!--    </div>-->
+    <!--    <div class="checkbox">-->
+    <!--      <label><input type="checkbox" value=""> Фарш свиной</label>-->
+    <!--    </div>-->
+    <!--  </div>-->
+    <!--</div>-->
+    <!--<div class="row">-->
+    <!--  <div class="col-md-8 col-md-offset-3">-->
+    <!--    <h2>-->
+    <!--      Готовить-->
+    <!--    </h2>-->
+    <!--  </div>-->
+    <!--</div>-->
+    <div class="row" id="rcp0">
+        <div class="col-md-8 col-md-offset-3">
+            <h3>
+                Шурпа <span class="label label-default">1ч 20мин</span>
+            </h3>
+            <p>
                 Для борща нужна морковка.
-              </p>
-              <h4 style="margin-top: 40px;">
+            </p>
+            <button class="btn btn-default" type="button">Рецепт</button>
+            <h4 style="margin-top: 20px;">
                 Не хватает
-              </h4>
-              <p>
-                <button class="btn btn-default" type="button">Все&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Свекла&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button> <button class="btn btn-default" type=
-                "button">Говяжьи косточки&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" style="margin-top: 20px;">
-        <div class="col-md-7 col-md-offset-3">
-          <div class="media">
-            <div class="media-left">
-              <a href="#"><img alt="..." class="media-object" src=
-              "http://placehold.it/200x200"></a>
-            </div>
-            <div class="media-body">
-              <h3 class="media-heading">
-                Шкварки по-венски <span class="label label-default">30мин</span>
-              </h3>
-              <h4>
-                Рецепт
-              </h4>
-              <p>
-                Возьми кошачью жопу, нарви мешок укропу...
-              </p>
-              <h4 style="margin-top: 40px;">
-                Не хватает
-              </h4>
-              <p>
-              <button class="btn btn-default" type="button">Все&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Свинина&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button> <button class="btn btn-default" type=
-                "button">Лук&nbsp; <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Чеснок&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button>
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="row" style="margin-top: 20px;">
-        <div class="col-md-7 col-md-offset-3">
-          <div class="media">
-            <div class="media-left">
-              <a href="#"><img alt="..." class="media-object" src=
-              "http://placehold.it/200x200"></a>
-            </div>
-            <div class="media-body">
-              <h3 class="media-heading">
-                Тульский сендвич <span class="label label-default">4мин</span>
-              </h3>
-              <h4>
-                Рецепт
-              </h4>
-              <p>
-                Уронить кусок хлеба на пол.
-              </p>
-              <h4 style="margin-top: 40px;">
-                Не хватает
-              </h4>
-              <p>
-                <button class="btn btn-default" type="button">Все&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button> 
-                <button class="btn btn-default" type="button">Самовар&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button> <button class="btn btn-default" type=
-                "button">Печенье&nbsp; <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Варенье смородиновое&nbsp;
+            </h4>
+            <p>
+                <button class="btn btn-default" type="button">Все&nbsp;
                 <span class="glyphicon glyphicon-plus"></span></button>
-              </p>
-            </div>
-          </div>
+                <button class="btn btn-default" type="button">Свекла&nbsp;
+                <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Говяжьи
+                косточки&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button>
+            </p>
         </div>
-      </div>
-    </div><script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
-    <script>
-      $('#food').tokenfield({
+    </div>
+    <div class="row" id="rcp1" style="margin-top: 20px;">
+        <div class="col-md-8 col-md-offset-3">
+            <h3>
+                Щи из квашеной капусты с головизной <span class="label label-default">30мин</span>
+            </h3>
+            <button class="btn btn-default" type="button">Рецепт</button>
+            <p>
+                Возьми кошачью жопу, нарви мешок укропу...
+            </p>
+            <h4 style="margin-top: 20px;">
+                Не хватает
+            </h4>
+            <p>
+                <button class="btn btn-default" type="button">Все&nbsp;
+                <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Свинина&nbsp;
+                <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Лук&nbsp;
+                <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Чеснок&nbsp;
+                <span class="glyphicon glyphicon-plus"></span></button>
+            </p>
+        </div>
+    </div>
+    <div class="row" id="rcp2" style="margin-top: 20px;">
+        <div class="col-md-8 col-md-offset-3">
+            <h3>
+                Борщ <span class="label label-default">4мин</span>
+            </h3>
+            <button class="btn btn-default" type="button">Рецепт</button>
+            <p>
+                Уронить кусок хлеба на пол.
+            </p>
+            <h4 style="margin-top: 20px;">
+                Не хватает
+            </h4>
+            <p>
+                <button class="btn btn-default" type="button">Все&nbsp;
+                <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Самовар&nbsp;
+                <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Печенье&nbsp;
+                <span class="glyphicon glyphicon-plus"></span></button>
+                <button class="btn btn-default" type="button">Варенье
+                смородиновое&nbsp; <span class=
+                "glyphicon glyphicon-plus"></span></button>
+            </p>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src=
+"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
+<script>
+    $('#food').tokenfield({
         autocomplete: {
-          source: [
-              'Картофель',
-              'Лук',
-              'Морковь',
-              'Помидоры',
-              'Яйца куриные',
-              'Яйца перепелиные',
-              'Яйца дракона',
-          ],
-          delay: 100
-        }//,
-        //showAutocompleteOnFocus: true
-        });
-      
-        $('#tobuy').autocomplete({
             source: [
-              'Картофель',
-              'Лук',
-              'Морковь',
-              'Помидоры',
-              'Яйца куриные',
-              'Яйца перепелиные',
-              'Яйца дракона',
-            ]
+                "Баклажаны",
+                "Брюква",
+                "Кабачки",
+                "Капуста",
+                "Картофель",
+                "Коренья",
+                "Лук",
+                "Морковь",
+                "Огурцы",
+                "Перец",
+                "Петрушка",
+                "Ревень",
+                "Редис",
+                "Салат",
+                "Свекла",
+                "Сельдерей",
+                "Спаржа",
+                "Томаты",
+                "Укроп",
+                "Хрен",
+                "Чеснок",
+                "Шпинат"
+            ],
+            delay: 100
+        }
+    });
+    
+    $('#food-tokenfield').focus();
+    
+    $('#rcp0').hide(); $('#rcp1').hide(); $('#rcp2').hide();
+
+    var findFood = function() {
+        $('#rcp0').hide(); $('#rcp1').hide(); $('#rcp2').hide();
+        $('#not-found').show();
+        
+        var chosenFood = null;
+        var chosenFoodStr = $('#food').tokenfield('getTokensList', ' ');
+        if (chosenFoodStr !== '') {
+            chosenFood = chosenFoodStr.split(' ');
+        } else { 
+            return;
+        }
+        
+        //  Шурпа, ЩИ ИЗ КВАШЕНОЙ КАПУСТЫ С ГОЛОВИЗНОЙ, борщ,
+        var recipes = [
+        	"Сварить мясной бульон. Лук нарезать в виде соломки и поджарить в разогретом жире. Мясо нарезать кусочками весом 25–30 г, обжарить, смешать с поджаренным луком, добавить морковь, нарезанную кубиками, томат-пюре и жарение продолжать в течение 5–б минут. Подготовленное таким образом мясо вместе с овощами переложить в кастрюлю, залить бульоном и довести до кипения. Затем положить картофель, нарезанный дольками, соль, перец и варить 15–20 минут. На 500 г говядины – 750 г картофеля, 2 головки лука, 2 шт. моркови, по 2 ст. ложки томата-пюре и масла.",
+        	"Голову осетровой рыбы разрубить на куски, удалить жабры, промыть, ошпарить, погрузив на 1–2 минуты в горячую воду, снова промыть, положить в кастрюлю, залить водой и поставить варить на слабый огонь на 3–4 часа. Спустя час с начала варки рекомендуется вынуть головизну шумовкой на блюдо и процедить бульон, чтобы в нем не оставалось мелких костей. Головизну разобрать, отделив мясо и хрящи; последние положить доваривать в бульон. За час до окончания варки хрящей положить в бульон тушеную квашеную капусту, подготовленную, как указано в рецепте «Щи из квашеной капусты», и поджаренные с  томатом коренья. Перед окончанием варки добавить соль, перец, лавровый лист и заправить мукой. На 1 кг головизны – 500 г квашеной капусты, 200 г кореньев и лука, 2 ст. ложки  томата-пюре, 2 ст. ложки масла, 1 ст. ложку муки. 2–3 л воды.",
+        	"Сварить мясной бульон. Свеклу, морковь, петрушку и лук нарезать соломкой, положить в суповую кастрюлю, добавить помидоры или томат-пюре, уксус, сахар и немного бульона с жиром (или добавить 1–2 ст. ложки масла), закрыть крышкой и поставить овощи тушить. Овощи перемешивать, чтобы не пригорели, прибавляя, если нужно, немного бульона или воды. Через 15–20 минут добавить нашинкованную капусту, всё перемешать и тушить еще 20 минут. Затем овощи залить подготовленным мясным бульоном, положить перец, лавровый лист, соль, добавить по вкусу немного уксуса и варить до полной готовности овощей. При подаче на стол в борщ положить сметану. В борщ при варке добавляют картофель в целом виде или нарезанный дольками, а также свежие помидоры. Их также нарезают дольками и кладут в борщ за 5–10 минут до окончания варки. В готовый борщ кроме мяса можно положить вареную ветчину, сосиски или колбасу. Для подкрашивания борща можно сделать свекольный настой. Для этого одну свеклу нарезать ломтиками, залить стаканом горячего бульона, добавить чайную ложку уксуса и поставить на 10–15 минут на слабый огонь и довести до кипения. После этого настой процедить и влить в борщ перед подачей на стол. На 500 г мяса – 300 г свеклы, 200 г свежей капусты, 200 г кореньев и лука, 2 ст. ложки томата-пюре или 100 г помидоров, по 1 ст. ложке уксуса и сахара."
+        ];
+    
+        $.each(chosenFood, function(__, fd) {
+            $.each(recipes, function(ix_rcp, rcp) {
+            	var found = rcp.search(new RegExp(fd + '.', 'i'));
+                if (found !== -1) {
+                    $('#rcp' + ix_rcp).show();
+                    $('#not-found').hide();
+                }
+            });
         });
-    </script>
-  </body>
+    };
+    
+    $('#food').on('tokenfield:createdtoken', findFood);
+    // $('#food').on('tokenfield:editedtoken', findFood); //blinks
+    $('#food').on('tokenfield:removedtoken', findFood);
+
+// $('#tobuy').autocomplete({
+//     source: [
+//         "Укроп",
+//         "Хрен",
+//         "Чеснок",
+//         "Шпинат"
+//     ]
+// });
+</script>
+</body>
 </html>
