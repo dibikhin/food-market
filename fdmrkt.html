@@ -45,114 +45,154 @@
         </div>
     </div>
     
-    <div class="row" id="not-found" style="margin-top: 20px;">
+    <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <p>
+            <p id="not-found-recipes">
                 Введите продукты, и тут появятся блюда.
             </p>
-        </div>
-    </div>
+            <!-- Tab panes -->
+            <div class="tab-content" id="found-dishes">
+                <div role="tabpanel" class="tab-pane active" id="recipe-list">
+                    <div id="rcp0">
+                        <h3>
+                            Шурпа <span class="label label-default">1ч 20мин</span>
+                        </h3>
+                        <p>
+                            Для борща нужна морковка.
+                        </p>
+                        <h4 style="margin-top: 20px;">
+                            Не хватает
+                        </h4>
+                        <ul class="list-inline">
+                            <li>Говяжьи косточки</li>
+                            <li>Морковь</li>
+                            <li>Свекла</li>
+                        </ul>
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            &nbsp;Добавить в список
+                        </button>
+                        <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            &nbsp;Рецепт
+                        </a>
+                    </div>
+                    <div id="rcp1">
+                        <h3>
+                            Щи из квашеной капусты с головизной <span class="label label-default">30мин</span>
+                        </h3>
+                        <p>
+                            Возьми кошачью жопу, нарви мешок укропу...
+                        </p>
+                        <h4 style="margin-top: 20px;">
+                            Не хватает
+                        </h4>
+                        <ul class="list-inline">
+                            <li>Кошачья жопа</li>
+                            <li>Квашеная капуста</li>
+                            <li>Пучок укропа</li>
+                        </ul>
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            &nbsp;Добавить в список
+                        </button>
+                        <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            &nbsp;Рецепт
+                        </a>
+                    </div>
+                    <div id="rcp2">
+                        <h3>
+                            Борщ <span class="label label-default">4мин</span>
+                        </h3>
+                        <p>
+                            Уронить кусок хлеба на пол.
+                        </p>
+                        <h4 style="margin-top: 20px;">
+                            Не хватает
+                        </h4>
+                        <ul class="list-inline">
+                            <li>Кусок хлеба</li>
+                            <li>Пол</li>
+                        </ul>
+                        <button class="btn btn-default" type="button">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            &nbsp;Добавить в список
+                        </button>
+                        <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab">
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            &nbsp;Рецепт
+                        </a>
+                    </div>
+                </div>  <!--recipe-list-->
+                
+                <div role="tabpanel" class="tab-pane" id="recipe">
+                    <div id="recipe-body">
+                        <h3>
+                            Шурпа <span class="label label-default" style="float: right;">1 ч 20 мин</span>
+                        </h3>
+                        <ul>
+                            <li>Сварить мясной бульон.</li>
+                            <li>Лук нарезать в&nbsp;виде соломки и&nbsp;поджарить в&nbsp;разогретом жире.</li>
+                            <li>Мясо нарезать кусочками весом 25&ndash;30&nbsp;г, обжарить, смешать с&nbsp;поджаренным луком, добавить морковь, нарезанную кубиками, томат-пюре и&nbsp;жарение продолжать в&nbsp;течение 5&ndash;6&nbsp;минут.</li>
+                            <li>Подготовленное таким образом мясо вместе с&nbsp;овощами переложить в&nbsp;кастрюлю, залить бульоном и&nbsp;довести до&nbsp;кипения.</li>
+                            <li>Затем положить картофель, нарезанный дольками, соль, перец и&nbsp;варить 15&ndash;20&nbsp;минут.</li>
+                        </ul>
+                        <p>
+                            На&nbsp;500&nbsp;г говядины&nbsp;&mdash; 750&nbsp;г картофеля, 2&nbsp;головки лука, 2&nbsp;шт. моркови, по&nbsp;2&nbsp;ст. ложки томата-пюре и&nbsp;масла.
+                        </p>
+                        <h4 style="margin-top: 20px;">
+                            Не хватает
+                        </h4>
+                        <ul class="list-inline">
+                            <li>Говяжьи косточки</li>
+                            <li>Морковь</li>
+                            <li>Свекла</li>
+                        </ul>
+                        <a class="btn btn-default" href="#to-buy-list" aria-controls="to-buy-list" role="tab" data-toggle="tab">
+                            <span class="glyphicon glyphicon-plus"></span>
+                            &nbsp;Добавить в список
+                        </a>
+                    </div>
+                    <a class="btn btn-default" href="#recipe-list" aria-controls="recipe-list" role="tab" data-toggle="tab"
+                        style="margin-top: 10px;">
+                        Назад
+                    </a>
+                </div>
+                
+                <div role="tabpanel" class="tab-pane" id="to-buy-list">
+                    <div id="to-buy-list-body">
+                        <h3>
+                            Купить
+                            <!--<button class="btn btn-default" type="button">Отправить</button>-->
+                        </h3>
+                        <!--to-buy-search-->
+                        <form class="form-inline addToListForm">
+                            <div class="form-group">
+                                <input type="text" name="listItemInput" class="form-control listItemInput" placeholder="Что купить?">
+                            </div>
+                            <label type="button" class="btn btn-default addToList">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                    &nbsp;Добавить
+                            </label>
+                            <label type="button" class="btn btn-default" id="clear-to-buy-food-list">
+                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                    &nbsp;Очистить
+                            </label>
+                        </form>
+                        
+                        <div class="to-buy-food-list"></div>
+                    </div>
+                    <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab"
+                        style="margin-top: 10px;">
+                        Назад
+                    </a>
+                </div> <!--to-buy-list-->
+            </div> <!--tab-content-->
+        </div> <!--col-->
+    </div> <!--row-->
     
-    <!--Купить-->
-    <!--<div class="row">-->
-    <!--  <div class="col-md-3 col-md-offset-3">-->
-    <!--    <h2>-->
-    <!--      Купить <button class="btn btn-default" type="button">Отправить</button>-->
-    <!--    </h2>-->
-    <!--    <div class="checkbox">-->
-    <!--      <input id="tobuy" type="text" class="form-control" placeholder="Что купить?">-->
-    <!--    </div>-->
-    <!--    <div class="checkbox">-->
-    <!--      <label><input type="checkbox" value=""> Чеснок</label>-->
-    <!--    </div>-->
-    <!--    <div class="checkbox">-->
-    <!--      <label><input type="checkbox" value=""> Сметана</label>-->
-    <!--    </div>-->
-    <!--    <div class="checkbox">-->
-    <!--      <label><input type="checkbox" value=""> Фарш свиной</label>-->
-    <!--    </div>-->
-    <!--  </div>-->
-    <!--</div>-->
-    <!--<div class="row">-->
-    <!--  <div class="col-md-8 col-md-offset-3">-->
-    <!--    <h2>-->
-    <!--      Готовить-->
-    <!--    </h2>-->
-    <!--  </div>-->
-    <!--</div>-->
-    <div class="row" id="rcp0">
-        <div class="col-md-8 col-md-offset-3">
-            <h3>
-                Шурпа <span class="label label-default">1ч 20мин</span>
-            </h3>
-            <p>
-                Для борща нужна морковка.
-            </p>
-            <button class="btn btn-default" type="button">Рецепт</button>
-            <h4 style="margin-top: 20px;">
-                Не хватает
-            </h4>
-            <p>
-                <button class="btn btn-default" type="button">Все&nbsp;
-                <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Свекла&nbsp;
-                <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Говяжьи
-                косточки&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button>
-            </p>
-        </div>
-    </div>
-    <div class="row" id="rcp1" style="margin-top: 20px;">
-        <div class="col-md-8 col-md-offset-3">
-            <h3>
-                Щи из квашеной капусты с головизной <span class="label label-default">30мин</span>
-            </h3>
-            <button class="btn btn-default" type="button">Рецепт</button>
-            <p>
-                Возьми кошачью жопу, нарви мешок укропу...
-            </p>
-            <h4 style="margin-top: 20px;">
-                Не хватает
-            </h4>
-            <p>
-                <button class="btn btn-default" type="button">Все&nbsp;
-                <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Свинина&nbsp;
-                <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Лук&nbsp;
-                <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Чеснок&nbsp;
-                <span class="glyphicon glyphicon-plus"></span></button>
-            </p>
-        </div>
-    </div>
-    <div class="row" id="rcp2" style="margin-top: 20px;">
-        <div class="col-md-8 col-md-offset-3">
-            <h3>
-                Борщ <span class="label label-default">4мин</span>
-            </h3>
-            <button class="btn btn-default" type="button">Рецепт</button>
-            <p>
-                Уронить кусок хлеба на пол.
-            </p>
-            <h4 style="margin-top: 20px;">
-                Не хватает
-            </h4>
-            <p>
-                <button class="btn btn-default" type="button">Все&nbsp;
-                <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Самовар&nbsp;
-                <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Печенье&nbsp;
-                <span class="glyphicon glyphicon-plus"></span></button>
-                <button class="btn btn-default" type="button">Варенье
-                смородиновое&nbsp; <span class=
-                "glyphicon glyphicon-plus"></span></button>
-            </p>
-        </div>
-    </div>
-</div>
+</div>  <!--container-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src=
 "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
@@ -195,7 +235,9 @@
 
     var findFood = function() {
         $('#rcp0').hide(); $('#rcp1').hide(); $('#rcp2').hide();
-        $('#not-found').show();
+        $('#found-dishes').hide();
+        $('#not-found-recipes').show();
+        $('#found-dishes a[href="#recipe-list"]').tab('show');
         
         var chosenFood = null;
         var chosenFoodStr = $('#food').tokenfield('getTokensList', ' ');
@@ -205,7 +247,7 @@
             return;
         }
         
-        //  Шурпа, ЩИ ИЗ КВАШЕНОЙ КАПУСТЫ С ГОЛОВИЗНОЙ, борщ,
+        //  Шурпа, Щи, Борщ
         var recipes = [
         	"Сварить мясной бульон. Лук нарезать в виде соломки и поджарить в разогретом жире. Мясо нарезать кусочками весом 25–30 г, обжарить, смешать с поджаренным луком, добавить морковь, нарезанную кубиками, томат-пюре и жарение продолжать в течение 5–б минут. Подготовленное таким образом мясо вместе с овощами переложить в кастрюлю, залить бульоном и довести до кипения. Затем положить картофель, нарезанный дольками, соль, перец и варить 15–20 минут. На 500 г говядины – 750 г картофеля, 2 головки лука, 2 шт. моркови, по 2 ст. ложки томата-пюре и масла.",
         	"Голову осетровой рыбы разрубить на куски, удалить жабры, промыть, ошпарить, погрузив на 1–2 минуты в горячую воду, снова промыть, положить в кастрюлю, залить водой и поставить варить на слабый огонь на 3–4 часа. Спустя час с начала варки рекомендуется вынуть головизну шумовкой на блюдо и процедить бульон, чтобы в нем не оставалось мелких костей. Головизну разобрать, отделив мясо и хрящи; последние положить доваривать в бульон. За час до окончания варки хрящей положить в бульон тушеную квашеную капусту, подготовленную, как указано в рецепте «Щи из квашеной капусты», и поджаренные с  томатом коренья. Перед окончанием варки добавить соль, перец, лавровый лист и заправить мукой. На 1 кг головизны – 500 г квашеной капусты, 200 г кореньев и лука, 2 ст. ложки  томата-пюре, 2 ст. ложки масла, 1 ст. ложку муки. 2–3 л воды.",
@@ -217,7 +259,8 @@
             	var found = rcp.search(new RegExp(fd + '.', 'i'));
                 if (found !== -1) {
                     $('#rcp' + ix_rcp).show();
-                    $('#not-found').hide();
+                    $('#not-found-recipes').hide();
+                    $('#found-dishes').show();
                 }
             });
         });
@@ -227,14 +270,43 @@
     // $('#food').on('tokenfield:editedtoken', findFood); //blinks
     $('#food').on('tokenfield:removedtoken', findFood);
 
-// $('#tobuy').autocomplete({
-//     source: [
-//         "Укроп",
-//         "Хрен",
-//         "Чеснок",
-//         "Шпинат"
-//     ]
-// });
+    // to-buy-search
+    // $('.addToListForm').submit(function(e) {
+    //     e.preventDefault();        
+    //     return false;
+    // });
+    
+    var addToList = function() {
+        var itemToAdd = $('input[name="listItemInput"]').val().trim();
+        if(itemToAdd) {
+            $('.to-buy-food-list').append(
+                '<div class="checkbox"><label><input type="checkbox" value="' + itemToAdd + '">'+ itemToAdd +'</label></div>');
+        }
+        $('.listItemInput').val('').focus();
+    };
+    
+    $(document).on('click', '.addToList', addToList);
+    
+    $(document).on('click', '#clear-to-buy-food-list', function() {
+        $('.to-buy-food-list').html('');
+    });
+    
+    $('.listItemInput').keypress(function(e) {
+        if (e.which == 13) {
+            addToList();
+            e.preventDefault();        
+            return false;
+        }
+    });
 </script>
 </body>
 </html>
+
+<!--// $('#tobuy').autocomplete({-->
+<!--//     source: [-->
+<!--//         "Укроп",-->
+<!--//         "Хрен",-->
+<!--//         "Чеснок",-->
+<!--//         "Шпинат"-->
+<!--//     ]-->
+<!--// });-->
