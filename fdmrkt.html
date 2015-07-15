@@ -6,7 +6,10 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <title>
         Фдмркт Прототип
-    </title><!--Bootstrap-->
+    </title>
+    <!--Firebase-->
+    <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
+    <!--Bootstrap-->
     <link href=
     "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css" rel=
     "stylesheet"><!--Bootstrap Tokenfield-->
@@ -18,6 +21,7 @@
     rel="stylesheet"><!--JQueryUI CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css" rel=
     "stylesheet">
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -34,98 +38,70 @@
     <!--    </h1>-->
     <!--  </div>-->
     <!--</div>-->
-    <div class="row" style="margin-top: 20px;">
-        <div class="col-md-6 col-md-offset-3">
-            <form>
-                <div class="form-group">
-                    <input class="form-control" id="food" placeholder=
-                    "Какие продукты есть?" type="text">
-                </div>
-            </form>
-        </div>
-    </div>
     
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <p id="not-found-recipes">
-                Введите продукты, и тут появятся блюда.
-            </p>
             <!-- Tab panes -->
-            <div class="tab-content" id="found-dishes">
-                <div role="tabpanel" class="tab-pane active" id="recipe-list">
-                    <div id="rcp0">
-                        <h3>
-                            Шурпа <span class="label label-default">1ч 20мин</span>
-                        </h3>
-                        <p>
-                            Для борща нужна морковка.
-                        </p>
-                        <h4 style="margin-top: 20px;">
-                            Не хватает
-                        </h4>
-                        <ul class="list-inline">
-                            <li>Говяжьи косточки</li>
-                            <li>Морковь</li>
-                            <li>Свекла</li>
-                        </ul>
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            &nbsp;Добавить в список
-                        </button>
-                        <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                            &nbsp;Рецепт
-                        </a>
+            
+            <!--Main-->
+            <div class="tab-content">
+                <div style="margin-top: 20px;" role="tabpanel" class="tab-pane active" id="recipe-list">
+                    <form>
+                        <div class="form-group">
+                            <input class="form-control" id="food-search" placeholder=
+                            "Какие продукты есть?" type="text">
+                        </div>
+                    </form>
+                    <p id="not-found-recipes">
+                        Введите продукты, и здесь появятся блюда.
+                    </p>
+                    
+                    <div id="found-recipes">
+                        <!--recipe item template-->
+                        <div class="recipe-item">
+                            <h3>
+                                <span class="recipe-name"></span>
+                                <span class="label label-default recipe-time"
+                                    style="float: right;">
+                                    &nbsp;мин.
+                                </span>
+                            </h3>
+                            <p>
+                                <del>Простой быстрый салат</del>
+                            </p>
+                            <h4 style="margin-top: 20px;">
+                                Не хватает
+                            </h4>
+                            <ul class="list-inline">
+                                <li>
+                                    <del>Свекла</del>
+                                </li>
+                                <li>
+                                    <del>Морковь</del>
+                                </li>
+                                <li>
+                                    <del>Говяжьи косточки</del>
+                                </li>
+                            </ul>
+                            <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-plus"></span>
+                                &nbsp;Добавить в список
+                            </button>
+                            <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab">
+                                <span class="recipe-ix hidden"></span>
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                                &nbsp;Рецепт
+                            </a>
+                        </div> <!--recipe template-->
                     </div>
-                    <div id="rcp1">
-                        <h3>
-                            Щи из квашеной капусты с головизной <span class="label label-default">30мин</span>
-                        </h3>
-                        <p>
-                            Возьми кошачью жопу, нарви мешок укропу...
-                        </p>
-                        <h4 style="margin-top: 20px;">
-                            Не хватает
-                        </h4>
-                        <ul class="list-inline">
-                            <li>Кошачья жопа</li>
-                            <li>Квашеная капуста</li>
-                            <li>Пучок укропа</li>
-                        </ul>
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            &nbsp;Добавить в список
-                        </button>
-                        <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                            &nbsp;Рецепт
-                        </a>
-                    </div>
-                    <div id="rcp2">
-                        <h3>
-                            Борщ <span class="label label-default">4мин</span>
-                        </h3>
-                        <p>
-                            Уронить кусок хлеба на пол.
-                        </p>
-                        <h4 style="margin-top: 20px;">
-                            Не хватает
-                        </h4>
-                        <ul class="list-inline">
-                            <li>Кусок хлеба</li>
-                            <li>Пол</li>
-                        </ul>
-                        <button class="btn btn-default" type="button">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            &nbsp;Добавить в список
-                        </button>
-                        <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab">
-                            <span class="glyphicon glyphicon-eye-open"></span>
-                            &nbsp;Рецепт
-                        </a>
-                    </div>
+                    
+                    <a style="margin-top: 20px;" class="btn btn-default" href="#to-buy-list" aria-controls="to-buy-list" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-list"></span>
+                        &nbsp;Список продуктов
+                    </a>
                 </div>  <!--recipe-list-->
                 
+                <!--Recipe Tab-->
                 <div role="tabpanel" class="tab-pane" id="recipe">
                     <div id="recipe-body">
                         <h3>
@@ -149,138 +125,182 @@
                             <li>Морковь</li>
                             <li>Свекла</li>
                         </ul>
+                        
                         <a class="btn btn-default" href="#to-buy-list" aria-controls="to-buy-list" role="tab" data-toggle="tab">
                             <span class="glyphicon glyphicon-plus"></span>
                             &nbsp;Добавить в список
                         </a>
                     </div>
+                    
+                    <!--Nav-->
                     <a class="btn btn-default" href="#recipe-list" aria-controls="recipe-list" role="tab" data-toggle="tab"
                         style="margin-top: 10px;">
-                        Назад
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        &nbsp;Назад
                     </a>
-                </div>
+                </div> <!--recipe-body-->
                 
+                <!--To Buy Tab-->
                 <div role="tabpanel" class="tab-pane" id="to-buy-list">
                     <div id="to-buy-list-body">
                         <h3>
                             Купить
                             <!--<button class="btn btn-default" type="button">Отправить</button>-->
                         </h3>
+                        
                         <!--to-buy-search-->
+                        <!--todo rename 'addToList*'-->
                         <form class="form-inline addToListForm">
                             <div class="form-group">
-                                <input type="text" name="listItemInput" class="form-control listItemInput" placeholder="Что купить?">
+                                <input id="to-buy-search" type="text" name="listItemInput" class="form-control listItemInput" placeholder="Что купить?">
                             </div>
-                            <label type="button" class="btn btn-default addToList">
+                            <button type="button" class="btn btn-default addToList">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     &nbsp;Добавить
-                            </label>
+                            </button>
                             <label type="button" class="btn btn-default" id="clear-to-buy-food-list">
                                 <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
                                     &nbsp;Очистить
                             </label>
                         </form>
                         
-                        <div class="to-buy-food-list"></div>
+                        <div class="to-buy-food-list">
+                            
+                        </div>
                     </div>
+                    
                     <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab"
                         style="margin-top: 10px;">
-                        Назад
+                        <span class="glyphicon glyphicon-arrow-left"></span>
+                        &nbsp;Назад
                     </a>
                 </div> <!--to-buy-list-->
             </div> <!--tab-content-->
         </div> <!--col-->
     </div> <!--row-->
     
+    <!--empty-->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            
+        </div> <!--col-->
+    </div> <!--row-->
+    
 </div>  <!--container-->
+
+<!--jQuery-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script> <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-<script src=
-"https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
+<!--jQueryUI-->
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
+<!--Underscore-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<!--PureJS--> <!--Yandex.Browser claims security issue-->
+<!--<script src="https://raw.github.com/pure/pure/master/libs/pure.js"></script>-->
+<script src="pure.min.js"></script>
+
 <script>
-    $('#food').tokenfield({
-        autocomplete: {
-            source: [
-                "Баклажаны",
-                "Брюква",
-                "Кабачки",
-                "Капуста",
-                "Картофель",
-                "Коренья",
-                "Лук",
-                "Морковь",
-                "Огурцы",
-                "Перец",
-                "Петрушка",
-                "Ревень",
-                "Редис",
-                "Салат",
-                "Свекла",
-                "Сельдерей",
-                "Спаржа",
-                "Томаты",
-                "Укроп",
-                "Хрен",
-                "Чеснок",
-                "Шпинат"
-            ],
-            delay: 100
-        }
+    //// init autocompletes
+    var firebase = new Firebase("https://foodmarket.firebaseio.com/");
+    firebase.child('food').once('value', function(snapshot) {
+        $('#food-search').tokenfield({
+            autocomplete: {
+                source: snapshot.val(), // it's not live
+                delay: 100
+            }
+        });
+        
+        // note: relies on name
+        $('#food-search-tokenfield').focus();
+        
+        $('#to-buy-search').autocomplete({
+            source: snapshot.val(), // it's not live too
+        });        
     });
     
-    $('#food-tokenfield').focus();
+    //// template engine
+    var directive1 = {
+            '.recipe-item': {
+                'recipe<-': {
+                    '.recipe-ix': 'recipe.ix',
+                    '.recipe-name': 'recipe.name',
+                    '+.recipe-time': 'recipe.time' // note '+'
+                }
+            }
+        };
     
-    $('#rcp0').hide(); $('#rcp1').hide(); $('#rcp2').hide();
-
+    // compile is of PureJS
+    var compiledDirective = $('#found-recipes').compile(directive1);
+    
+    //// cosmetics
+    $('#found-recipes').hide();
+    
+    //// food-search logic
+    
+    var foundRecipes = [];
+    
     var findFood = function() {
-        $('#rcp0').hide(); $('#rcp1').hide(); $('#rcp2').hide();
-        $('#found-dishes').hide();
+        
         $('#not-found-recipes').show();
-        $('#found-dishes a[href="#recipe-list"]').tab('show');
+        $('#found-recipes').hide();
         
         var chosenFood = null;
-        var chosenFoodStr = $('#food').tokenfield('getTokensList', ' ');
+        var chosenFoodStr = $('#food-search').tokenfield('getTokensList', ' ');
         if (chosenFoodStr !== '') {
             chosenFood = chosenFoodStr.split(' ');
         } else { 
             return;
         }
         
-        //  Шурпа, Щи, Борщ
-        var recipes = [
-        	"Сварить мясной бульон. Лук нарезать в виде соломки и поджарить в разогретом жире. Мясо нарезать кусочками весом 25–30 г, обжарить, смешать с поджаренным луком, добавить морковь, нарезанную кубиками, томат-пюре и жарение продолжать в течение 5–б минут. Подготовленное таким образом мясо вместе с овощами переложить в кастрюлю, залить бульоном и довести до кипения. Затем положить картофель, нарезанный дольками, соль, перец и варить 15–20 минут. На 500 г говядины – 750 г картофеля, 2 головки лука, 2 шт. моркови, по 2 ст. ложки томата-пюре и масла.",
-        	"Голову осетровой рыбы разрубить на куски, удалить жабры, промыть, ошпарить, погрузив на 1–2 минуты в горячую воду, снова промыть, положить в кастрюлю, залить водой и поставить варить на слабый огонь на 3–4 часа. Спустя час с начала варки рекомендуется вынуть головизну шумовкой на блюдо и процедить бульон, чтобы в нем не оставалось мелких костей. Головизну разобрать, отделив мясо и хрящи; последние положить доваривать в бульон. За час до окончания варки хрящей положить в бульон тушеную квашеную капусту, подготовленную, как указано в рецепте «Щи из квашеной капусты», и поджаренные с  томатом коренья. Перед окончанием варки добавить соль, перец, лавровый лист и заправить мукой. На 1 кг головизны – 500 г квашеной капусты, 200 г кореньев и лука, 2 ст. ложки  томата-пюре, 2 ст. ложки масла, 1 ст. ложку муки. 2–3 л воды.",
-        	"Сварить мясной бульон. Свеклу, морковь, петрушку и лук нарезать соломкой, положить в суповую кастрюлю, добавить помидоры или томат-пюре, уксус, сахар и немного бульона с жиром (или добавить 1–2 ст. ложки масла), закрыть крышкой и поставить овощи тушить. Овощи перемешивать, чтобы не пригорели, прибавляя, если нужно, немного бульона или воды. Через 15–20 минут добавить нашинкованную капусту, всё перемешать и тушить еще 20 минут. Затем овощи залить подготовленным мясным бульоном, положить перец, лавровый лист, соль, добавить по вкусу немного уксуса и варить до полной готовности овощей. При подаче на стол в борщ положить сметану. В борщ при варке добавляют картофель в целом виде или нарезанный дольками, а также свежие помидоры. Их также нарезают дольками и кладут в борщ за 5–10 минут до окончания варки. В готовый борщ кроме мяса можно положить вареную ветчину, сосиски или колбасу. Для подкрашивания борща можно сделать свекольный настой. Для этого одну свеклу нарезать ломтиками, залить стаканом горячего бульона, добавить чайную ложку уксуса и поставить на 10–15 минут на слабый огонь и довести до кипения. После этого настой процедить и влить в борщ перед подачей на стол. На 500 г мяса – 300 г свеклы, 200 г свежей капусты, 200 г кореньев и лука, 2 ст. ложки томата-пюре или 100 г помидоров, по 1 ст. ложке уксуса и сахара."
-        ];
-    
-        $.each(chosenFood, function(__, fd) {
-            $.each(recipes, function(ix_rcp, rcp) {
-            	var found = rcp.search(new RegExp(fd + '.', 'i'));
-                if (found !== -1) {
-                    $('#rcp' + ix_rcp).show();
-                    $('#not-found-recipes').hide();
-                    $('#found-dishes').show();
-                }
+        var recipes = null;
+        firebase.child('recipes').once('value', function(snapshot) {
+            recipes = snapshot.val();
+            
+            // todo underscore it!
+            // find foods in recipes
+            $.each(chosenFood, function(__, fd) {
+                $.each(recipes, function(ix_rcp, rcp) {
+                	var found = rcp.steps.search(new RegExp(fd + '.', 'i'));
+                    if (found !== -1) {
+                        rcp.ix = ix_rcp;
+                        foundRecipes.push(rcp);
+                    }
+                });
             });
+            
+            if(_.any(foundRecipes)) {
+                $('#found-recipes').render(foundRecipes, compiledDirective);
+                $('#not-found-recipes').hide();
+                $('#found-recipes').show();
+            }
         });
     };
     
-    $('#food').on('tokenfield:createdtoken', findFood);
-    // $('#food').on('tokenfield:editedtoken', findFood); //blinks
-    $('#food').on('tokenfield:removedtoken', findFood);
-
-    // to-buy-search
-    // $('.addToListForm').submit(function(e) {
-    //     e.preventDefault();        
-    //     return false;
-    // });
+    //// Main loop, tokenfield events
+    $('#food-search').on('tokenfield:createdtoken', findFood);
+    // $('#food-search').on('tokenfield:editedtoken', findFood); // blinks
+    $('#food-search').on('tokenfield:removedtoken', findFood);
     
+    
+    //// recipe view
+    $(document).on('click', '#recipe', function() {
+        var recipeIx = $(this).find('.recipe-ix').val();
+        var curRecipe = _.find(foundRecipes, function(_rcp) {
+            return _rcp.ix === recipeIx;
+        });
+        // todo render recipe
+        // todo fill recipe on click
+        // todo show recipe on click
+    });
+    
+    //// to-buy-food-list
     var addToList = function() {
         var itemToAdd = $('input[name="listItemInput"]').val().trim();
         if(itemToAdd) {
             $('.to-buy-food-list').append(
-                '<div class="checkbox"><label><input type="checkbox" value="' + itemToAdd + '">'+ itemToAdd +'</label></div>');
+                '<div class="checkbox"><label><input type="checkbox" value="' 
+                + itemToAdd + '">'+ itemToAdd +'</label></div>');
         }
         $('.listItemInput').val('').focus();
     };
@@ -298,15 +318,24 @@
             return false;
         }
     });
+    
+    
+    //// fill DB
+    
+    // var recipes1234 = firebase.child('recipes');
+    //  var recipe5645 = [
+    //      {
+    //         name: 'Салат со сметаной и яйцом',
+    //         time: 15,
+    //         qtys: 'На&nbsp;300&nbsp;г зеленого салата&nbsp;&mdash; 1&nbsp;свежий огурец, 1&nbsp;яйцо, 1/2 стакана соуса из&nbsp;сметаны с&nbsp;уксусом.',
+    //         foodIndex: 'зеленый салат, огурец, огурцы, яйцо, яйца, сметана, уксус',
+    //         steps: 'Обмытый и&nbsp;отсушенный зеленый салат нарезать и&nbsp;сложить в&nbsp;миску. Яйца, сваренные вкрутую, нарезать тонкими ломтиками и&nbsp;смешать с&nbsp;соусом из&nbsp;сметаны с&nbsp;уксусом. Перед самой подачей к&nbsp;столу заправить салат сметанным соусом с&nbsp;яйцом, уложить в&nbsp;салатник, обложить кружочками свежих огурцов и&nbsp;посыпать мелко нарезанным укропом или зеленью петрушки. Подается салат ко&nbsp;всем мясным и&nbsp;рыбным блюдам.'
+    //      }
+    // ];
+    // recipes1234.set(recipe5645);
+    
 </script>
 </body>
 </html>
 
-<!--// $('#tobuy').autocomplete({-->
-<!--//     source: [-->
-<!--//         "Укроп",-->
-<!--//         "Хрен",-->
-<!--//         "Чеснок",-->
-<!--//         "Шпинат"-->
-<!--//     ]-->
-<!--// });-->
+<!--JSON.stringify-->
