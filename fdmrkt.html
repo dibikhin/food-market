@@ -7,8 +7,6 @@
     <title>
         Фдмркт Прототип
     </title>
-    <!--Firebase-->
-    <script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
     <!--Bootstrap-->
     <link href=
     "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/css/bootstrap.min.css" rel=
@@ -31,6 +29,7 @@
 </head>
 <body>
 <div class="container">
+
     <!--<div class="row">-->
     <!--  <div class="col-md-6 col-md-offset-3">-->
     <!--    <h1>-->
@@ -38,169 +37,183 @@
     <!--    </h1>-->
     <!--  </div>-->
     <!--</div>-->
-    
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <!-- Tab panes -->
-            
-            <!--Main-->
-            <div class="tab-content">
-                <div style="margin-top: 20px;" role="tabpanel" class="tab-pane active" id="recipe-list">
-                    <form>
-                        <div class="form-group">
-                            <input class="form-control" id="food-search" placeholder=
-                            "Какие продукты есть?" type="text">
-                        </div>
-                    </form>
-                    <p id="not-found-recipes">
-                        Введите продукты, и здесь появятся блюда.
-                    </p>
-                    
-                    <div id="found-recipes">
-                        <!--recipe item template-->
-                        <div class="recipe-item">
-                            <h3>
-                                <span class="recipe-name"></span>
-                                <span class="label label-default recipe-time"
-                                    style="float: right;">
-                                    &nbsp;мин.
-                                </span>
-                            </h3>
-                            <p>
-                                <del>Простой быстрый салат</del>
-                            </p>
-                            <h4 style="margin-top: 20px;">
-                                Не хватает
-                            </h4>
-                            <ul class="list-inline">
-                                <li>
-                                    <del>Свекла</del>
-                                </li>
-                                <li>
-                                    <del>Морковь</del>
-                                </li>
-                                <li>
-                                    <del>Говяжьи косточки</del>
-                                </li>
-                            </ul>
-                            <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-plus"></span>
-                                &nbsp;Добавить в список
-                            </button>
-                            <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab">
-                                <span class="recipe-ix hidden"></span>
-                                <span class="glyphicon glyphicon-eye-open"></span>
-                                &nbsp;Рецепт
-                            </a>
-                        </div> <!--recipe template-->
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <!-- Tab panes -->
+        <div class="tab-content">
+        
+            <!-- Main Tab -->
+            <div style="margin-top: 20px;" role="tabpanel" class="tab-pane active" id="main-tab">
+                <form>
+                    <div class="form-group">
+                        <input class="form-control" id="food-search" placeholder=
+                        "Какие продукты есть?" type="text">
                     </div>
-                    
-                    <a style="margin-top: 20px;" class="btn btn-default" href="#to-buy-list" aria-controls="to-buy-list" role="tab" data-toggle="tab">
-                        <span class="glyphicon glyphicon-list"></span>
-                        &nbsp;Список продуктов
-                    </a>
-                </div>  <!--recipe-list-->
+                </form>
+                <p id="not-found-recipes">
+                    Введите продукты, и здесь появятся блюда.
+                </p>
                 
-                <!--Recipe Tab-->
-                <div role="tabpanel" class="tab-pane" id="recipe">
-                    <div id="recipe-body">
+                <div id="found-recipes">
+                    <!-- recipe item template -->
+                    <div class="recipe-item">
                         <h3>
-                            Шурпа <span class="label label-default" style="float: right;">1 ч 20 мин</span>
+                            <span class="recipe-name"></span>
+                            <span class="label label-default recipe-time"
+                                style="float: right;">
+                                &nbsp;мин.
+                            </span>
                         </h3>
-                        <ul>
-                            <li>Сварить мясной бульон.</li>
-                            <li>Лук нарезать в&nbsp;виде соломки и&nbsp;поджарить в&nbsp;разогретом жире.</li>
-                            <li>Мясо нарезать кусочками весом 25&ndash;30&nbsp;г, обжарить, смешать с&nbsp;поджаренным луком, добавить морковь, нарезанную кубиками, томат-пюре и&nbsp;жарение продолжать в&nbsp;течение 5&ndash;6&nbsp;минут.</li>
-                            <li>Подготовленное таким образом мясо вместе с&nbsp;овощами переложить в&nbsp;кастрюлю, залить бульоном и&nbsp;довести до&nbsp;кипения.</li>
-                            <li>Затем положить картофель, нарезанный дольками, соль, перец и&nbsp;варить 15&ndash;20&nbsp;минут.</li>
-                        </ul>
                         <p>
-                            На&nbsp;500&nbsp;г говядины&nbsp;&mdash; 750&nbsp;г картофеля, 2&nbsp;головки лука, 2&nbsp;шт. моркови, по&nbsp;2&nbsp;ст. ложки томата-пюре и&nbsp;масла.
+                            <del>Простой быстрый салат</del>
                         </p>
                         <h4 style="margin-top: 20px;">
                             Не хватает
                         </h4>
                         <ul class="list-inline">
-                            <li>Говяжьи косточки</li>
-                            <li>Морковь</li>
-                            <li>Свекла</li>
+                            <li>
+                                <del>Свекла</del>
+                            </li>
+                            <li>
+                                <del>Морковь</del>
+                            </li>
+                            <li>
+                                <del>Говяжьи косточки</del>
+                            </li>
                         </ul>
-                        
-                        <a class="btn btn-default" href="#to-buy-list" aria-controls="to-buy-list" role="tab" data-toggle="tab">
+                        <a class="btn btn-default" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
                             <span class="glyphicon glyphicon-plus"></span>
-                            &nbsp;Добавить в список
+                            &nbsp;<del>Добавить в список</del>
                         </a>
-                    </div>
-                    
-                    <!--Nav-->
-                    <a class="btn btn-default" href="#recipe-list" aria-controls="recipe-list" role="tab" data-toggle="tab"
-                        style="margin-top: 10px;">
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                        &nbsp;Назад
-                    </a>
-                </div> <!--recipe-body-->
+                        <a id="recipe-btn" class="btn btn-default" href="#recipe-tab" aria-controls="recipe-tab" 
+                                role="tab" data-toggle="tab">
+                            <span class="recipe-ix hidden"></span>
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            &nbsp;Рецепт
+                        </a>
+                    </div> <!--recipe item template-->
+                </div> <!--found-recipes-->
                 
-                <!--To Buy Tab-->
-                <div role="tabpanel" class="tab-pane" id="to-buy-list">
-                    <div id="to-buy-list-body">
-                        <h3>
-                            Купить
-                            <!--<button class="btn btn-default" type="button">Отправить</button>-->
-                        </h3>
-                        
-                        <!--to-buy-search-->
-                        <!--todo rename 'addToList*'-->
-                        <form class="form-inline addToListForm">
-                            <div class="form-group">
-                                <input id="to-buy-search" type="text" name="listItemInput" class="form-control listItemInput" placeholder="Что купить?">
-                            </div>
-                            <button type="button" class="btn btn-default addToList">
-                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                    &nbsp;Добавить
-                            </button>
-                            <label type="button" class="btn btn-default" id="clear-to-buy-food-list">
-                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
-                                    &nbsp;Очистить
-                            </label>
-                        </form>
-                        
-                        <div class="to-buy-food-list">
-                            
-                        </div>
-                    </div>
-                    
-                    <a class="btn btn-default" href="#recipe" aria-controls="recipe" role="tab" data-toggle="tab"
-                        style="margin-top: 10px;">
-                        <span class="glyphicon glyphicon-arrow-left"></span>
-                        &nbsp;Назад
-                    </a>
-                </div> <!--to-buy-list-->
-            </div> <!--tab-content-->
-        </div> <!--col-->
-    </div> <!--row-->
-    
-    <!--empty-->
-    <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+                <a style="margin-top: 20px;" class="btn btn-default" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                    <span class="glyphicon glyphicon-list"></span>
+                    &nbsp;Список продуктов
+                </a>
+            </div> <!--main-tab-->
             
-        </div> <!--col-->
-    </div> <!--row-->
-    
+            <!-- Chosen Recipe Tab -->
+            <div role="tabpanel" class="tab-pane" id="recipe-tab">
+                <div id="recipe-content">
+                    <h3>
+                        <span class="recipe-name"></span>
+                        <span class="label label-default recipe-time" style="float: right;">
+                            &nbsp;мин.
+                        </span>
+                    </h3>
+                    
+                    <p class="recipe-steps"></p>
+                    <p class="recipe-qtys"></p>
+                    
+                    <h4 style="margin-top: 20px;">
+                        Не хватает
+                    </h4>
+                    
+                    <p class="recipe-zxcv"></p>
+                    
+                    <ul class="list-inline">
+                        <li>
+                            <del>Свекла</del>
+                        </li>
+                        <li>
+                            <del>Морковь</del>
+                        </li>
+                        <li>
+                            <del>Говяжьи косточки</del>
+                        </li>
+                    </ul>
+                    
+                    <a class="btn btn-default" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        &nbsp;<del>Добавить в список</del>
+                    </a>
+                </div> <!-- recipe-content -->
+                
+                <!-- Back Nav -->
+                <a class="btn btn-default" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
+                    style="margin-top: 10px;">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    &nbsp;Назад
+                </a>
+            </div> <!-- recipe-tab -->
+            
+            <!--To Buy Tab-->
+            <div role="tabpanel" class="tab-pane" id="to-buy-list-tab">
+                <div id="to-buy-list">
+                    <h3>
+                        Купить
+                    </h3>
+                    
+                    <!--to-buy-search-->
+                    <!--todo rename 'addToList*'-->
+                    <form class="form-inline addToListForm">
+                        <div class="form-group">
+                            <input id="to-buy-search" type="text" name="listItemInput" class="form-control listItemInput" placeholder="Что купить?">
+                        </div>
+                        <button type="button" class="btn btn-default addToList">
+                            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                &nbsp;Добавить
+                        </button>
+                        <label type="button" class="btn btn-default" id="clear-to-buy-food-list">
+                            <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                &nbsp;Очистить
+                        </label>
+                        <label type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                &nbsp;<del>Отправить</del>
+                        </label>
+                    </form>
+                    
+                    <div class="to-buy-food-list"></div>
+                </div>
+                
+                <a class="btn btn-default" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
+                    style="margin-top: 10px;">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                    &nbsp;Назад
+                </a>
+            </div> <!--to-buy-list-tab-->
+        </div> <!--tab-content-->
+    </div> <!--col-->
+</div> <!--row-->
+
+<!--empty-->
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        
+    </div> <!--col-->
+</div> <!--row-->
+
 </div>  <!--container-->
 
 <!--jQuery-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <!--jQueryUI-->
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+<!--Firebase-->
+<script src="https://cdn.firebase.com/js/client/2.2.7/firebase.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
 <!--Underscore-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-<!--PureJS--> <!--Yandex.Browser claims security issue-->
+<!--PureJS--> 
+<!--Yandex.Browser claims security issue-->
 <!--<script src="https://raw.github.com/pure/pure/master/libs/pure.js"></script>-->
 <script src="pure.min.js"></script>
 
 <script>
+
+$(document).ready(function() {
+
     //// init autocompletes
     var firebase = new Firebase("https://foodmarket.firebaseio.com/");
     firebase.child('food').once('value', function(snapshot) {
@@ -211,8 +224,7 @@
             }
         });
         
-        // note: relies on name
-        $('#food-search-tokenfield').focus();
+        $('#food-search-tokenfield').focus(); // note: relies on name
         
         $('#to-buy-search').autocomplete({
             source: snapshot.val(), // it's not live too
@@ -220,25 +232,34 @@
     });
     
     //// template engine
-    var directive1 = {
-            '.recipe-item': {
-                'recipe<-': {
-                    '.recipe-ix': 'recipe.ix',
-                    '.recipe-name': 'recipe.name',
-                    '+.recipe-time': 'recipe.time' // note '+'
-                }
+    var recipeItemDirective = {
+        '.recipe-item': {
+            'recipe<-': {
+                '.recipe-ix': 'recipe.ix',
+                '.recipe-name': 'recipe.name',
+                '+.recipe-time': 'recipe.time' // note '+'
             }
-        };
+        }
+    };
+    
+    var recipeDirective = {
+        '.recipe-name': 'name',
+        '+.recipe-time': 'time', // note '+' here
+        '.recipe-steps': 'steps',
+        '.recipe-zxcv': 'Absent.zxcv',
+        '.recipe-qtys': 'qtys'
+    };
     
     // compile is of PureJS
-    var compiledDirective = $('#found-recipes').compile(directive1);
+    var compiledDirective = $('#found-recipes').compile(recipeItemDirective);
+    var compiledRecipeDirective = $('#recipe-content').compile(recipeDirective);
     
     //// cosmetics
     $('#found-recipes').hide();
     
     //// food-search logic
     
-    var foundRecipes = [];
+    var foundRecipes = null;
     
     var findFood = function() {
         
@@ -254,23 +275,31 @@
         }
         
         var recipes = null;
+        
+        // todo: rename to *Map
+        foundRecipes = {}; // todo: dangerous lifecycle
+        
+        // todo: pull up
         firebase.child('recipes').once('value', function(snapshot) {
             recipes = snapshot.val();
-            
-            // todo underscore it!
+
             // find foods in recipes
-            $.each(chosenFood, function(__, fd) {
-                $.each(recipes, function(ix_rcp, rcp) {
-                	var found = rcp.steps.search(new RegExp(fd + '.', 'i'));
+            $.each(chosenFood, function(___, fd) {
+                _.each(recipes, function(recipe_val, recipe_id) {
+                	var found = recipe_val.steps.search(new RegExp(fd + '.', 'i'));
                     if (found !== -1) {
-                        rcp.ix = ix_rcp;
-                        foundRecipes.push(rcp);
+                        recipe_val.ix = recipe_id;
+                        recipe_val.Absent = {};
+                        recipe_val.Absent.zxcv = 1234;
+                        foundRecipes[recipe_id] = recipe_val;
                     }
                 });
             });
             
-            if(_.any(foundRecipes)) {
-                $('#found-recipes').render(foundRecipes, compiledDirective);
+            if( !_.isEmpty(foundRecipes)) {
+                var foundRecipesVals = _.values(foundRecipes);
+                
+                $('#found-recipes').render(foundRecipesVals, compiledDirective);
                 $('#not-found-recipes').hide();
                 $('#found-recipes').show();
             }
@@ -278,20 +307,30 @@
     };
     
     //// Main loop, tokenfield events
-    $('#food-search').on('tokenfield:createdtoken', findFood);
+    
+    $('#food-search').on('tokenfield:createdtoken', findFood); // note 'd' in createdtoken
     // $('#food-search').on('tokenfield:editedtoken', findFood); // blinks
     $('#food-search').on('tokenfield:removedtoken', findFood);
-    
-    
-    //// recipe view
-    $(document).on('click', '#recipe', function() {
-        var recipeIx = $(this).find('.recipe-ix').val();
-        var curRecipe = _.find(foundRecipes, function(_rcp) {
-            return _rcp.ix === recipeIx;
+    $('#food-search').on('tokenfield:createtoken', function (event) {
+        // filter dups
+        var existingTokens = $(this).tokenfield('getTokens');
+        $.each(existingTokens, function(index, token) {
+            if (token.value === event.attrs.value) {
+                event.preventDefault();
+            }
         });
-        // todo render recipe
-        // todo fill recipe on click
-        // todo show recipe on click
+    });
+    
+    
+    //// recipe content view
+    $(document).on('click', '#recipe-btn', function() {
+        var recipeIx = $(this).find('.recipe-ix').text();
+        var curRecipe = foundRecipes[recipeIx];
+        
+        // todo reformat recipe.steps to ul/li
+        
+        $('#recipe-content').render(curRecipe, compiledRecipeDirective);
+        $('#recipe-content').show();
     });
     
     //// to-buy-food-list
@@ -321,21 +360,55 @@
     
     
     //// fill DB
+    var _recipesList = [
+        {
+            name: 'Салат со сметаной и яйцом',
+            time: 15,
+            qtys: 'На&nbsp;300&nbsp;г зеленого салата&nbsp;&mdash; 1&nbsp;свежий огурец, 1&nbsp;яйцо, 1/2 стакана соуса из&nbsp;сметаны с&nbsp;уксусом.',
+            foodIndex: 'зеленый салат, салат, огурец, огурцы, яйцо, яйца, сметана, уксус',
+            steps: 'Обмытый и&nbsp;отсушенный зеленый салат нарезать и&nbsp;сложить в&nbsp;миску. Яйца, сваренные вкрутую, нарезать тонкими ломтиками и&nbsp;смешать с&nbsp;соусом из&nbsp;сметаны с&nbsp;уксусом. Перед самой подачей к&nbsp;столу заправить салат сметанным соусом с&nbsp;яйцом, уложить в&nbsp;салатник, обложить кружочками свежих огурцов и&nbsp;посыпать мелко нарезанным укропом или зеленью петрушки. Подается салат ко&nbsp;всем мясным и&nbsp;рыбным блюдам.'
+        },
+        {
+            name: 'Салат из свежих помидоров и огурцов',
+            time: 5,
+            qtys: 'На&nbsp;5&ndash;6 помидоров&nbsp;&mdash; 2&ndash;3&nbsp;огурца, 2&nbsp;ст. ложки растительного масла',
+            foodIndex: 'помидоры, огурец, огурцы, растительное масло, репчатый лук, зеленый лук',
+            steps: 'Вымытые помидоры и&nbsp;свежие огурцы нарезать тонкими кружочками, посыпать солью и&nbsp;перцем и&nbsp;красиво уложить в&nbsp;салатник. К&nbsp;моменту подачи на&nbsp;стол полить растительным маслом, сверху посыпать укропом или зеленью петрушки. Салат можно приготовить из&nbsp;одних огурцов или из&nbsp;одних помидоров. В&nbsp;этот салат по&nbsp;желанию добавляют репчатый лук, нарезанный тонкими кольцами, или мелко нарезанный зеленый лук. Подают салат к&nbsp;мясным и&nbsp;рыбным котлетам, к&nbsp;вареному или жареному мясу и&nbsp;рыбе, а&nbsp;также как отдельное блюдо.'
+        },
+        {
+            name: 'Салат из белокачанной капусты с яблоком и сельдереем',
+            time: 10,
+            qtys: 'На&nbsp;500&nbsp;г капусты белокочанной&nbsp;&mdash; 1&nbsp;стебель сельдерея (салатного или корневого), 1&nbsp;яблоко, 1/4 стакана уксуса, 1/2&nbsp;ст. ложки сахара.',
+            foodIndex: 'яблоко, яблоки, сельдерей, капуста, уксус, сахар',
+            steps: 'Очищенные яблоки нарезать ломтиками, сельдерей нарезать соломкой длиной 4&ndash;5&nbsp;см; белокочанную капусту подготовить так&nbsp;же, как указано выше; все это перемешать, сложить в&nbsp;салатник, прибавить сахар и&nbsp;полить уксусом. Этот салат подают ко&nbsp;всем жареным и&nbsp;вареным мясным блюдам, к&nbsp;жареной и&nbsp;отварной рыбе, на&nbsp;гарнир к&nbsp;холодным мясным и&nbsp;рыбным блюдам, а&nbsp;также как самостоятельное блюдо.'
+        },
+        {
+            name: 'Салат из свежих овощей с яблоком',
+            time: 12,
+            qtys: 'На&nbsp;2&nbsp;свежих огурца&nbsp;&mdash; 2&nbsp;сырых моркови, 2&nbsp;яблока, 2&nbsp;помидора, 100&nbsp;г зеленого салата, 1/2 стакана сметаны, 1/4&nbsp;лимона.',
+            foodIndex: 'огурец, огурцы, морковь, яблоко, яблоки, помидоры, зеленый салат, салат, сметана, лимон',
+            steps: 'Обмытые свежие огурцы, сырую морковь и&nbsp;яблоки нарезать тонкой соломкой, а&nbsp;листики салата на&nbsp;3&ndash;4 части каждый. Все это перемешать и&nbsp;заправить сметаной, добавив лимонный сок, соль, сахар. Сверху салат украсить помидорами, нарезанными ломтиками. Такой салат, благодаря сырым овощам и&nbsp;фруктам, содержит значительное количество витаминов.'
+        }
+    ];
     
-    // var recipes1234 = firebase.child('recipes');
-    //  var recipe5645 = [
-    //      {
-    //         name: 'Салат со сметаной и яйцом',
-    //         time: 15,
-    //         qtys: 'На&nbsp;300&nbsp;г зеленого салата&nbsp;&mdash; 1&nbsp;свежий огурец, 1&nbsp;яйцо, 1/2 стакана соуса из&nbsp;сметаны с&nbsp;уксусом.',
-    //         foodIndex: 'зеленый салат, огурец, огурцы, яйцо, яйца, сметана, уксус',
-    //         steps: 'Обмытый и&nbsp;отсушенный зеленый салат нарезать и&nbsp;сложить в&nbsp;миску. Яйца, сваренные вкрутую, нарезать тонкими ломтиками и&nbsp;смешать с&nbsp;соусом из&nbsp;сметаны с&nbsp;уксусом. Перед самой подачей к&nbsp;столу заправить салат сметанным соусом с&nbsp;яйцом, уложить в&nbsp;салатник, обложить кружочками свежих огурцов и&nbsp;посыпать мелко нарезанным укропом или зеленью петрушки. Подается салат ко&nbsp;всем мясным и&nbsp;рыбным блюдам.'
-    //      }
-    // ];
-    // recipes1234.set(recipe5645);
+    // todo: rename 'recipe' to 'dish' and recipe.steps to recipe
     
+    // var recipesDb = firebase.child('recipes');
+    // var _fillRecipes = function(error) {
+    //     if (error) {
+        
+    //     } else {
+    //         _.each(_recipesList, function(_el) {
+    //             recipesDb.push(_el); // it's push to Firebase object, not array
+    //         });
+    //     }
+    // };
+    
+    // recipesDb.remove(_fillRecipes);
+});
+
 </script>
 </body>
 </html>
 
-<!--JSON.stringify-->
+<!-- JSON.stringify -->
