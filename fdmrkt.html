@@ -30,21 +30,56 @@
 <body>
 <div class="container">
 
-    <!--<div class="row">-->
-    <!--  <div class="col-md-6 col-md-offset-3">-->
-    <!--    <h1>-->
-    <!--      Фдмркт Прототип-->
-    <!--    </h1>-->
-    <!--  </div>-->
-    <!--</div>-->
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <h3 style="margin-top: 10px;">
+        ФудМаркет 
+        <span style="float: right; ">
+            <a class="btn btn-default btn-sm" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                <span class="glyphicon glyphicon-list"></span>
+                    &nbsp;Список
+            </a>
+            <a id="show-login-tab-btn" class="btn btn-default btn-sm" href="#login-tab" aria-controls="login-tab" role="tab" data-toggle="tab">
+                <span class="glyphicon glyphicon-log-in"></span>
+                    &nbsp;Вход
+            </a>
+            <a id="logout-btn" class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
+                <span class="glyphicon glyphicon-log-out"></span>
+                    &nbsp;Выход
+            </a>
+        </span>
+    </h3>
+  </div>
+</div>
 
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <!-- Tab panes -->
-        <div class="tab-content">
+        <div class="tab-content" id="tabs">
         
+            <!-- Login Tab -->
+            <div role="tabpanel" class="tab-pane" id="login-tab">
+                <div class="row">
+                    <div class="col-md-6">
+                        <form id="login-form">
+                            <div class="form-group">
+                                <label for="email">Имейл</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Пароль</label>
+                                <input type="password" class="form-control" id="password" required>
+                            </div>
+                            <button id="login-btn" type="submit" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>
+                                    &nbsp;Войти
+                            </button>
+                        </form>
+                    </div>    
+                </div>
+            </div>
+            
             <!-- Main Tab -->
-            <div style="margin-top: 20px;" role="tabpanel" class="tab-pane active" id="main-tab">
+            <div role="tabpanel" class="tab-pane active" id="main-tab">
                 <form>
                     <div class="form-group">
                         <input class="form-control" id="food-search" placeholder=
@@ -58,35 +93,28 @@
                 <div id="found-recipes">
                     <!-- recipe item template -->
                     <div class="recipe-item">
-                        <h3>
+                        <h4>
                             <span class="recipe-name"></span>
                             <span class="label label-default recipe-time"
                                 style="float: right;">
                                 &nbsp;мин.
                             </span>
-                        </h3>
+                        </h4>
                         <p>
                             <del>Простой быстрый салат</del>
                         </p>
-                        <h4 style="margin-top: 20px;">
-                            Не хватает
-                        </h4>
-                        <ul class="list-inline">
-                            <li>
-                                <del>Свекла</del>
-                            </li>
-                            <li>
-                                <del>Морковь</del>
-                            </li>
-                            <li>
-                                <del>Говяжьи косточки</del>
-                            </li>
-                        </ul>
-                        <a class="btn btn-default" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                        
+                        <p style="margin-top: 10px;">
+                            <strong>Не хватает</strong>
+                            <span class="recipe-absent"></span>
+                        </p>
+                        
+                        <a class="btn btn-default btn-sm add-to-list-btn" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                            <span class="recipe-ix hidden"></span>
                             <span class="glyphicon glyphicon-plus"></span>
-                            &nbsp;<del>Добавить в список</del>
+                            &nbsp;Добавить в список
                         </a>
-                        <a id="recipe-btn" class="btn btn-default" href="#recipe-tab" aria-controls="recipe-tab" 
+                        <a class="btn btn-default btn-sm recipe-btn" href="#recipe-tab" aria-controls="recipe-tab" 
                                 role="tab" data-toggle="tab">
                             <span class="recipe-ix hidden"></span>
                             <span class="glyphicon glyphicon-eye-open"></span>
@@ -94,52 +122,36 @@
                         </a>
                     </div> <!--recipe item template-->
                 </div> <!--found-recipes-->
-                
-                <a style="margin-top: 20px;" class="btn btn-default" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
-                    <span class="glyphicon glyphicon-list"></span>
-                    &nbsp;Список продуктов
-                </a>
             </div> <!--main-tab-->
             
             <!-- Chosen Recipe Tab -->
             <div role="tabpanel" class="tab-pane" id="recipe-tab">
                 <div id="recipe-content">
-                    <h3>
+                    <h4>
                         <span class="recipe-name"></span>
                         <span class="label label-default recipe-time" style="float: right;">
                             &nbsp;мин.
                         </span>
-                    </h3>
-                    
-                    <p class="recipe-steps"></p>
-                    <p class="recipe-qtys"></p>
-                    
-                    <h4 style="margin-top: 20px;">
-                        Не хватает
                     </h4>
                     
-                    <p class="recipe-zxcv"></p>
+                    <p class="recipe-steps"></p>
                     
-                    <ul class="list-inline">
-                        <li>
-                            <del>Свекла</del>
-                        </li>
-                        <li>
-                            <del>Морковь</del>
-                        </li>
-                        <li>
-                            <del>Говяжьи косточки</del>
-                        </li>
-                    </ul>
+                    <p class="recipe-qtys"></p>
                     
-                    <a class="btn btn-default" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                    <p style="margin-top: 10px;">
+                        <strong>Не хватает</strong>
+                        <span class="recipe-absent"></span>
+                    </p>
+                    
+                    <a class="btn btn-default btn-sm add-to-list-btn" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                        <span class="recipe-ix hidden"></span>
                         <span class="glyphicon glyphicon-plus"></span>
-                        &nbsp;<del>Добавить в список</del>
+                        &nbsp;Добавить в список
                     </a>
                 </div> <!-- recipe-content -->
                 
                 <!-- Back Nav -->
-                <a class="btn btn-default" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
+                <a class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
                     style="margin-top: 10px;">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                     &nbsp;Назад
@@ -150,33 +162,39 @@
             <div role="tabpanel" class="tab-pane" id="to-buy-list-tab">
                 <div id="to-buy-list">
                     <h3>
-                        Купить
+                        Список продуктов
                     </h3>
+                    
+                    <form class="form-inline">
+                        <div class="form-group">
+                            <input id="to-userlogin" type="text" class="form-control" placeholder="Имейл">
+                        </div>
+                        <label type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                &nbsp;<del>Отправить</del>
+                        </label>
+                    </form>
                     
                     <!--to-buy-search-->
                     <!--todo rename 'addToList*'-->
-                    <form class="form-inline addToListForm">
+                    <form class="form-inline">
                         <div class="form-group">
                             <input id="to-buy-search" type="text" name="listItemInput" class="form-control listItemInput" placeholder="Что купить?">
                         </div>
-                        <button type="button" class="btn btn-default addToList">
+                        <button type="button" class="btn btn-default btn-sm addToList">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                 &nbsp;Добавить
                         </button>
-                        <label type="button" class="btn btn-default" id="clear-to-buy-food-list">
+                        <label type="button" class="btn btn-default btn-sm" id="clear-to-buy-food-list">
                             <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
                                 &nbsp;Очистить
-                        </label>
-                        <label type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                                &nbsp;<del>Отправить</del>
                         </label>
                     </form>
                     
                     <div class="to-buy-food-list"></div>
                 </div>
                 
-                <a class="btn btn-default" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
+                <a class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
                     style="margin-top: 10px;">
                     <span class="glyphicon glyphicon-arrow-left"></span>
                     &nbsp;Назад
@@ -237,16 +255,18 @@ $(document).ready(function() {
             'recipe<-': {
                 '.recipe-ix': 'recipe.ix',
                 '.recipe-name': 'recipe.name',
-                '+.recipe-time': 'recipe.time' // note '+'
+                '+.recipe-time': 'recipe.time', // note '+'
+                '.recipe-absent': 'recipe.absent'
             }
         }
     };
     
     var recipeDirective = {
+        '.recipe-ix': 'ix',
         '.recipe-name': 'name',
         '+.recipe-time': 'time', // note '+' here
+        '.recipe-absent': 'absent',
         '.recipe-steps': 'steps',
-        '.recipe-zxcv': 'Absent.zxcv',
         '.recipe-qtys': 'qtys'
     };
     
@@ -257,6 +277,16 @@ $(document).ready(function() {
     //// cosmetics
     $('#found-recipes').hide();
     
+    var chosenFood = function() {
+        var delimiter = ',';
+        var chosenFoodStr = $('#food-search').tokenfield('getTokensList', delimiter, false /* beautify */);
+        if (chosenFoodStr !== '') {
+            return chosenFoodStr.split(delimiter);
+        } else { 
+            return null;
+        }
+    };
+    
     //// food-search logic
     
     var foundRecipes = null;
@@ -265,14 +295,6 @@ $(document).ready(function() {
         
         $('#not-found-recipes').show();
         $('#found-recipes').hide();
-        
-        var chosenFood = null;
-        var chosenFoodStr = $('#food-search').tokenfield('getTokensList', ' ');
-        if (chosenFoodStr !== '') {
-            chosenFood = chosenFoodStr.split(' ');
-        } else { 
-            return;
-        }
         
         var recipes = null;
         
@@ -284,22 +306,33 @@ $(document).ready(function() {
             recipes = snapshot.val();
 
             // find foods in recipes
-            $.each(chosenFood, function(___, fd) {
-                _.each(recipes, function(recipe_val, recipe_id) {
-                	var found = recipe_val.steps.search(new RegExp(fd + '.', 'i'));
-                    if (found !== -1) {
-                        recipe_val.ix = recipe_id;
-                        recipe_val.Absent = {};
-                        recipe_val.Absent.zxcv = 1234;
-                        foundRecipes[recipe_id] = recipe_val;
-                    }
-                });
+            _.each(recipes, function(recipe_val, recipe_id) { // value, key
+            	var dif = _.difference(recipe_val.foodIndex, chosenFood()); // note the order
+                // todo: dim if
+                if ( _.size(dif) < _.size(recipe_val.foodIndex) ) {
+                    recipe_val.ix = recipe_id;
+                    recipe_val.absent = dif.join(' ');
+                    foundRecipes[recipe_id] = recipe_val;
+                }
             });
             
             if( !_.isEmpty(foundRecipes)) {
-                var foundRecipesVals = _.values(foundRecipes);
+                var foundRecipesVals =_.values(foundRecipes);
+                var firstThreeQuickestRecipes = [];
+                    // _.chain(foundRecipesVals)
+                var grps = _.groupBy(foundRecipesVals, function(rcpVal) { return rcpVal.type; });
+                var grVals = _.values(grps);
+                _.each(grVals, function(grVal) {
+                    var sortedGr = _.sortBy(grVal, function(grRcpVal) {
+                        return grRcpVal.time;
+                    });
+                    firstThreeQuickestRecipes.push(_.first(sortedGr));
+                });
+                        // .sortBy(function(_rcp) { return _rcp.time; })
+                        // .first(3)
+                    // .value();
                 
-                $('#found-recipes').render(foundRecipesVals, compiledDirective);
+                $('#found-recipes').render(firstThreeQuickestRecipes, compiledDirective);
                 $('#not-found-recipes').hide();
                 $('#found-recipes').show();
             }
@@ -314,6 +347,7 @@ $(document).ready(function() {
     $('#food-search').on('tokenfield:createtoken', function (event) {
         // filter dups
         var existingTokens = $(this).tokenfield('getTokens');
+        // todo: underscore it!
         $.each(existingTokens, function(index, token) {
             if (token.value === event.attrs.value) {
                 event.preventDefault();
@@ -323,7 +357,7 @@ $(document).ready(function() {
     
     
     //// recipe content view
-    $(document).on('click', '#recipe-btn', function() {
+    $(document).on('click', '.recipe-btn', function() {
         var recipeIx = $(this).find('.recipe-ix').text();
         var curRecipe = foundRecipes[recipeIx];
         
@@ -333,13 +367,28 @@ $(document).ready(function() {
         $('#recipe-content').show();
     });
     
+    var appendToList = function(itemToAdd) {
+        $('.to-buy-food-list').append(
+            '<div class="checkbox"><label><input type="checkbox" value="'
+            + itemToAdd + '">'+ itemToAdd +'</label></div>');
+    };
+    
+    //// add to 'to-buy-food-list'
+    $(document).on('click', '.add-to-list-btn', function() {
+        var recipeIx = $(this).find('.recipe-ix').text();
+        var curRecipe = foundRecipes[recipeIx];
+        
+        var difr = _.difference(curRecipe.foodIndex, chosenFood());
+        _.each(difr, function(absentFood) {
+            appendToList(absentFood);
+        });
+    });
+    
     //// to-buy-food-list
     var addToList = function() {
         var itemToAdd = $('input[name="listItemInput"]').val().trim();
         if(itemToAdd) {
-            $('.to-buy-food-list').append(
-                '<div class="checkbox"><label><input type="checkbox" value="' 
-                + itemToAdd + '">'+ itemToAdd +'</label></div>');
+            appendToList(itemToAdd);
         }
         $('.listItemInput').val('').focus();
     };
@@ -358,6 +407,41 @@ $(document).ready(function() {
         }
     });
     
+    //// login/logout visibility
+    
+    $('#logout-btn').hide();
+    
+    $(document).on('click', '#show-login-tab-btn', function() {
+        $('#show-login-tab-btn').hide();
+    });
+    
+    // todo: convert to 'on submit'
+    
+    $("#login-form").submit(function(e) {
+        firebase.authWithPassword({
+            email    : $('#email').val(),
+            password : $('#password').val()
+        }, function(error, authData) {
+            if (error) {
+                alert("Не удалось войти :( " + error);
+            } else {
+                $('#logout-btn').show();
+                $('a[href="#main-tab"]').tab('show');
+                $('#email').val('');
+                $('#password').val('');
+            }
+        });
+        
+        e.preventDefault();
+    });
+    
+    $(document).on('click', '#logout-btn', function() {
+        firebase.unauth();
+        
+        $('#logout-btn').hide();
+        $('#show-login-tab-btn').show();
+    });
+    
     
     //// fill DB
     var _recipesList = [
@@ -365,33 +449,97 @@ $(document).ready(function() {
             name: 'Салат со сметаной и яйцом',
             time: 15,
             qtys: 'На&nbsp;300&nbsp;г зеленого салата&nbsp;&mdash; 1&nbsp;свежий огурец, 1&nbsp;яйцо, 1/2 стакана соуса из&nbsp;сметаны с&nbsp;уксусом.',
-            foodIndex: 'зеленый салат, салат, огурец, огурцы, яйцо, яйца, сметана, уксус',
+            foodIndex: ['Салат', 'Огурцы', 'Яйца', 'Сметана', 'Уксус'],
             steps: 'Обмытый и&nbsp;отсушенный зеленый салат нарезать и&nbsp;сложить в&nbsp;миску. Яйца, сваренные вкрутую, нарезать тонкими ломтиками и&nbsp;смешать с&nbsp;соусом из&nbsp;сметаны с&nbsp;уксусом. Перед самой подачей к&nbsp;столу заправить салат сметанным соусом с&nbsp;яйцом, уложить в&nbsp;салатник, обложить кружочками свежих огурцов и&nbsp;посыпать мелко нарезанным укропом или зеленью петрушки. Подается салат ко&nbsp;всем мясным и&nbsp;рыбным блюдам.'
         },
         {
             name: 'Салат из свежих помидоров и огурцов',
             time: 5,
             qtys: 'На&nbsp;5&ndash;6 помидоров&nbsp;&mdash; 2&ndash;3&nbsp;огурца, 2&nbsp;ст. ложки растительного масла',
-            foodIndex: 'помидоры, огурец, огурцы, растительное масло, репчатый лук, зеленый лук',
+            foodIndex: ['Помидоры', 'Огурцы', 'Растительное масло', 'Репчатый лук', 'Зеленый лук'],
             steps: 'Вымытые помидоры и&nbsp;свежие огурцы нарезать тонкими кружочками, посыпать солью и&nbsp;перцем и&nbsp;красиво уложить в&nbsp;салатник. К&nbsp;моменту подачи на&nbsp;стол полить растительным маслом, сверху посыпать укропом или зеленью петрушки. Салат можно приготовить из&nbsp;одних огурцов или из&nbsp;одних помидоров. В&nbsp;этот салат по&nbsp;желанию добавляют репчатый лук, нарезанный тонкими кольцами, или мелко нарезанный зеленый лук. Подают салат к&nbsp;мясным и&nbsp;рыбным котлетам, к&nbsp;вареному или жареному мясу и&nbsp;рыбе, а&nbsp;также как отдельное блюдо.'
         },
         {
             name: 'Салат из белокачанной капусты с яблоком и сельдереем',
             time: 10,
             qtys: 'На&nbsp;500&nbsp;г капусты белокочанной&nbsp;&mdash; 1&nbsp;стебель сельдерея (салатного или корневого), 1&nbsp;яблоко, 1/4 стакана уксуса, 1/2&nbsp;ст. ложки сахара.',
-            foodIndex: 'яблоко, яблоки, сельдерей, капуста, уксус, сахар',
+            foodIndex: ['Яблоки', 'Сельдерей', 'Капуста', 'Уксус', 'Сахар'],
             steps: 'Очищенные яблоки нарезать ломтиками, сельдерей нарезать соломкой длиной 4&ndash;5&nbsp;см; белокочанную капусту подготовить так&nbsp;же, как указано выше; все это перемешать, сложить в&nbsp;салатник, прибавить сахар и&nbsp;полить уксусом. Этот салат подают ко&nbsp;всем жареным и&nbsp;вареным мясным блюдам, к&nbsp;жареной и&nbsp;отварной рыбе, на&nbsp;гарнир к&nbsp;холодным мясным и&nbsp;рыбным блюдам, а&nbsp;также как самостоятельное блюдо.'
         },
         {
             name: 'Салат из свежих овощей с яблоком',
             time: 12,
             qtys: 'На&nbsp;2&nbsp;свежих огурца&nbsp;&mdash; 2&nbsp;сырых моркови, 2&nbsp;яблока, 2&nbsp;помидора, 100&nbsp;г зеленого салата, 1/2 стакана сметаны, 1/4&nbsp;лимона.',
-            foodIndex: 'огурец, огурцы, морковь, яблоко, яблоки, помидоры, зеленый салат, салат, сметана, лимон',
+            foodIndex: ['Огурцы', 'Морковь', 'Яблоки', 'Помидоры', 'Салат', 'Сметана', 'Лимон'],
             steps: 'Обмытые свежие огурцы, сырую морковь и&nbsp;яблоки нарезать тонкой соломкой, а&nbsp;листики салата на&nbsp;3&ndash;4 части каждый. Все это перемешать и&nbsp;заправить сметаной, добавив лимонный сок, соль, сахар. Сверху салат украсить помидорами, нарезанными ломтиками. Такой салат, благодаря сырым овощам и&nbsp;фруктам, содержит значительное количество витаминов.'
+        },
+        {
+            name: 'Щи из свежей капусты',
+            time: 120,
+            qtys: 'На&nbsp;500&nbsp;г. мяса 500&nbsp;г. свежей капусты, 200&nbsp;г. моркови и&nbsp;лука, 2&nbsp;ст. ложки масла, 200&nbsp;г. помидоров.',
+            foodIndex: ['Морковь', 'Репчатый лук', 'Капуста', 'Мясо', 'Картофель', 'Помидоры'],
+            steps: 'Поставить варить мясной бульон. Через 1&nbsp1/2&nbsp;&mdash; 2&nbsp;часа после начала варки мясо вынуть, а&nbsp;бульон процедить в&nbsp;суповую кастрюлю, в&nbsp;которую положить предварительно поджаренную морковь и&nbsp;лук; затем положить мясо, добавить нарезанную капусту и&nbsp;варить в&nbsp;течение 30&ndash;40&nbsp;минут. За&nbsp;5-10 минут до&nbsp;окончания варки в&nbsp;щи&nbsp;добавить перец, лавровый лист, соль. Щи&nbsp;можно варить с&nbsp;добавлением картофеля и&nbsp;свежих помидоров. В&nbsp;этом случае очищенный и&nbsp;нарезанный картофель положить в&nbsp;кастрюлю через 10&ndash;15 минут после того, как положена капуста, а&nbsp;помидоры, нарезанные дольками,&nbsp;&mdash; в&nbsp;конце варки вместе с&nbsp;приправами.',
+            type: 'Супы'
+        },
+        {
+            name: 'Борщ летний',
+            time: 40,
+            qtys: 'На&nbsp;1-2 свеклы&nbsp;&mdash; 3&ndash;4&nbsp;шт. картофеля, 1&nbsp;шт. моркови, 1&nbsp;стебель сельдерея, 200&nbsp;г. кабачков, 1&ndash;2&nbsp;помидора, пучок зеленого лука.',
+            foodIndex: ["Свекла", "Картофель", "Морковь", "Сельдерей", "Кабачки", "Помидоры", "Зеленый лук"],
+            steps: 'Очищенную свеклу нарезать соломкой или ломтиками&nbsp;и, добавив морковь, положить в&nbsp;кастрюлю, залить кипящей водой (мясным или куриным бульоном) и&nbsp;варить в&nbsp;течение 10&ndash;15&nbsp;минут. После этого положить, очищенные кабачки, помидоры, картофель, зеленый лук, зелень сельдерея, соль, перец, гвоздику, лавровый лист и&nbsp;варить борщ до&nbsp;полной готовности ~25&nbsp;минут. При подаче к&nbsp;столу в&nbsp;борщ добавить сметану.',
+            type: 'Супы'
+        },
+        {
+            name: 'Солянка по-грузински',
+            time: 60,
+            qtys: 'На&nbsp;400&ndash;500&nbsp;г мяса (мякоти)&nbsp;&mdash; 2&nbsp;головки лука, 2&nbsp;соленых огурца, 2&nbsp;ст. ложки томата-пюре, 1/4 стакана виноградного вина и&nbsp;2&ndash;3&nbsp;ст. ложки масла.',
+            foodIndex: ["Мясо", "Репчатый лук", "Томатная паста", "Соленые огурцы", "Вино", "Растительное масло"],
+            steps: 'Мясо (филе) обмыть, зачистить от&nbsp;сухожилий, нарезать небольшими кусками, добавить мелко нарезанный репчатый лук и&nbsp;обжарить в&nbsp;масле на&nbsp;разогретой сковороде. Обжаренное мясо переложить в&nbsp;невысокую кастрюлю, добавить томатную пасту, очищенные и&nbsp;нарезанные ломтиками соленые огурцы, дольку чеснока, посолить, влить виноградное вино, 2&ndash;3&nbsp;ст. ложки мясного бульона&nbsp;и, покрыв кастрюлю крышкой, тушить в&nbsp;течение 30&ndash;40&nbsp;минут. Перед подачей к&nbsp;столу солянку посыпать зеленью петрушки.',
+            type: 'Супы'
+        },
+        {
+            name: 'Говядина тушеная с макаронами',
+            time: 120,
+            qtys: 'На&nbsp;500&nbsp;г мяса (мякоти)&nbsp;&mdash; 200&nbsp;г. макарон, 1&nbsp;ст. ложку томатной пасты, по&nbsp;1&nbsp;шт. моркови, лука и&nbsp;петрушки, 2&nbsp;ст. ложки подсолнечного масла.',
+            foodIndex: ["Мясо", "Макароны", "Репчатый лук", "Морковь", "Петрушка", "Томатная паста"],
+            steps: 'Мясо (мякоть) обмыть, посолить и&nbsp;целым куском положить на&nbsp;сковороду, затем обжарить со&nbsp;всех сторон до&nbsp;образования на&nbsp;мясе румяной корочки. Обжаренное мясо переложить в&nbsp;кастрюлю, добавить томатной пасты, 3&ndash;4 стакана бульона или горячей воды, очищенные, промытые морковь и&nbsp;лук, лавровый лист (2&ndash;3&nbsp;листика) и&nbsp;8-10 горошин перца (или 1/10&nbsp;шт. стручкового). Накрыть кастрюлю крышкой и&nbsp;поставить тушить на&nbsp;2&ndash;3&nbsp;часа. Примерно за&nbsp;30&ndash;40 минут до&nbsp;окончания тушения добавить столовую ложку подсолнечного масла. При подаче на&nbsp;стол мясо вынуть из&nbsp;соуса, нарезать ломтиками, уложить на&nbsp;блюдо; гарнировать макаронами, заправленными маслом; соус посолить, процедить сквозь сито и&nbsp;полить им&nbsp;мясо. На&nbsp;гарнир к&nbsp;тушеной говядине вместо макарон могут быть поданы жареный картофель, тушеная капуста.',
+            type: 'Горячее'
+        },
+        {
+            name: 'Баранина с зеленью и фасолью',
+            time: 100,
+            qtys: 'На&nbsp;500&nbsp;г баранины&nbsp;&mdash; 1&nbsp;стакан фасоли, 1&nbsp;головку лука, 200&nbsp;г. помидоров, 2&nbsp;ст. ложки масла.',
+            foodIndex: ["Баранина", "Фасоль", "Репчатый лук", "Помидоры", "Зелень", "Растительное масло"],
+            steps: 'Нарезанную небольшими кусками баранину посолить, посыпать перцем, обжарить на&nbsp;масле, переложить в&nbsp;неглубокую кастрюлю, добавить предварительно замоченную фасоль, 2 1/2&nbsp;&mdash; 3&nbsp;стакана воды и&nbsp;варить около часа. Затем добавить слегка поджаренный лук, нарезанные помидоры и&nbsp;тушить в&nbsp;течение 30&ndash;40&nbsp;минут. При подаче к&nbsp;столу посыпать зеленью петрушки.',
+            type: 'Горячее'
         }
     ];
     
-    // todo: rename 'recipe' to 'dish' and recipe.steps to recipe
+        // {
+        //     name: 'Солянка из рыбы на сковороде',
+        //     time: 30,
+        //     qtys: 'На&nbsp;500&nbsp;г рыбного филе&nbsp;&mdash; 1&nbsp;кг свежей или квашеной капусты, по&nbsp;2&nbsp;ст. ложки подсолнечного масла, томата-пюре и&nbsp;толченых сухарей, 2&nbsp;соленых огурца, 50&nbsp;г маслин, 2&nbsp;головки лука.',
+        //     foodIndex: ["Рыба", "Капуста", "Соленые огурцы", "Лук", "Маслины", "Мука", "Томатная паста", "Сухари"],
+        //     steps: 'Натушить для солянки свежую или квашеную капусту. Подготовленную рыбу нарезать на&nbsp;куски, сложить отдельно в&nbsp;кастрюлю, посолить, посыпать перцем, огурцы, очищенные от&nbsp;кожицы и&nbsp;зерен и&nbsp;нарезанные ломтиками, прибавить томатную пасту, лук, нашинкованный и&nbsp;слегка поджаренный с&nbsp;маслом, стакан рыбного бульона (или воды), 2&nbsp;лавровых листика, накрыть кастрюлю крышкой и&nbsp;варить 15&ndash;20&nbsp;минут. Затем прибавить муку, смешанную с&nbsp;чайной ложкой масла; осторожно, не&nbsp;ломая кусков рыбы, размешать и&nbsp;кипятить 1&ndash;2&nbsp;минуты. На&nbsp;дно сковороды положить третью часть тушеной капусты, разровнять, разложить поверх нее рыбу с&nbsp;гарниром, полить соусом, полученным при варке рыбы, покрыть остальной капустой, сравнять, посыпать толчеными сухарями, сбрызнуть маслом и&nbsp;поставить в&nbsp;духовой шкаф на&nbsp;8-10&nbsp;минут. При подаче на&nbsp;стол уложить на&nbsp;солянку вымытые маслины.',
+        //     type: 'Супы'
+        // },
+    
+        // },
+        // {
+        //     name: '',
+        //     time: ,
+        //     qtys: '',
+        //     foodIndex: [],
+        //     steps: '',
+        //     type: ''
+        // }
+    
+    
+    
+    //// todo: rename 'recipe' to 'dish' and recipe.steps to recipe
+    //// todo: unify buttons a/label/button/input
+    //// todo: fully switch to tabs w/o show/hide
+    
     
     // var recipesDb = firebase.child('recipes');
     // var _fillRecipes = function(error) {
@@ -405,6 +553,28 @@ $(document).ready(function() {
     // };
     
     // recipesDb.remove(_fillRecipes);
+    
+    
+    // var _foodDb = firebase.child('food');
+    // var _recipesDb = firebase.child('recipes');
+    
+    // var _fillFood = function() {
+    //     _recipesDb.once('value', function(snap) {
+    //         var _recipes = snap.val();
+    //         var _food = [];
+            
+    //         _.each(_recipes, function(_recipe_val) {
+    //             _food = _.union(_food, _recipe_val.foodIndex);
+    //         });
+            
+    //         _food = _.sortBy(_food, _.identity);
+    //         _foodDb.set(_food);
+    //     });
+    // };
+    
+    // _foodDb.remove(_fillFood);
+    
+    
 });
 
 </script>
