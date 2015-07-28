@@ -19,6 +19,10 @@
     rel="stylesheet"><!--JQueryUI CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css" rel=
     "stylesheet">
+    <style>
+        body { padding-top: 5px; } /*for top fixed navbar*/
+        body { padding-bottom: 80px; } /*for bottom fixed navbar*/
+    </style>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,38 +32,44 @@
 <![endif]-->
 </head>
 <body>
+
+<!-- Header menu -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h3 style="margin-top: 10px;">
+                    ФудМаркет 
+                    <span style="float: right; ">
+                        <a id="show-to-buy-list-btn" class="btn btn-default btn-sm show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                            <span class="glyphicon glyphicon-list"></span>
+                                &nbsp;Список
+                        </a>
+                        <a id="show-login-tab-btn" class="btn btn-default btn-sm" href="#login-tab" aria-controls="login-tab" role="tab" data-toggle="tab">
+                            <span class="glyphicon glyphicon-log-in"></span>
+                                &nbsp;Вход
+                        </a>
+                        <a id="logout-btn" class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
+                            <span class="glyphicon glyphicon-log-out"></span>
+                                &nbsp;Выйти
+                        </a>
+                    </span>
+                </h3>
+            </div>
+        </div><!--row-->
+    </div><!--container-->
+</nav> <!-- Header menu -->
+<!--style="margin-top: 60px;"-->
 <div class="container">
-
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <h3 style="margin-top: 10px;">
-        ФудМаркет 
-        <span style="float: right; ">
-            <a class="btn btn-default btn-sm" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
-                <span class="glyphicon glyphicon-list"></span>
-                    &nbsp;Список
-            </a>
-            <a id="show-login-tab-btn" class="btn btn-default btn-sm" href="#login-tab" aria-controls="login-tab" role="tab" data-toggle="tab">
-                <span class="glyphicon glyphicon-log-in"></span>
-                    &nbsp;Вход
-            </a>
-            <a id="logout-btn" class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
-                <span class="glyphicon glyphicon-log-out"></span>
-                    &nbsp;Выход
-            </a>
-        </span>
-    </h3>
-  </div>
-</div>
-
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
         <div class="tab-content" id="tabs">
         
             <!-- Login Tab -->
-            <div role="tabpanel" class="tab-pane" id="login-tab">
+            <div role="tabpanel" class="tab-pane" id="login-tab" style="margin-top: 40px;">
                 <div class="row">
                     <div class="col-md-6">
+                        <h3>Вход</h3>
                         <form id="login-form">
                             <div class="form-group">
                                 <label for="email">Имейл</label>
@@ -76,10 +86,26 @@
                         </form>
                     </div>    
                 </div>
+                
+                <!-- todo refactor show-search-food-btn -->
+                
+                <nav class="navbar navbar-default navbar-fixed-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <a class="btn btn-default btn-sm show-search-food-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
+                                    style="margin-top: 10px;">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    &nbsp;Поиск
+                                </a>
+                            </div>
+                        </div>    
+                    </div>
+                </nav>
             </div>
             
             <!-- Main Tab -->
-            <div role="tabpanel" class="tab-pane active" id="main-tab">
+            <div role="tabpanel" class="tab-pane active" id="main-tab" style="margin-top: 60px;">
                 <form>
                     <div class="form-group">
                         <input class="form-control" id="food-search" placeholder=
@@ -109,7 +135,7 @@
                             <span class="recipe-absent"></span>
                         </p>
                         
-                        <a class="btn btn-default btn-sm add-to-list-btn" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                        <a class="btn btn-default btn-sm add-to-list-btn show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
                             <span class="recipe-ix hidden"></span>
                             <span class="glyphicon glyphicon-plus"></span>
                             &nbsp;Добавить в список
@@ -122,10 +148,20 @@
                         </a>
                     </div> <!--recipe item template-->
                 </div> <!--found-recipes-->
+                
+                <nav class="navbar navbar-default navbar-fixed-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <!-- dummy empty panel -->
+                            </div>
+                        </div>    
+                    </div>
+                </nav>
             </div> <!--main-tab-->
             
             <!-- Chosen Recipe Tab -->
-            <div role="tabpanel" class="tab-pane" id="recipe-tab">
+            <div role="tabpanel" class="tab-pane" id="recipe-tab" style="margin-top: 60px;">
                 <div id="recipe-content">
                     <h4>
                         <span class="recipe-name"></span>
@@ -143,23 +179,37 @@
                         <span class="recipe-absent"></span>
                     </p>
                     
-                    <a class="btn btn-default btn-sm add-to-list-btn" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                    <a class="btn btn-default btn-sm add-to-list-btn show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
                         <span class="recipe-ix hidden"></span>
                         <span class="glyphicon glyphicon-plus"></span>
                         &nbsp;Добавить в список
                     </a>
                 </div> <!-- recipe-content -->
                 
+                <nav class="navbar navbar-default navbar-fixed-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+                                <a class="btn btn-default btn-sm show-search-food-btnch-food-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
+                                    style="margin-top: 10px;">
+                                    <span class="glyphicon glyphicon-search"></span>
+                                    &nbsp;Поиск
+                                </a>
+                            </div>
+                        </div>    
+                    </div>
+                </nav>
+                
                 <!-- Back Nav -->
-                <a class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
-                    style="margin-top: 10px;">
-                    <span class="glyphicon glyphicon-arrow-left"></span>
-                    &nbsp;Назад
-                </a>
+                <!--<a class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"-->
+                <!--    style="margin-top: 10px;">-->
+                <!--    <span class="glyphicon glyphicon-arrow-left"></span>-->
+                <!--    &nbsp;Назад-->
+                <!--</a>-->
             </div> <!-- recipe-tab -->
             
             <!--To Buy Tab-->
-            <div role="tabpanel" class="tab-pane" id="to-buy-list-tab">
+            <div role="tabpanel" class="tab-pane" id="to-buy-list-tab" style="margin-top: 60px;">
                 <div id="to-buy-list">
                     <h3>
                         Список продуктов
@@ -167,19 +217,19 @@
                     
                     <form class="form-inline">
                         <div class="form-group">
-                            <input id="to-userlogin" type="text" class="form-control" placeholder="Имейл">
+                            <input id="to-userlogin" type="email" class="form-control" placeholder="Имейл" required>
                         </div>
-                        <label type="button" class="btn btn-default btn-sm">
+                        <button id="sendToUser" type="button" class="btn btn-default btn-sm">
                             <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                                &nbsp;<del>Отправить</del>
-                        </label>
+                                &nbsp;Отправить
+                        </button>
                     </form>
                     
                     <!--to-buy-search-->
-                    <!--todo rename 'addToList*'-->
-                    <form class="form-inline">
+                    <!-- todo rename 'addToList*' -->
+                    <form class="form-inline" style="margin-top: 10px;">
                         <div class="form-group">
-                            <input id="to-buy-search" type="text" name="listItemInput" class="form-control listItemInput" placeholder="Что купить?">
+                            <input id="to-buy-search" type="text" class="form-control" placeholder="Что купить?" required>
                         </div>
                         <button type="button" class="btn btn-default btn-sm addToList">
                             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -191,27 +241,35 @@
                         </label>
                     </form>
                     
-                    <div class="to-buy-food-list"></div>
+                    <div id="to-buy-food-list"></div>
+                    
+                    <nav class="navbar navbar-default navbar-fixed-bottom">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <a class="btn btn-default btn-sm show-search-food-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
+                                        style="margin-top: 10px;">
+                                        <span class="glyphicon glyphicon-search"></span>
+                                        &nbsp;Поиск
+                                    </a>
+                                </div>
+                            </div>    
+                        </div>
+                    </nav>
                 </div>
                 
-                <a class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
-                    style="margin-top: 10px;">
-                    <span class="glyphicon glyphicon-arrow-left"></span>
-                    &nbsp;Назад
-                </a>
+                <!--<a class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"-->
+                <!--    style="margin-top: 10px;">-->
+                <!--    <span class="glyphicon glyphicon-arrow-left"></span>-->
+                <!--    &nbsp;Назад-->
+                <!--</a>-->
             </div> <!--to-buy-list-tab-->
         </div> <!--tab-content-->
     </div> <!--col-->
 </div> <!--row-->
 
-<!--empty-->
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        
-    </div> <!--col-->
-</div> <!--row-->
-
 </div>  <!--container-->
+
 
 <!--jQuery-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
@@ -232,6 +290,8 @@
 
 $(document).ready(function() {
 
+    var authData = null;
+    
     //// init autocompletes
     var firebase = new Firebase("https://foodmarket.firebaseio.com/");
     firebase.child('food').once('value', function(snapshot) {
@@ -276,6 +336,18 @@ $(document).ready(function() {
     
     //// cosmetics
     $('#found-recipes').hide();
+    $(document).on('click', '.show-to-buy-list-tab', function() {
+        $('#show-to-buy-list-btn').hide();
+        if( !authData) {
+            $('#show-login-tab-btn').show();
+        }
+    });
+    $(document).on('click', '.show-search-food-btn', function() {
+        if( !authData) {
+            $('#show-login-tab-btn').show();
+        }
+        $('#show-to-buy-list-btn').show();
+    });
     
     var chosenFood = function() {
         var delimiter = ',';
@@ -368,44 +440,107 @@ $(document).ready(function() {
     });
     
     var appendToList = function(itemToAdd) {
-        $('.to-buy-food-list').append(
+        $('#to-buy-food-list').append(
             '<div class="checkbox"><label><input type="checkbox" value="'
             + itemToAdd + '">'+ itemToAdd +'</label></div>');
     };
     
     //// add to 'to-buy-food-list'
+    
+    // add food from recipe
     $(document).on('click', '.add-to-list-btn', function() {
         var recipeIx = $(this).find('.recipe-ix').text();
         var curRecipe = foundRecipes[recipeIx];
         
         var difr = _.difference(curRecipe.foodIndex, chosenFood());
         _.each(difr, function(absentFood) {
-            appendToList(absentFood);
+            if(authData) {
+                firebase.child('cooks').child(authData.uid).child('toBuyFoodList').push(absentFood);
+            } else {
+                appendToList(absentFood);
+            }
         });
     });
     
+    
     //// to-buy-food-list
+    var toBuyFoodList = []; // todo: too global
+    
     var addToList = function() {
-        var itemToAdd = $('input[name="listItemInput"]').val().trim();
+        var itemToAdd = $('#to-buy-search').val().trim();
         if(itemToAdd) {
-            appendToList(itemToAdd);
+            if(authData) {
+                firebase.child('cooks').child(authData.uid).child('toBuyFoodList').push(itemToAdd);
+            } else {
+                appendToList(itemToAdd);
+            }
         }
-        $('.listItemInput').val('').focus();
+        $('#to-buy-search').val('').focus();
     };
     
+    // todo join & convert to submit
     $(document).on('click', '.addToList', addToList);
-    
-    $(document).on('click', '#clear-to-buy-food-list', function() {
-        $('.to-buy-food-list').html('');
-    });
-    
-    $('.listItemInput').keypress(function(e) {
+    $('#to-buy-search').keypress(function(e) {
         if (e.which == 13) {
             addToList();
-            e.preventDefault();        
+            e.preventDefault(); 
             return false;
         }
     });
+    
+    $(document).on('click', '#clear-to-buy-food-list', function() {
+        if(authData) {
+            firebase.child('cooks').child(authData.uid).child('toBuyFoodList').remove();
+        } else {
+            toBuyFoodList = [];
+            $('#to-buy-food-list').html('');
+        }
+    });
+    
+    
+    //// send to another cook
+    
+    var sendToUser = function() {
+        var toUserLogin = $('#to-userlogin').val();
+        // it's 'select top 1 from cooks where cooks.email == toUserLogin
+        firebase.child('cooks').orderByChild('email').equalTo(toUserLogin).once(
+            'value',
+            function(cookSnap) {
+                var cookUid = _.keys(cookSnap.val())[0];
+                _.each(toBuyFoodList, function(toBuyFood) {
+                    firebase.child('cooks').child(cookUid).child('toBuyFoodList').push(toBuyFood);
+                });
+            });
+        $('#sendToUser').blur();
+    };
+    
+    // todo join & convert to submit too
+    // todo: form doesn't validate, fire it
+    $(document).on('click', '#sendToUser', sendToUser);
+    $(document).on('keypress', '#to-userlogin', function(e) {
+        if (e.which == 13) {
+            sendToUser();
+            e.preventDefault();
+            return false;
+        }
+    });
+    
+    var linkToBuyFoodList = function(_authData) {
+        firebase.child('cooks').child(_authData.uid).child('toBuyFoodList').on(
+            'value', 
+            function(cooksToBuyFoodList) {
+                toBuyFoodList = cooksToBuyFoodList.val();
+                $('#to-buy-food-list').html('');
+                _.each(toBuyFoodList, function(toBuyFood) {
+                    appendToList(toBuyFood);
+                })
+            });
+    };
+    
+    var unLinkToBuyFoodList = function(_authData) {
+        firebase.child('cooks').child(_authData.uid).child('toBuyFoodList').off();
+    };
+    
     
     //// login/logout visibility
     
@@ -413,19 +548,22 @@ $(document).ready(function() {
     
     $(document).on('click', '#show-login-tab-btn', function() {
         $('#show-login-tab-btn').hide();
+        $('#show-to-buy-list-btn').show();
     });
-    
-    // todo: convert to 'on submit'
     
     $("#login-form").submit(function(e) {
         firebase.authWithPassword({
             email    : $('#email').val(),
             password : $('#password').val()
-        }, function(error, authData) {
+        }, function(error, inAuthData) {
             if (error) {
                 alert("Не удалось войти :( " + error);
             } else {
+                authData = inAuthData; // todo: possible leak?
+                linkToBuyFoodList(authData);
+                
                 $('#logout-btn').show();
+                $('#show-login-tab-btn').hide();
                 $('a[href="#main-tab"]').tab('show');
                 $('#email').val('');
                 $('#password').val('');
@@ -438,8 +576,15 @@ $(document).ready(function() {
     $(document).on('click', '#logout-btn', function() {
         firebase.unauth();
         
+        toBuyFoodList = []; // todo: due to its' global state
+        
+        unLinkToBuyFoodList(authData);
+        
+        authData = null;
+        
         $('#logout-btn').hide();
         $('#show-login-tab-btn').show();
+        $('#show-to-buy-list-btn').show();
     });
     
     
@@ -533,13 +678,7 @@ $(document).ready(function() {
         //     steps: '',
         //     type: ''
         // }
-    
-    
-    
-    //// todo: rename 'recipe' to 'dish' and recipe.steps to recipe
-    //// todo: unify buttons a/label/button/input
-    //// todo: fully switch to tabs w/o show/hide
-    
+
     
     // var recipesDb = firebase.child('recipes');
     // var _fillRecipes = function(error) {
@@ -574,7 +713,6 @@ $(document).ready(function() {
     
     // _foodDb.remove(_fillFood);
     
-    
 });
 
 </script>
@@ -582,3 +720,11 @@ $(document).ready(function() {
 </html>
 
 <!-- JSON.stringify -->
+
+    <!-- todo: rename 'recipe' to 'dish' and recipe.steps to recipe-->
+    <!-- todo: unify buttons a/label/button/input-->
+    <!-- todo: fully switch to tabs w/o show/hide-->
+    <!-- todo: convert events to 'document on' -->
+    <!-- todo: classes for masses, id for unique entities -->
+    
+    
