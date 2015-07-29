@@ -19,6 +19,7 @@
     rel="stylesheet"><!--JQueryUI CSS-->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css" rel=
     "stylesheet">
+    
     <style>
         body { padding-top: 5px; } /*for top fixed navbar*/
         body { padding-bottom: 80px; } /*for bottom fixed navbar*/
@@ -38,7 +39,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
-                <h3 style="margin-top: 10px;">
+                <h4 style="margin-top: 15px;">
                     ФудМаркет 
                     <span style="float: right; ">
                         <a id="show-to-buy-list-btn" class="btn btn-default btn-sm show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
@@ -54,7 +55,7 @@
                                 &nbsp;Выйти
                         </a>
                     </span>
-                </h3>
+                </h4>
             </div>
         </div><!--row-->
     </div><!--container-->
@@ -298,7 +299,8 @@ $(document).ready(function() {
         $('#food-search').tokenfield({
             autocomplete: {
                 source: snapshot.val(), // it's not live
-                delay: 100
+                delay: 100,
+                minLength: 2
             }
         });
         
