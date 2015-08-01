@@ -326,19 +326,20 @@ $(document).ready(function() {
     //// less unstructured:)
     
     var linkToBuyFoodList = function(_authData) {
-        firebase.child('cooks').child(_authData.uid).child('toBuyFoodList').on(
-            'value', 
-            function(cooksToBuyFoodList) {
-                toBuyFoodList = cooksToBuyFoodList.val();
-                $('#to-buy-food-list').html('');
-                _.each(toBuyFoodList, function(toBuyFood) {
-                    appendToList(toBuyFood);
-                })
-            });
+        firebase.child('cooks').child(_authData.uid).child('to_buy_food_list')
+            .on(
+                'value', 
+                function(cooksToBuyFoodList) {
+                    toBuyFoodList = cooksToBuyFoodList.val();
+                    $('#to-buy-food-list').html('');
+                    _.each(toBuyFoodList, function(toBuyFood) {
+                        appendToList(toBuyFood);
+                    })
+                });
     };
     
     var unLinkToBuyFoodList = function(_authData) {
-        firebase.child('cooks').child(_authData.uid).child('toBuyFoodList').off();
+        firebase.child('cooks').child(_authData.uid).child('to_buy_food_list').off();
     };
 
     var authData = null;
@@ -505,12 +506,12 @@ $(document).ready(function() {
         
         var refillToBuyFoodList = function() {
             _.each(newToBuyFoodList, function(toBuyFood) {
-                firebase.child('cooks').child(authData.uid).child('toBuyFoodList').push(toBuyFood);
+                firebase.child('cooks').child(authData.uid).child('to_buy_food_list').push(toBuyFood);
             });
         };
         
         if(authData) {
-            firebase.child('cooks').child(authData.uid).child('toBuyFoodList').remove(refillToBuyFoodList);
+            firebase.child('cooks').child(authData.uid).child('to_buy_food_list').remove(refillToBuyFoodList);
         }
     });
     
@@ -533,7 +534,7 @@ $(document).ready(function() {
         var difr = _.difference(curRecipe.foodIndex, chosenFood());
         _.each(difr, function(absentFood) {
             if(authData) {
-                firebase.child('cooks').child(authData.uid).child('toBuyFoodList').push(absentFood);
+                firebase.child('cooks').child(authData.uid).child('to_buy_food_list').push(absentFood);
             } else {
                 appendToList(absentFood);
             }
@@ -548,7 +549,7 @@ $(document).ready(function() {
         var itemToAdd = $('#to-buy-search').val().trim();
         if(itemToAdd) {
             if(authData) {
-                firebase.child('cooks').child(authData.uid).child('toBuyFoodList').push(itemToAdd);
+                firebase.child('cooks').child(authData.uid).child('to_buy_food_list').push(itemToAdd);
             } else {
                 appendToList(itemToAdd);
             }
@@ -583,7 +584,7 @@ $(document).ready(function() {
             function(cookSnap) {
                 var cookUid = _.keys(cookSnap.val())[0];
                 _.each(toBuyFoodList, function(toBuyFood) {
-                    firebase.child('cooks').child(cookUid).child('toBuyFoodList').push(toBuyFood);
+                    firebase.child('cooks').child(cookUid).child('to_buy_food_list').push(toBuyFood);
                 });
             });
         $('#send-to-user-btn').blur();
@@ -614,7 +615,8 @@ $(document).ready(function() {
                 authData = inAuthData; // todo: possible leak?
                 linkToBuyFoodList(authData);
                 
-                firebase.child('cooks').child(authData.uid).update({ 'last_seen_at': Firebase.ServerValue.TIMESTAMP });
+                firebase.child('cooks').child(authData.uid)
+                    .update({ 'last_seen_at': Firebase.ServerValue.TIMESTAMP });
                 
                 $('#logout-btn').show();
                 $('#show-login-tab-btn').hide();
