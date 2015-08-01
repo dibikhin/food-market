@@ -501,13 +501,16 @@ $(document).ready(function() {
     $(document).on('click', '.remove-list-item', function() {
         // todo: too fancy: Removes chbox, then sets list in FBZ, then redraws all chboxes
         $(this).closest('.checkbox').remove();
-        var newToBuyFoodList = [];
-        _.each($(':checkbox'), function(chbox) {
-            newToBuyFoodList.push(chbox.value);
-        });
+        var newToBuyFoodList = _.map($(':checkbox'), function(chbox) { return chbox.value; });
+        
+        var refillToBuyFoodList = function() {
+            _.each(newToBuyFoodList, function(toBuyFood) {
+                firebase.child('cooks').child(authData.uid).child('toBuyFoodList').push(toBuyFood);
+            });
+        };
         
         if(authData) {
-            firebase.child('cooks').child(authData.uid).child('toBuyFoodList').set(newToBuyFoodList);
+            firebase.child('cooks').child(authData.uid).child('toBuyFoodList').remove(refillToBuyFoodList);
         }
     });
     
@@ -539,7 +542,7 @@ $(document).ready(function() {
     
     
     //// to-buy-food-list
-    var toBuyFoodList = []; // todo: too global
+    var toBuyFoodList = []; // todo: replace this cache w/ instant FBZ query
     
     var addToList = function() {
         var itemToAdd = $('#to-buy-search').val().trim();
