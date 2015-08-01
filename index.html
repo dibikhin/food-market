@@ -240,8 +240,8 @@
                     
                     <form class="form-inline">
                         <div class="form-group">
-                            <input id="to-userlogin" type="email" class="form-control" placeholder="Имейл" required
-                            style="width: 150px; display: inline-block;">
+                            <input id="to-userlogin" type="email" class="form-control" placeholder="Логин в Фудмаркете" required
+                            style="width: 160px; display: inline-block;">
                             <button id="send-to-user-btn" type="button" class="btn btn-default btn-sm">
                                 <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
                                     &nbsp;Отправить
@@ -254,7 +254,7 @@
                     <form class="form-inline" style="margin-top: 10px;">
                         <div class="form-group">
                             <input id="to-buy-search" type="text" class="form-control" placeholder="Что купить?" required
-                            style="width: 150px; display: inline-block;">
+                            style="width: 160px; display: inline-block;">
                             <button type="button" class="btn btn-default btn-sm addToList">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     &nbsp;Добавить
@@ -349,6 +349,7 @@ $(document).ready(function() {
     authData = firebase.getAuth();
     if(authData) {
         linkToBuyFoodList(authData);
+        $('#show-login-tab-btn').hide();
     } else {
         $('#logout-btn').hide();
     }
@@ -609,6 +610,8 @@ $(document).ready(function() {
             } else {
                 authData = inAuthData; // todo: possible leak?
                 linkToBuyFoodList(authData);
+                
+                firebase.child('cooks').child(authData.uid).update({ 'last_seen_at': Firebase.ServerValue.TIMESTAMP });
                 
                 $('#logout-btn').show();
                 $('#show-login-tab-btn').hide();
