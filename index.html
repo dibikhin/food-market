@@ -53,7 +53,7 @@
                 <h4 style="margin-top: 15px;">
                     ФудМаркет
                 </h4>
-                <span style="float: right; margin-top: -35px;">
+                <span class="pull-right" style="margin-top: -35px;">
                         <a id="show-to-buy-list-btn" class="btn btn-default btn-sm show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
                             <span class="glyphicon glyphicon-list"></span>
                                 &nbsp;Список
@@ -138,8 +138,7 @@
                     <div class="recipe-item">
                         <h4 style="margin-top: 25px;">
                             <span class="recipe-name"></span>
-                            <span class="label label-default recipe-time"
-                                style="float: right;">
+                            <span class="label label-default pull-right recipe-time">
                                 &nbsp;мин.
                             </span>
                         </h4>
@@ -260,8 +259,11 @@
                                     &nbsp;Добавить
                             </button>
                         </div>
-                        
                     </form>
+                    
+                    <p id="about-to-buy-saving" style="margin-top: 10px;">
+                        Список сохраняется только после входа.
+                    </p>
                     
                     <div id="to-buy-food-list"></div>
                     
@@ -323,8 +325,22 @@ $(document).ready(function() {
     });
     
     
-    //// less unstructured:)
+    ////// less unstructured:)
     
+    //// logic
+
+    var fillRecipesWithAbsents = function(fromRecipes, toRecipes) {
+        _.each(fromRecipes, function(recipe_val, recipe_id) { // value, key
+        	var dif = _.difference(recipe_val.foodIndex, chosenFood()); // note the order
+            if ( _.size(dif) < _.size(recipe_val.foodIndex) ) {
+                recipe_val.ix = recipe_id;
+                recipe_val.absent = dif.join(' ');
+                toRecipes[recipe_id] = recipe_val;
+            }
+        });
+    };
+    
+    //// data sync
     var linkToBuyFoodList = function(_authData) {
         firebase.child('cooks').child(_authData.uid).child('to_buy_food_list')
             .on(
@@ -350,6 +366,8 @@ $(document).ready(function() {
     authData = firebase.getAuth();
     if(authData) {
         linkToBuyFoodList(authData);
+        firebase.child('cooks').child(authData.uid)
+            .update({ 'last_seen_at': Firebase.ServerValue.TIMESTAMP });
         $('#show-login-tab-btn').hide();
     } else {
         $('#logout-btn').hide();
@@ -394,7 +412,7 @@ $(document).ready(function() {
     };
     
     // compile is of PureJS
-    var compiledDirective = $('#found-recipes').compile(recipeItemDirective);
+    var compiledRecipeItemDirective = $('#found-recipes').compile(recipeItemDirective);
     var compiledRecipeDirective = $('#recipe-content').compile(recipeDirective);
     
     //// cosmetics
@@ -412,6 +430,7 @@ $(document).ready(function() {
     
     //// food-search logic
     
+    var recipes = null;
     var foundRecipes = null;
     
     var findFood = function() {
@@ -419,7 +438,7 @@ $(document).ready(function() {
         $('#not-found-recipes').show();
         $('#found-recipes').hide();
         
-        var recipes = null;
+        
         
         // todo: rename to *Map
         foundRecipes = {}; // todo: dangerous lifecycle
@@ -427,35 +446,29 @@ $(document).ready(function() {
         // todo: pull up
         firebase.child('recipes').once('value', function(snapshot) {
             recipes = snapshot.val();
-
-            // find foods in recipes
-            _.each(recipes, function(recipe_val, recipe_id) { // value, key
-            	var dif = _.difference(recipe_val.foodIndex, chosenFood()); // note the order
-                // todo: dim if
-                if ( _.size(dif) < _.size(recipe_val.foodIndex) ) {
-                    recipe_val.ix = recipe_id;
-                    recipe_val.absent = dif.join(' ');
-                    foundRecipes[recipe_id] = recipe_val;
-                }
-            });
+            
+            fillRecipesWithAbsents(recipes, foundRecipes);
             
             if( !_.isEmpty(foundRecipes)) {
                 var foundRecipesVals =_.values(foundRecipes);
                 var firstThreeQuickestRecipes = [];
-                    // _.chain(foundRecipesVals)
+                
                 var grps = _.groupBy(foundRecipesVals, function(rcpVal) { return rcpVal.type; });
                 var grVals = _.values(grps);
                 _.each(grVals, function(grVal) {
-                    var sortedGr = _.sortBy(grVal, function(grRcpVal) {
-                        return grRcpVal.time;
-                    });
+                    var sortedGr = _.sortBy(grVal, function(grRcpVal) { return grRcpVal.time; });
                     firstThreeQuickestRecipes.push(_.first(sortedGr));
                 });
-                        // .sortBy(function(_rcp) { return _rcp.time; })
-                        // .first(3)
-                    // .value();
                 
-                $('#found-recipes').render(firstThreeQuickestRecipes, compiledDirective);
+                var sortPriorities = {
+                    "Салаты": 0,
+                    "Супы": 1,
+                    "Горячие": 2
+                };
+                
+                firstThreeQuickestRecipes = _.sortBy(firstThreeQuickestRecipes, function(rcp) { return sortPriorities[rcp.type];});
+                
+                $('#found-recipes').render(firstThreeQuickestRecipes, compiledRecipeItemDirective);
                 $('#not-found-recipes').hide();
                 $('#found-recipes').show();
             }
@@ -522,8 +535,30 @@ $(document).ready(function() {
         if( !authData) {
             alert('После оплаты будет доступно больше блюд.');
             $(this).blur();
-            return;  
+            return;
         }
+
+        var recipeIx = $(this).find('.recipe-ix').text();
+        var curRecipe = foundRecipes[recipeIx];
+
+        var recipesVals = _.values(recipes);
+        var recipesOfType = _.where(recipesVals, { type: curRecipe.type });
+        var recipesOfTypeWithAbsents = {}; // =map
+        
+        fillRecipesWithAbsents(recipesOfType, recipesOfTypeWithAbsents);
+        
+        var recipesOfTypeWithAbsentsVals = _.values(recipesOfTypeWithAbsents);
+        var sortedRecipesOfType = _.sortBy(recipesOfTypeWithAbsentsVals, function(rcpT) { return rcpT.time; });
+        var sortedRecipesOfTypeWoCurrentDish = _.reject(
+            sortedRecipesOfType, 
+            function(rcpT) { return rcpT.name === curRecipe.name; });
+        var threeTypedQuickestRecipes = _.first(sortedRecipesOfTypeWoCurrentDish, 3);
+        
+        foundRecipes = recipesOfTypeWithAbsents; // todo: too long, contains all of the type
+        
+        $('a[href="#main-tab"]').tab('show');
+        
+        $('#found-recipes').render(threeTypedQuickestRecipes, compiledRecipeItemDirective);
     });
     
     // add food from recipe
@@ -623,6 +658,7 @@ $(document).ready(function() {
                 $('a[href="#main-tab"]').tab('show');
                 $('#email').val('');
                 $('#password').val('');
+                $('#about-to-buy-saving').hide();
             }
         });
         
@@ -642,6 +678,7 @@ $(document).ready(function() {
         
         $('#logout-btn').hide();
         $('#show-login-tab-btn').show();
+        $('#about-to-buy-saving').show();
     });
     
     
@@ -729,7 +766,7 @@ $(document).ready(function() {
         },
         {
             name: 'Суп пюре из помидоров',
-            time: 35,
+            time: 30,
             qtys: 'На&nbsp;750&nbsp;г помидоров&nbsp;&mdash; 4&nbsp;ст. ложки масла, 2&nbsp;ст. ложки муки, 4&nbsp;стакана молока, 1&nbsp;чайную ложку сахара, 2&nbsp;ст. ложки риса для гарнира.',
             foodIndex: ["Помидоры", "Молоко", "Мука", "Растительное масло", "Сахар", "Рис"],
             steps: 'Приготовить молочный соус. Для этого в&nbsp;суповой кастрюле слегка поджарить муку с&nbsp;2&nbsp;ст. ложками масла, развести ее&nbsp;горячим молоком и&nbsp;все это вскипятить. Свежие помидоры разрезать на&nbsp;части, добавить одну столовую ложку масла, сахар&nbsp;и, закрыв, тушить в&nbsp;течение 10&ndash;15&nbsp;минут. Затем влить 3&nbsp;стакана воды, вскипятить, смешать с&nbsp;молочным соусом и&nbsp;варить на&nbsp;слабом огне 15&ndash;20&nbsp;минут, после этого взбить блендером и&nbsp;заправить маслом. Перед подачей на&nbsp;стол в&nbsp;суп положить рис, сваренный отдельно.',
