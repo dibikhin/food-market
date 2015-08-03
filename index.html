@@ -22,7 +22,6 @@
     
     <style>
         body { padding-top: 5px; } /*for top fixed navbar*/
-        body { padding-bottom: 120px; } /*for bottom fixed navbar*/
     </style>
     
     <script>
@@ -148,16 +147,22 @@
                             <span class="recipe-absent"></span>
                         </p>
                         
-                        <a class="btn btn-default btn-sm add-to-list-btn show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
-                            <span class="recipe-ix hidden"></span>
-                            <span class="glyphicon glyphicon-plus"></span>
-                            &nbsp;Добавить в список
-                        </a>
-                        <a class="btn btn-default btn-sm recipe-btn" href="#recipe-tab" aria-controls="recipe-tab" 
-                                role="tab" data-toggle="tab">
+                        <!--<a class="btn btn-default btn-sm add-to-list-btn show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">-->
+                        <!--    <span class="recipe-ix hidden"></span>-->
+                        <!--    <span class="glyphicon glyphicon-plus"></span>-->
+                        <!--    &nbsp;Добавить-->
+                        <!--</a>-->
+                        
+                        <a class="btn btn-default btn-sm recipe-btn" href="#recipe-tab" aria-controls="recipe-tab" role="tab" data-toggle="tab">
                             <span class="recipe-ix hidden"></span>
                             <span class="glyphicon glyphicon-eye-open"></span>
                             &nbsp;Рецепт
+                        </a>
+                                    
+                        <a class="btn btn-default btn-sm show-more-dishes-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
+                            <span class="recipe-ix hidden"></span>
+                            <span class="glyphicon glyphicon-list"></span>
+                            <span class="recipe-type">&nbsp;Еще&nbsp;</span>
                         </a>
                     </div> <!--recipe item template-->
                 </div> <!--found-recipes-->
@@ -165,7 +170,7 @@
             </div> <!--main-tab-->
             
             <!-- Chosen Recipe Tab -->
-            <div role="tabpanel" class="tab-pane" id="recipe-tab" style="margin-top: 60px;">
+            <div role="tabpanel" class="tab-pane" id="recipe-tab" style="margin-top: 60px; padding-bottom: 100px;">
                 <div id="recipe-content">
                     <h4>
                         <span class="recipe-name"></span>
@@ -305,6 +310,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
 <!--Underscore-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+<!--FastClick-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+
 <!--PureJS--> 
 <!--Yandex.Browser claims security issue-->
 <!--<script src="https://raw.github.com/pure/pure/master/libs/pure.js"></script>-->
@@ -313,6 +321,19 @@
 <script>
 
 $(document).ready(function() {
+    
+    //// curing lagging clicks at iPhones
+    window.addEventListener(
+        'load',
+        function() { new FastClick(document.body); },
+        false);
+    
+    
+    //// helpers
+    var capitalizeFirstLetter = function(str) {
+        return str.charAt(0).toUpperCase() + str.substring(1);
+    };
+    
     
     //// views, visual effects
     
@@ -360,29 +381,32 @@ $(document).ready(function() {
 
     var authData = null;
     
-    //// init autocompletes
     var firebase = new Firebase("https://foodmarket.firebaseio.com/");
     
+    
+    //// auto login
     authData = firebase.getAuth();
     if(authData) {
         linkToBuyFoodList(authData);
         firebase.child('cooks').child(authData.uid)
             .update({ 'last_seen_at': Firebase.ServerValue.TIMESTAMP });
         $('#show-login-tab-btn').hide();
+        $('#about-to-buy-saving').hide();
     } else {
         $('#logout-btn').hide();
     }
     
+    
+    //// init autocompletes
     firebase.child('food').once('value', function(snapshot) {
         $('#food-search').tokenfield({
+            delimiter: [',', ' '],
             autocomplete: {
                 source: snapshot.val(), // it's not live
                 delay: 100,
                 minLength: 2
             }
         });
-        
-        $('#food-search-tokenfield').focus(); // note: relies on name
         
         $('#to-buy-search').autocomplete({
             source: snapshot.val(), // it's not live too
@@ -396,7 +420,8 @@ $(document).ready(function() {
                 '.recipe-ix': 'recipe.ix',
                 '.recipe-name': 'recipe.name',
                 '+.recipe-time': 'recipe.time', // note '+'
-                '.recipe-absent': 'recipe.absent'
+                '.recipe-absent': 'recipe.absent',
+                '.recipe-type+': 'recipe.type.toLowerCase' // note '+' here too text-lowercase
             }
         }
     };
@@ -475,20 +500,30 @@ $(document).ready(function() {
         });
     };
     
-    //// Main loop, tokenfield events
+    var mainLoop = function() {
+        // todo: hide on keydown too
+        $('.food-search').autocomplete('close');
+        findFood();
+    };
     
-    $('#food-search').on('tokenfield:createdtoken', findFood); // note 'd' in createdtoken
+    //// Main loop, tokenfield events
+    $('#food-search').on('tokenfield:createdtoken', mainLoop); // note 'd' in createdtoken
     // $('#food-search').on('tokenfield:editedtoken', findFood); // blinks
-    $('#food-search').on('tokenfield:removedtoken', findFood);
-    $('#food-search').on('tokenfield:createtoken', function (event) {
+    $('#food-search').on('tokenfield:removedtoken', mainLoop);
+    $('#food-search').on('tokenfield:createtoken', function (e) {
         // filter dups
         var existingTokens = $(this).tokenfield('getTokens');
         // todo: underscore it!
         $.each(existingTokens, function(index, token) {
-            if (token.value === event.attrs.value) {
-                event.preventDefault();
+            if (token.value.toLowerCase() === e.attrs.value.toLowerCase()) {
+                e.preventDefault();
             }
         });
+        
+        // normalize food name
+        var lowerValue = e.attrs.value.toLowerCase();
+        e.attrs.value = capitalizeFirstLetter(lowerValue);
+        e.attrs.label = capitalizeFirstLetter(lowerValue);
     });
     
     
@@ -556,6 +591,7 @@ $(document).ready(function() {
         
         foundRecipes = recipesOfTypeWithAbsents; // todo: too long, contains all of the type
         
+        // todo: commenting leads to "index.html:580 Uncaught TypeError: Cannot read property 'type' of undefined"
         $('a[href="#main-tab"]').tab('show');
         
         $('#found-recipes').render(threeTypedQuickestRecipes, compiledRecipeItemDirective);
@@ -778,7 +814,7 @@ $(document).ready(function() {
             qtys: 'На&nbsp;500&nbsp;г. мяса&nbsp;&mdash; 150&nbsp;г. лапши или вермишели, по&nbsp;1&nbsp;шт. моркови и&nbsp;лука, 2&nbsp;ст. ложки подсолнечного масла.',
             foodIndex: ["Мясо", "Лапша", "Репчатый лук", "Морковь", "Растительное масло"],
             steps: 'Сварить мясной или куриный бульон. Очищенные коренья и&nbsp;лук нашинковать в&nbsp;виде соломки, слегка поджарить с&nbsp;жиром, положить в&nbsp;процеженный бульон, довести его до&nbsp;кипения, после чего всыпать лапшу или вермишель, добавить лавровый лист, перец, соль и&nbsp;варить суп 15&ndash;20&nbsp;минут. Перед подачей к&nbsp;столу добавить укроп или зелень петрушки. Вместо лапши или вермишели в&nbsp;суп можно засыпать макароны, ушки, звездочки и&nbsp;т.&nbsp;п.',
-            type: 'Горячие'
+            type: 'Супы'
         },
         {
             name: 'Крем суп из фасоли',
