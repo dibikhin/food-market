@@ -147,16 +147,22 @@
                             <span class="recipe-absent"></span>
                         </p>
                         
-                        <a class="btn btn-default btn-sm add-to-list-btn show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
-                            <span class="recipe-ix hidden"></span>
-                            <span class="glyphicon glyphicon-plus"></span>
-                            &nbsp;Добавить в список
-                        </a>
-                        <a class="btn btn-default btn-sm recipe-btn" href="#recipe-tab" aria-controls="recipe-tab" 
-                                role="tab" data-toggle="tab">
+                        <!--<a class="btn btn-default btn-sm add-to-list-btn show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">-->
+                        <!--    <span class="recipe-ix hidden"></span>-->
+                        <!--    <span class="glyphicon glyphicon-plus"></span>-->
+                        <!--    &nbsp;Добавить-->
+                        <!--</a>-->
+                        
+                        <a class="btn btn-default btn-sm recipe-btn" href="#recipe-tab" aria-controls="recipe-tab" role="tab" data-toggle="tab">
                             <span class="recipe-ix hidden"></span>
                             <span class="glyphicon glyphicon-eye-open"></span>
                             &nbsp;Рецепт
+                        </a>
+                                    
+                        <a class="btn btn-default btn-sm show-more-dishes-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
+                            <span class="recipe-ix hidden"></span>
+                            <span class="glyphicon glyphicon-list"></span>
+                            <span class="recipe-type">&nbsp;Еще&nbsp;</span>
                         </a>
                     </div> <!--recipe item template-->
                 </div> <!--found-recipes-->
@@ -414,7 +420,8 @@ $(document).ready(function() {
                 '.recipe-ix': 'recipe.ix',
                 '.recipe-name': 'recipe.name',
                 '+.recipe-time': 'recipe.time', // note '+'
-                '.recipe-absent': 'recipe.absent'
+                '.recipe-absent': 'recipe.absent',
+                '.recipe-type+': 'recipe.type.toLowerCase' // note '+' here too text-lowercase
             }
         }
     };
@@ -493,10 +500,16 @@ $(document).ready(function() {
         });
     };
     
+    var mainLoop = function() {
+        // todo: hide on keydown too
+        $('.food-search').autocomplete('close');
+        findFood();
+    };
+    
     //// Main loop, tokenfield events
-    $('#food-search').on('tokenfield:createdtoken', findFood); // note 'd' in createdtoken
+    $('#food-search').on('tokenfield:createdtoken', mainLoop); // note 'd' in createdtoken
     // $('#food-search').on('tokenfield:editedtoken', findFood); // blinks
-    $('#food-search').on('tokenfield:removedtoken', findFood);
+    $('#food-search').on('tokenfield:removedtoken', mainLoop);
     $('#food-search').on('tokenfield:createtoken', function (e) {
         // filter dups
         var existingTokens = $(this).tokenfield('getTokens');
@@ -578,6 +591,7 @@ $(document).ready(function() {
         
         foundRecipes = recipesOfTypeWithAbsents; // todo: too long, contains all of the type
         
+        // todo: commenting leads to "index.html:580 Uncaught TypeError: Cannot read property 'type' of undefined"
         $('a[href="#main-tab"]').tab('show');
         
         $('#found-recipes').render(threeTypedQuickestRecipes, compiledRecipeItemDirective);
