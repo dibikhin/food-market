@@ -22,7 +22,6 @@
     
     <style>
         body { padding-top: 5px; } /*for top fixed navbar*/
-        body { padding-bottom: 120px; } /*for bottom fixed navbar*/
     </style>
     
     <script>
@@ -165,7 +164,7 @@
             </div> <!--main-tab-->
             
             <!-- Chosen Recipe Tab -->
-            <div role="tabpanel" class="tab-pane" id="recipe-tab" style="margin-top: 60px;">
+            <div role="tabpanel" class="tab-pane" id="recipe-tab" style="margin-top: 60px; padding-bottom: 100px;">
                 <div id="recipe-content">
                     <h4>
                         <span class="recipe-name"></span>
@@ -363,12 +362,15 @@ $(document).ready(function() {
     //// init autocompletes
     var firebase = new Firebase("https://foodmarket.firebaseio.com/");
     
+    
+    //// auto login
     authData = firebase.getAuth();
     if(authData) {
         linkToBuyFoodList(authData);
         firebase.child('cooks').child(authData.uid)
             .update({ 'last_seen_at': Firebase.ServerValue.TIMESTAMP });
         $('#show-login-tab-btn').hide();
+        $('#about-to-buy-saving').hide();
     } else {
         $('#logout-btn').hide();
     }
@@ -381,8 +383,6 @@ $(document).ready(function() {
                 minLength: 2
             }
         });
-        
-        $('#food-search-tokenfield').focus(); // note: relies on name
         
         $('#to-buy-search').autocomplete({
             source: snapshot.val(), // it's not live too
@@ -778,7 +778,7 @@ $(document).ready(function() {
             qtys: 'На&nbsp;500&nbsp;г. мяса&nbsp;&mdash; 150&nbsp;г. лапши или вермишели, по&nbsp;1&nbsp;шт. моркови и&nbsp;лука, 2&nbsp;ст. ложки подсолнечного масла.',
             foodIndex: ["Мясо", "Лапша", "Репчатый лук", "Морковь", "Растительное масло"],
             steps: 'Сварить мясной или куриный бульон. Очищенные коренья и&nbsp;лук нашинковать в&nbsp;виде соломки, слегка поджарить с&nbsp;жиром, положить в&nbsp;процеженный бульон, довести его до&nbsp;кипения, после чего всыпать лапшу или вермишель, добавить лавровый лист, перец, соль и&nbsp;варить суп 15&ndash;20&nbsp;минут. Перед подачей к&nbsp;столу добавить укроп или зелень петрушки. Вместо лапши или вермишели в&nbsp;суп можно засыпать макароны, ушки, звездочки и&nbsp;т.&nbsp;п.',
-            type: 'Горячие'
+            type: 'Супы'
         },
         {
             name: 'Крем суп из фасоли',
