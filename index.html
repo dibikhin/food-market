@@ -551,8 +551,19 @@ $(document).ready(function() {
         
         // normalize food name
         var lowerValue = e.attrs.value.toLowerCase();
-        e.attrs.value = capitalizeFirstLetter(lowerValue);
-        e.attrs.label = capitalizeFirstLetter(lowerValue);
+        var capitalized = capitalizeFirstLetter(lowerValue); 
+        e.attrs.value = capitalized;
+        e.attrs.label = capitalized;
+        
+        // log food
+        var pathToUserLogsToday = 'logs/food/' + new Date().toDateString();
+        if(authData) {
+            pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid;
+        } else {
+            pathToUserLogsToday = pathToUserLogsToday + '/_anons';
+        }
+        
+        firebase.child(pathToUserLogsToday).push(capitalized);
     });
     
     
