@@ -719,16 +719,21 @@ $(document).ready(function() {
         }
         
         var toUserLogin = $('#to-userlogin').val();
-        // it's 'select top 1 from cooks where cooks.email == toUserLogin
-        firebase.child('cooks').orderByChild('email').equalTo(toUserLogin).once(
-            'value',
-            function(cookSnap) {
-                var cookUid = _.keys(cookSnap.val())[0];
-                _.each(toBuyFoodList, function(toBuyFood) {
-                    firebase.child('cooks').child(cookUid).child('to_buy_food_list').push(toBuyFood);
+        
+        if(toUserLogin) {
+            // "select top 1 from cooks where cooks.email == toUserLogin"
+            firebase.child('cooks').orderByChild('email').equalTo(toUserLogin).once(
+                'value',
+                function(cookSnap) {
+                    var cookUid = _.keys(cookSnap.val())[0];
+                    _.each(toBuyFoodList, function(toBuyFood) {
+                        firebase.child('cooks').child(cookUid).child('to_buy_food_list').push(toBuyFood);
+                    });
                 });
-            });
+        }
+        
         $('#send-to-user-btn').blur();
+        $('#to-userlogin').focus();
     };
     
     // todo join & convert to submit too
