@@ -128,24 +128,25 @@
                         <!--Что есть или что хотите съесть?-->
                     </div>
                 </form>
-                <p id="not-found-recipes">
+                <p id="invitation">
                     Введите продукты, и здесь появятся блюда.
                 </p>
+                <p id="not-found-dishes">
+                    Пока не найдены блюда с такими продуктами.
+                </p>
                 
-                <div class="container" style="margin-top: 25px;">
-                    <div class="row">
-                        <div class="col-xs-4 col-xs-offset-3 col-md-4 col-md-offset-2">
-                            <button id="random-recipe" type="button" class="btn btn-default btn-sm">
-                                <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
-                                    &nbsp;Нет продуктов
-                            </button>
-                        </div>
+                <div class="row" style="margin-top: 20px;">
+                    <div class="col-xs-3 col-xs-offset-3 text-center col-md-4 col-md-offset-4">
+                        <button id="random-recipe" type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
+                                &nbsp;Нет продуктов
+                        </button>
                     </div>
                 </div>
                 
                 <div id="found-recipes">
                     <div class="recipe-item">
-                        <h4 style="margin-top: 25px;">
+                        <h4 style="margin-top: 20px;">
                             <span class="recipe-name"></span>
                             <span class="label label-default pull-right recipe-time">
                                 &nbsp;мин.
@@ -353,6 +354,8 @@ $(document).ready(function() {
     
     //// views, visual effects
     
+    $('#not-found-dishes').hide();
+    
     $(document).on('click', '#show-to-buy-list-btn', function() {
         $(this).blur();
     });
@@ -376,6 +379,16 @@ $(document).ready(function() {
                 toRecipes[recipe_id] = recipe_val;
             }
         });
+        
+        if(_.isEmpty(chosenFood())) {
+            $('#invitation').show();
+            $('#not-found-dishes').hide();
+        }
+        
+        if( ! _.isEmpty(chosenFood()) && _.isEmpty(toRecipes)) {
+            $('#invitation').hide();
+            $('#not-found-dishes').show();
+        }
     };
     
     //// data sync
@@ -480,7 +493,8 @@ $(document).ready(function() {
     });
     
     var findFood = function() {
-        $('#not-found-recipes').show();
+        $('#invitation').show();
+        $('#not-found-dishes').hide();
         $('#found-recipes').hide();
         
         // todo: rename to *Map
@@ -508,7 +522,9 @@ $(document).ready(function() {
             firstThreeQuickestRecipes = _.sortBy(firstThreeQuickestRecipes, function(rcp) { return sortPriorities[rcp.type];});
             
             $('#found-recipes').render(firstThreeQuickestRecipes, compiledRecipeItemDirective);
-            $('#not-found-recipes').hide();
+            
+            $('#invitation').hide();
+            $('#not-found-dishes').hide();
             $('#found-recipes').show();
         }
     };
@@ -540,9 +556,9 @@ $(document).ready(function() {
     });
     
     
-    //// no food, get random dish
-    // logical doubling
+    //// no food, get random dishes
     $(document).on('click', '#random-recipe', function() {
+        // some logical doubling
         var recipesWithAbsents = [];
         fillRecipesWithAbsents(recipes, recipesWithAbsents, /* fillAll: */ true);
         var recipesValsForRandom =_.values(recipesWithAbsents);
@@ -559,8 +575,13 @@ $(document).ready(function() {
         foundRecipes = recipes;
         
         $(this).blur();
+        
         $('#found-recipes').render(threeRandomRecipes, compiledRecipeItemDirective);
-        $('#not-found-recipes').hide();
+        
+        $('#food-search').tokenfield('setTokens', []);
+        
+        $('#not-found-dishes').hide();
+        $('#invitation').hide();
         $('#found-recipes').show();
     });
     
@@ -933,11 +954,17 @@ $(document).ready(function() {
     //         _.each(_recipes, function(_recipe_val) {
     //             _food = _.union(_food, _recipe_val.foodIndex);
     //         });
+    
+    // // _food = _.uniq(_food);
+    // // _food = _.sortBy(_food, _.identity);
+    // // console.log(_food);
             
     //         _food = _.sortBy(_food, _.identity);
     //         _foodDb.set(_food);
     //     });
     // };
+    
+    //// _fillFood();
     
     // _foodDb.remove(_fillFood);
     
