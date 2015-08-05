@@ -128,8 +128,11 @@
                         <!--Что есть или что хотите съесть?-->
                     </div>
                 </form>
-                <p id="not-found-recipes">
+                <p id="invitation">
                     Введите продукты, и здесь появятся блюда.
+                </p>
+                <p id="not-found-dishes">
+                    Пока не найдены блюда с такими продуктами.
                 </p>
                 
                 <div class="row" style="margin-top: 25px;">
@@ -351,6 +354,8 @@ $(document).ready(function() {
     
     //// views, visual effects
     
+    $('#not-found-dishes').hide();
+    
     $(document).on('click', '#show-to-buy-list-btn', function() {
         $(this).blur();
     });
@@ -374,6 +379,16 @@ $(document).ready(function() {
                 toRecipes[recipe_id] = recipe_val;
             }
         });
+        
+        if(_.isEmpty(chosenFood())) {
+            $('#invitation').show();
+            $('#not-found-dishes').hide();
+        }
+        
+        if( ! _.isEmpty(chosenFood()) && _.isEmpty(toRecipes)) {
+            $('#invitation').hide();
+            $('#not-found-dishes').show();
+        }
     };
     
     //// data sync
@@ -478,7 +493,8 @@ $(document).ready(function() {
     });
     
     var findFood = function() {
-        $('#not-found-recipes').show();
+        $('#invitation').show();
+        $('#not-found-dishes').hide();
         $('#found-recipes').hide();
         
         // todo: rename to *Map
@@ -506,7 +522,9 @@ $(document).ready(function() {
             firstThreeQuickestRecipes = _.sortBy(firstThreeQuickestRecipes, function(rcp) { return sortPriorities[rcp.type];});
             
             $('#found-recipes').render(firstThreeQuickestRecipes, compiledRecipeItemDirective);
-            $('#not-found-recipes').hide();
+            
+            $('#invitation').hide();
+            $('#not-found-dishes').hide();
             $('#found-recipes').show();
         }
     };
@@ -558,7 +576,9 @@ $(document).ready(function() {
         
         $(this).blur();
         $('#found-recipes').render(threeRandomRecipes, compiledRecipeItemDirective);
-        $('#not-found-recipes').hide();
+        
+        $('#not-found-dishes').hide();
+        $('#invitation').hide();
         $('#found-recipes').show();
     });
     
