@@ -149,7 +149,6 @@
                         <h4 style="margin-top: 20px;">
                             <span class="recipe-name"></span>
                             <span class="label label-default pull-right recipe-time">
-                                &nbsp;мин.
                             </span>
                         </h4>
                         
@@ -186,7 +185,6 @@
                     <h4>
                         <span class="recipe-name"></span>
                         <span class="label label-default recipe-time" style="float: right;">
-                            &nbsp;мин.
                         </span>
                     </h4>
                     
@@ -338,7 +336,8 @@
 <script>
 
 $(document).ready(function() {
-    
+
+    window.onbeforeunload = function(e) {  return 'Внесенные изменения будут потеряны!'; };   
     //// curing lagging clicks at iPhones
     window.addEventListener(
         'load',
@@ -444,12 +443,30 @@ $(document).ready(function() {
     });
     
     //// template engine
+    var minutesToHuman = function(time){
+        var h = time / 60 ^ 0;
+        if (h) {
+            var m = time % 60;
+            if (m < 10) {m = '0' + m;} 
+            if (m != 0) {time = h + ' ч ' + m + ' мин';}
+            else { time = h + ' ч ';}
+        } else {
+            time = time + ' мин';
+        }
+    return time;
+    };
+
+    var timeToHuman = function(){
+        
+        return minutesToHuman (this.time);
+        };
+    
     var recipeItemDirective = {
         '.recipe-item': {
             'recipe<-': {
                 '.recipe-ix': 'recipe.ix',
                 '.recipe-name': 'recipe.name',
-                '+.recipe-time': 'recipe.time', // note '+'
+                '+.recipe-time': timeToHuman, 
                 '.recipe-absent': 'recipe.absent',
                 '.recipe-type+': 'recipe.type.toLowerCase' // note '+' here too text-lowercase
             }
@@ -609,7 +626,7 @@ $(document).ready(function() {
     });
     
     var appendToList = function(itemToAdd) {
-        $('#to-buy-food-list').append(
+        $('#to-buy-food-list').prepend(
             '<div class="checkbox"><label><input type="checkbox" value="'
             + itemToAdd + '">'+ itemToAdd 
             + '</label>'
@@ -717,10 +734,14 @@ $(document).ready(function() {
             $('#send-to-user-btn').blur();
             return;
         }
-        
         var toUserLogin = $('#to-userlogin').val();
-        
         if(toUserLogin) {
+                $("#send-to-user-btn").text('Отправляется').prop("disabled", true);
+                var enableBtn = function(){
+                    $("#send-to-user-btn").text('Отправить').prop("disabled", false);
+                 };
+                _.delay(enableBtn, 1000);
+        
             // "select top 1 from cooks where cooks.email == toUserLogin"
             firebase.child('cooks').orderByChild('email').equalTo(toUserLogin).once(
                 'value',
@@ -730,10 +751,14 @@ $(document).ready(function() {
                         firebase.child('cooks').child(cookUid).child('to_buy_food_list').push(toBuyFood);
                     });
                 });
+        } else {
+            $('#to-userlogin').focus();
+            
         }
         
+        
         $('#send-to-user-btn').blur();
-        $('#to-userlogin').focus();
+        
     };
     
     // todo join & convert to submit too
