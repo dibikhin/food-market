@@ -279,7 +279,7 @@
                                         style="width: 160px; display: inline-block;">
                                         <button id="send-to-user-btn" type="button" class="btn btn-default btn-sm navbar-btn">
                                             <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                                                &nbsp;Отправить
+                                                &nbsp;<span id="test-icon-btn">Отправить</span>
                                         </button>
                                     </form>
                                 </div>
@@ -337,7 +337,10 @@
 
 $(document).ready(function() {
 
-    window.onbeforeunload = function(e) {  return 'Внесенные изменения будут потеряны!'; };   
+    if (window.location.hostname === "foodmarket.ml"){
+        window.onbeforeunload = function(e) { return ('Внесенные изменения будут потеряны!'); };
+        
+    };   
     //// curing lagging clicks at iPhones
     window.addEventListener(
         'load',
@@ -447,7 +450,7 @@ $(document).ready(function() {
         var h = time / 60 ^ 0;
         if (h) {
             var m = time % 60;
-            if (m < 10) {m = '0' + m;} 
+            if (m < 10) {m}  
             if (m != 0) {time = h + ' ч ' + m + ' мин';}
             else { time = h + ' ч ';}
         } else {
@@ -476,7 +479,7 @@ $(document).ready(function() {
     var recipeDirective = {
         '.recipe-ix': 'ix',
         '.recipe-name': 'name',
-        '+.recipe-time': 'time', // note '+' here
+        '+.recipe-time': timeToHuman, // note '+' here
         '.recipe-absent': 'absent',
         '.recipe-steps': 'steps',
         '.recipe-qtys': 'qtys',
@@ -736,12 +739,14 @@ $(document).ready(function() {
         }
         var toUserLogin = $('#to-userlogin').val();
         if(toUserLogin) {
-                $("#send-to-user-btn").text('Отправляется').prop("disabled", true);
+                $("#send-to-user-btn").prop("disabled", true);
+                $("#test-icon-btn").text('Отправляется');
                 var enableBtn = function(){
-                    $("#send-to-user-btn").text('Отправить').prop("disabled", false);
+                    $("#send-to-user-btn").prop("disabled", false);
+                    $("#test-icon-btn").text('Отправить');
                  };
                 _.delay(enableBtn, 1000);
-        
+        //("#send-to-user-btn").text('Отправляется')   .text('Отправить')
             // "select top 1 from cooks where cooks.email == toUserLogin"
             firebase.child('cooks').orderByChild('email').equalTo(toUserLogin).once(
                 'value',
