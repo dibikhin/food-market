@@ -256,10 +256,14 @@
                     <form class="form-inline" style="margin-top: 10px;">
                         <div class="form-group">
                             <input id="to-buy-search" type="text" class="form-control" placeholder="Что купить?" required
-                            style="width: 160px; display: inline-block;">
+                            style="width: 100px; display: inline-block;">
                             <button type="button" class="btn btn-default btn-sm addToList">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     &nbsp;Добавить
+                            </button>
+                             <button id="clear-to-buy-list-btn" type="button" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                    &nbsp;Очистить
                             </button>
                         </div>
                     </form>
@@ -478,7 +482,7 @@ $(document).ready(function() {
     var recipeDirective = {
         '.recipe-ix': 'ix',
         '.recipe-name': 'name',
-        '.recipe-time': timeToHuman, 
+        '+.recipe-time': timeToHuman, 
         '.recipe-absent': 'absent',
         '.recipe-steps': 'steps',
         '.recipe-qtys': 'qtys',
@@ -728,6 +732,14 @@ $(document).ready(function() {
     });
     
     
+    $(document).on('click', '#clear-to-buy-list-btn', function() {
+        if(authData) {
+            firebase.child('cooks').child(authData.uid).child('to_buy_food_list').remove();
+        } else{
+            $('#to-buy-food-list').empty();
+            }
+        $('#clear-to-buy-list-btn').blur();
+});
     //// send to another cook
     
     var sendToUser = function() {
