@@ -450,7 +450,6 @@ $(document).ready(function() {
         var h = time / 60 ^ 0;
         if (h) {
             var m = time % 60;
-            if (m < 10) {m}  
             if (m != 0) {time = h + ' ч ' + m + ' мин';}
             else { time = h + ' ч ';}
         } else {
@@ -471,7 +470,7 @@ $(document).ready(function() {
                 '.recipe-name': 'recipe.name',
                 '+.recipe-time': timeToHuman, 
                 '.recipe-absent': 'recipe.absent',
-                '.recipe-type+': 'recipe.type.toLowerCase' // note '+' here too text-lowercase
+                '.recipe-type+': 'recipe.type.toLowerCase'
             }
         }
     };
@@ -479,11 +478,11 @@ $(document).ready(function() {
     var recipeDirective = {
         '.recipe-ix': 'ix',
         '.recipe-name': 'name',
-        '+.recipe-time': timeToHuman, // note '+' here
+        '+.recipe-time': timeToHuman, 
         '.recipe-absent': 'absent',
         '.recipe-steps': 'steps',
         '.recipe-qtys': 'qtys',
-        '.recipe-type+': 'type.toLowerCase', // note '+' here too text-lowercase
+        '.recipe-type+': 'type.toLowerCase', 
     };
     
     // compile is of PureJS
@@ -746,7 +745,6 @@ $(document).ready(function() {
                     $("#test-icon-btn").text('Отправить');
                  };
                 _.delay(enableBtn, 1000);
-        //("#send-to-user-btn").text('Отправляется')   .text('Отправить')
             // "select top 1 from cooks where cooks.email == toUserLogin"
             firebase.child('cooks').orderByChild('email').equalTo(toUserLogin).once(
                 'value',
