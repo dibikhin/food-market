@@ -149,7 +149,6 @@
                         <h4 style="margin-top: 20px;">
                             <span class="recipe-name"></span>
                             <span class="label label-default pull-right recipe-time">
-                                &nbsp;мин.
                             </span>
                         </h4>
                         
@@ -186,7 +185,6 @@
                     <h4>
                         <span class="recipe-name"></span>
                         <span class="label label-default recipe-time" style="float: right;">
-                            &nbsp;мин.
                         </span>
                     </h4>
                     
@@ -258,10 +256,14 @@
                     <form class="form-inline" style="margin-top: 10px;">
                         <div class="form-group">
                             <input id="to-buy-search" type="text" class="form-control" placeholder="Что купить?" required
-                            style="width: 160px; display: inline-block;">
+                            style="width: 110px; display: inline-block;">
                             <button type="button" class="btn btn-default btn-sm addToList">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     &nbsp;Добавить
+                            </button>
+                             <button id="clear-to-buy-list-btn" type="button" class="btn btn-default btn-sm">
+                                <span class="glyphicon glyphicon-erase" aria-hidden="true"></span>
+                                    &nbsp;Очистить
                             </button>
                         </div>
                     </form>
@@ -281,7 +283,7 @@
                                         style="width: 160px; display: inline-block;">
                                         <button id="send-to-user-btn" type="button" class="btn btn-default btn-sm navbar-btn">
                                             <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
-                                                &nbsp;Отправить
+                                                &nbsp;<span id="test-icon-btn">Отправить</span>
                                         </button>
                                     </form>
                                 </div>
@@ -338,7 +340,11 @@
 <script>
 
 $(document).ready(function() {
-    
+
+    if (window.location.hostname === "foodmarket.ml"){
+        window.onbeforeunload = function(e) { return ('Внесенные изменения будут потеряны!'); };
+        
+    };   
     //// curing lagging clicks at iPhones
     window.addEventListener(
         'load',
@@ -440,18 +446,36 @@ $(document).ready(function() {
         
         $('#to-buy-search').autocomplete({
             source: snapshot.val(), // it's not live too
+            minLength: 2
         });        
     });
     
     //// template engine
+    var minutesToHuman = function(time){
+        var h = time / 60 ^ 0;
+        if (h) {
+            var m = time % 60;
+            if (m != 0) {time = h + ' ч ' + m + ' мин';}
+            else { time = h + ' ч ';}
+        } else {
+            time = time + ' мин';
+        }
+    return time;
+    };
+
+    var timeToHuman = function(){
+        
+        return minutesToHuman (this.time);
+        };
+    
     var recipeItemDirective = {
         '.recipe-item': {
             'recipe<-': {
                 '.recipe-ix': 'recipe.ix',
                 '.recipe-name': 'recipe.name',
-                '+.recipe-time': 'recipe.time', // note '+'
+                '.recipe-time': timeToHuman, 
                 '.recipe-absent': 'recipe.absent',
-                '.recipe-type+': 'recipe.type.toLowerCase' // note '+' here too text-lowercase
+                '.recipe-type+': 'recipe.type.toLowerCase'
             }
         }
     };
@@ -459,11 +483,11 @@ $(document).ready(function() {
     var recipeDirective = {
         '.recipe-ix': 'ix',
         '.recipe-name': 'name',
-        '+.recipe-time': 'time', // note '+' here
+        '+.recipe-time': timeToHuman, 
         '.recipe-absent': 'absent',
         '.recipe-steps': 'steps',
         '.recipe-qtys': 'qtys',
-        '.recipe-type+': 'type.toLowerCase', // note '+' here too text-lowercase
+        '.recipe-type+': 'type.toLowerCase', 
     };
     
     // compile is of PureJS
@@ -609,7 +633,7 @@ $(document).ready(function() {
     });
     
     var appendToList = function(itemToAdd) {
-        $('#to-buy-food-list').append(
+        $('#to-buy-food-list').prepend(
             '<div class="checkbox"><label><input type="checkbox" value="'
             + itemToAdd + '">'+ itemToAdd 
             + '</label>'
@@ -709,6 +733,14 @@ $(document).ready(function() {
     });
     
     
+    $(document).on('click', '#clear-to-buy-list-btn', function() {
+        if(authData) {
+            firebase.child('cooks').child(authData.uid).child('to_buy_food_list').remove();
+        } else{
+            $('#to-buy-food-list').empty();
+            }
+        $('#clear-to-buy-list-btn').blur();
+});
     //// send to another cook
     
     var sendToUser = function() {
@@ -717,10 +749,15 @@ $(document).ready(function() {
             $('#send-to-user-btn').blur();
             return;
         }
-        
         var toUserLogin = $('#to-userlogin').val();
-        
         if(toUserLogin) {
+                $("#send-to-user-btn").prop("disabled", true);
+                $("#test-icon-btn").text('Отправляется');
+                var enableBtn = function(){
+                    $("#send-to-user-btn").prop("disabled", false);
+                    $("#test-icon-btn").text('Отправить');
+                 };
+                _.delay(enableBtn, 1000);
             // "select top 1 from cooks where cooks.email == toUserLogin"
             firebase.child('cooks').orderByChild('email').equalTo(toUserLogin).once(
                 'value',
@@ -730,10 +767,14 @@ $(document).ready(function() {
                         firebase.child('cooks').child(cookUid).child('to_buy_food_list').push(toBuyFood);
                     });
                 });
+        } else {
+            $('#to-userlogin').focus();
+            
         }
         
+        
         $('#send-to-user-btn').blur();
-        $('#to-userlogin').focus();
+        
     };
     
     // todo join & convert to submit too
@@ -923,12 +964,12 @@ $(document).ready(function() {
         },
         {
             name: 'Колбаса жареная с капустой',
-            time: 55,
+            time: 50,
             qtys: 'На&nbsp;один кочан капусты&nbsp;&mdash; 2&nbsp;моркови, 1&nbsp;головка лука, 3&nbsp;ст. ложки растительного масла.',
             foodIndex: ["Колбаса", "Капуста", "Репчатый лук", "Морковь"],
             steps: 'Овощи помыть, очистить. Морковь и&nbsp;лук нашинковать и&nbsp;обжарить с&nbsp;томатной пастой. Разогреть кастрюлю, влить немного подсолнечного масла, выложить капусту, посолить, перемешать. Затем выложить обжаренные лук и&nbsp;морковь, перемешать. Тушить на&nbsp;медленном огне примерно 40&nbsp;мин. Вареную колбасу (любительскую, отдельную, докторскую и&nbsp;др.) очистить от&nbsp;оболочки, нарезать ломтиками и&nbsp;перед подачей обжарить.',
             type: 'Горячие',
-            searchType: "Колбаса"
+            searchType: "Горячее"
         },
         {
             name: 'Рагу из овощей с фасолью',
@@ -938,17 +979,53 @@ $(document).ready(function() {
             steps: 'Очищенные, вымытые овощи нарезать крупными кубиками или дольками. Морковь и&nbsp;лук тушить, капусту и&nbsp;фасоль(предварительно вымочить ~6&nbsp;часов) отварить в&nbsp;воде, картофель обжарить на&nbsp;сковороде с&nbsp;маслом. Сделать соус из&nbsp;томатной пасты, смешав её&nbsp;с&nbsp;отваром из&nbsp;овощей. Приготовленным соусом залить овощи, сложенные в&nbsp;одну кастрюлю, добавить соль, перец, 3&ndash;4&nbsp;шт. гвоздики, кусочек корицы, накрыть кастрюлю крышкой и&nbsp;тушить 15&ndash;20&nbsp;минут. При подаче на&nbsp;стол овощи посыпать зеленью петрушки.',
             type: 'Горячие',
             searchType: "Рагу"
+        },
+        {
+            name: 'Гречка с курицей',
+            time: 45,
+            qtys: 'На&nbsp;200&nbsp;г гречки&nbsp;&mdash; 2&nbsp;куриных филе, 1&nbsp;головку лука, 150&nbsp;г сметаны, 100&nbsp;г молока, соевый соус, петрушка, 3&nbsp;ст ложки подсолнечного масла.',
+            foodIndex: ["Гречка", "Курица", "ЛукРепчатый", "Сметана", "Молоко", "СоевыйСоус", "Петрушка", "МаслоРастительное"],
+            steps: 'В&nbsp;разогретую сковороду кладем куриное филе (можно использовать другие части) и&nbsp;на&nbsp;слабом огне обжариваем с&nbsp;двух сторон до&nbsp;готовности (~30&nbsp;мин). Пока наша курочка готовится, делаем соус. В&nbsp;отдельную миску добавляем сметану, молоко и&nbsp;соевый соус размешиваем и&nbsp;ставим на&nbsp;огонь минуты на&nbsp;3, затем снимаем и&nbsp;добавляем петрушку мелко порезанную. В&nbsp;готовое куриное филе добавляем нарезанный колечками лук, перемешиваем и&nbsp;продолжаем жарить. Когда лук немного обжарится, вливаем соус и&nbsp;1/2 стакана воды. Тушим минут 10-15 и&nbsp;оставляем на&nbsp;выключенной плите томиться еще 5&nbsp;минут. На&nbsp;1&nbsp;стакан гречки 2&nbsp;стакана воды. Варить по&nbsp;среднем огне до&nbsp;полного выкипания воды.',
+            type: 'Горячие',
+            searchType: 'Горячее'
+        },
+        {
+            name: 'Курица с овощами',
+            time: 70,
+            qtys: 'На&nbsp;1&nbsp;кг курицы&nbsp;&mdash; 6&nbsp;шт картофеля, 1&nbsp;кабачок, 1&nbsp;баклажан.',
+            foodIndex: ["Курица", "Картофель", "Баклажаны", "Кабачки", "Помидоры", "МаслоПодсолнечное"],
+            steps: 'Курицу помыть, натереть солью и&nbsp;специями. Овощи помыть, почистить, нарезать кубиками. Всё выложить на&nbsp;противень, смазанный подсолнечным маслом. Разогреть духовку до&nbsp;180&nbsp;градусов. Запекать курицу и&nbsp;овощи примерно час.',
+            type: 'Горячие',
+            searchType: 'Горячее'
+        },
+        {
+            name: 'Кабачки с мясом',
+            time: 40,
+            qtys: 'На&nbsp;200&nbsp;г фарша&nbsp;&mdash; 2&nbsp;кабачка, 1/3 стакана риса, 1&nbsp;головка лука, 2&nbsp;ст. ложки сметаны, 2&nbsp;ст. ложки томата-пюре и&nbsp;1&nbsp;ст. ложку масла.',
+            foodIndex: ["Кабачки", "Фарш", "Рис", "ЛукРепчатый", "ТоматнаяПаста", "Сметана"],
+            steps: 'Отварить рис до&nbsp;полуготовности (~10&nbsp;мин), нашинковать лук, перемешать лук и&nbsp;рис с&nbsp;фаршем. Кабачки очистить, разрезать каждый поперек на&nbsp;4&ndash;5&nbsp;частей, сердцевину с&nbsp;зернами вынуть ложкой; уложить кабачки на&nbsp;противень, предварительно смазанный подсолнечным маслом, и&nbsp;начинить плотно фаршем чуть выше краев. Томатную пасту прокипятить с&nbsp;маслом, добавить сметану и&nbsp;стакан воды. Кабачки посолить, залить полученной подливкой и&nbsp;поставить запекать в&nbsp;духовой шкаф на&nbsp;30&ndash;40 минут на&nbsp;220&nbsp;градусов. При подаче на&nbsp;стол посыпать укропом.',
+            type: 'Горячие',
+            searchType: 'Горячее'
+        },
+        {
+            name: 'Чахохбили из кур',
+            time: 95,
+            qtys: 'На&nbsp;1&nbsp;кг курицы&nbsp;&mdash; 2&nbsp;головки лука, 2&nbsp;ст. ложки томатной пасты, 1&nbsp;ст. ложку уксуса, (2&nbsp;ст. ложки вина) и&nbsp;2&ndash;3&nbsp;ст. ложки масла.',
+            foodIndex: ["Курица", "ЛукРепчатый", "Помидоры", "Уксус", "МаслоПодсолнечное"],
+            steps: 'Части тушки курицы обжарить (~10&nbsp;мин). После этого в&nbsp;кастрюлю положить мелко нарезанный лук, томатную пасту, добавить уксус (вино), 1/2 стакана воды (мясного бульона), соль, перец; кастрюлю закрыть крышкой и&nbsp;тушить 1 1/2 часа на&nbsp;слабом огне. Перед окончанием тушения положить нарезанные дольками помидоры. При подаче на&nbsp;стол на&nbsp;каждый кусок курицы положить ломтик лимона и&nbsp;посыпать зеленью.',
+            type: 'Горячие',
+            searchType: 'Чахохбили'
+        },
+        {
+            name: 'Кабачки с сыром',
+            time: 55,
+            qtys: 'На&nbsp;2&nbsp;кабачка&nbsp;&mdash; 4&nbsp;яйца, 200&nbsp;г сыра мягких сортов, 80&nbsp;г сыра твёрдых сортов, 2&nbsp;зубчика чеснока.',
+            foodIndex: ["Кабачки", "Сыр", "Яйца", "Чеснок", "МаслоПодсолнечное"],
+            steps: 'Яйца отварить вкрутую, мелко нарезать, перемешать с&nbsp;тертым сыром (мягким) и&nbsp;давленным чесноком; кабачки разрезать вдоль и&nbsp;удалить сердцевину, посолить и&nbsp;начинить фаршем из&nbsp;яиц и&nbsp;сыра, сверху посыпать тертым твердым сыром. Выложить на&nbsp;противень смазанным подсолнечным маслом. Разогреть духовку до&nbsp;200&nbsp;градусов. Запекать ~30&nbsp;минут.',
+            type: 'Горячие',
+            searchType: 'Горячее'
         }
     ];
-    
-        // {
-        //     name: 'Солянка из рыбы на сковороде',
-        //     time: 30,
-        //     qtys: 'На&nbsp;500&nbsp;г рыбного филе&nbsp;&mdash; 1&nbsp;кг свежей или квашеной капусты, по&nbsp;2&nbsp;ст. ложки подсолнечного масла, томата-пюре и&nbsp;толченых сухарей, 2&nbsp;соленых огурца, 50&nbsp;г маслин, 2&nbsp;головки лука.',
-        //     foodIndex: ["Рыба", "Капуста", "Соленые огурцы", "Лук", "Маслины", "Мука", "Томатная паста", "Сухари"],
-        //     steps: 'Натушить для солянки свежую или квашеную капусту. Подготовленную рыбу нарезать на&nbsp;куски, сложить отдельно в&nbsp;кастрюлю, посолить, посыпать перцем, огурцы, очищенные от&nbsp;кожицы и&nbsp;зерен и&nbsp;нарезанные ломтиками, прибавить томатную пасту, лук, нашинкованный и&nbsp;слегка поджаренный с&nbsp;маслом, стакан рыбного бульона (или воды), 2&nbsp;лавровых листика, накрыть кастрюлю крышкой и&nbsp;варить 15&ndash;20&nbsp;минут. Затем прибавить муку, смешанную с&nbsp;чайной ложкой масла; осторожно, не&nbsp;ломая кусков рыбы, размешать и&nbsp;кипятить 1&ndash;2&nbsp;минуты. На&nbsp;дно сковороды положить третью часть тушеной капусты, разровнять, разложить поверх нее рыбу с&nbsp;гарниром, полить соусом, полученным при варке рыбы, покрыть остальной капустой, сравнять, посыпать толчеными сухарями, сбрызнуть маслом и&nbsp;поставить в&nbsp;духовой шкаф на&nbsp;8-10&nbsp;минут. При подаче на&nbsp;стол уложить на&nbsp;солянку вымытые маслины.',
-        //     type: 'Супы'
-        // },
     
         // },
         // {
@@ -957,7 +1034,8 @@ $(document).ready(function() {
         //     qtys: '',
         //     foodIndex: [],
         //     steps: '',
-        //     type: ''
+        //     type: '',
+        //     searchType: ''
         // }
 
     
@@ -999,7 +1077,7 @@ $(document).ready(function() {
     //     });
     // };
     
-    //// _fillFood();
+    // // _fillFood();
     
     // _foodDb.remove(_fillFood);
     
