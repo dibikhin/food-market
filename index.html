@@ -588,6 +588,8 @@ $(document).ready(function() {
         }
         
         firebase.child(pathToUserLogsToday).push(capitalized);
+        
+        $('#food-search-tokenfield').blur();
     });
     
     
