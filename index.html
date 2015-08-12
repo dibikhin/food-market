@@ -579,8 +579,16 @@ $(document).ready(function() {
         e.attrs.value = capitalized;
         e.attrs.label = capitalized;
         
+      var dayOfYear = function(){
+            var now = new Date();
+                var start = new Date(now.getFullYear(), 0, 0);
+                var diff = now - start;
+                var oneDay = 1000 * 60 * 60 * 24;
+                var day = Math.floor(diff / oneDay);
+                return day;
+        };   
         // log food
-        var pathToUserLogsToday = 'logs/food/' + new Date().toDateString();
+        var pathToUserLogsToday = 'logs/food/' + dayOfYear() + " " + new Date().toDateString();
         if(authData) {
             pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid;
         } else {
@@ -588,6 +596,8 @@ $(document).ready(function() {
         }
         
         firebase.child(pathToUserLogsToday).push(capitalized);
+        
+        $('#food-search-tokenfield').blur();
     });
     
     
