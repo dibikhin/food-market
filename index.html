@@ -53,7 +53,12 @@
                     ФудМаркет
                 </h4>
                 <span class="pull-right" style="margin-top: -35px;">
-                        <a id="show-to-buy-list-btn" class="btn btn-default btn-sm show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                
+                        <a id="show-search-food-btn"class="btn btn-default btn-sm"  href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab" >
+                            <span class="glyphicon glyphicon-search"></span>
+                                        &nbsp;Поиск
+                         </a>
+                        <a id="show-to-buy-list-btn" class="btn btn-default btn-sm" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
                             <span class="glyphicon glyphicon-list"></span>
                                 &nbsp;Список
                         </a>
@@ -102,21 +107,8 @@
                     src="https://money.yandex.ru/embed/shop.xml?account=410013377738581&quickpay=shop&payment-type-choice=on&writer=seller&targets=%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF+%D0%BA+%D0%A4%D1%83%D0%B4%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D1%83+%D0%BD%D0%B0+1+%D0%B3%D0%BE%D0%B4.&targets-hint=&default-sum=49&button-text=01&mail=on&successURL=foodmarket.ml"
                     width="450" height="198" style="margin-left: -30px; margin-top: 15px;"></iframe>
                 
-                <!-- todo refactor show-search-food-btn -->
                 
-                <nav class="navbar navbar-default navbar-fixed-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-3">
-                                <a class="btn btn-default btn-sm show-search-food-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
-                                    style="margin-top: 8px;">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                    &nbsp;Поиск
-                                </a>
-                            </div>
-                        </div>    
-                    </div>
-                </nav>
+                
             </div> <!-- Login Tab -->
             
             <!-- Main Tab -->
@@ -198,12 +190,12 @@
                         <span class="recipe-absent"></span>
                     </p>
                     
-                    <nav class="navbar navbar-default navbar-fixed-bottom" style="margin-bottom: 50px;">
+                    <nav class="navbar navbar-default navbar-fixed-bottom">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-6 col-md-offset-3">
                                     
-                                    <a class="btn btn-default btn-sm add-to-list-btn show-to-buy-list-tab" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab"
+                                    <a class="btn btn-default btn-sm add-to-list-btn " href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab"
                                     style="margin-top: 9px;">
                                         <span class="recipe-ix hidden"></span>
                                         <span class="glyphicon glyphicon-plus"></span>
@@ -221,20 +213,7 @@
                         </div>
                     </nav>
                 </div> <!-- recipe-content -->
-                
-                <nav class="navbar navbar-default navbar-fixed-bottom">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 col-md-offset-3">
-                                <a class="btn btn-default btn-sm show-search-food-btnch-food-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
-                                    style="margin-top: 10px;">
-                                    <span class="glyphicon glyphicon-search"></span>
-                                    &nbsp;Поиск
-                                </a>
-                            </div>
-                        </div>    
-                    </div>
-                </nav>
+
                 
                 <!-- Back Nav -->
                 <!--<a class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"-->
@@ -274,7 +253,7 @@
                     
                     <div id="to-buy-food-list"></div>
                     
-                    <nav class="navbar navbar-default navbar-fixed-bottom" style="margin-bottom: 50px;">
+                   <!-- <nav class="navbar navbar-default navbar-fixed-bottom" style="margin-bottom: 50px;">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4 col-md-offset-3">
@@ -289,17 +268,20 @@
                                 </div>
                             </div>
                         </div>
-                    </nav> <!--navbar-fixed-bottom-->
+                    </nav>--> <!--navbar-fixed-bottom-->
                     
                     <nav class="navbar navbar-default navbar-fixed-bottom">
                         <div class="container">
                             <div class="row">
                                 <div class="col-md-4 col-md-offset-3">
-                                    <a class="btn btn-default btn-sm navbar-btn show-search-food-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab"
-                                        style="margin-top: 10px;">
-                                        <span class="glyphicon glyphicon-search"></span>
-                                        &nbsp;Поиск
-                                    </a>
+                                 <form class="form-inline">
+                                        <input id="to-userlogin" type="email" class="form-control navbar-btn" placeholder="Логин в Фудмаркете" required
+                                        style="width: 160px; display: inline-block;">
+                                        <button id="send-to-user-btn" type="button" class="btn btn-default btn-sm navbar-btn">
+                                            <span class="glyphicon glyphicon-send" aria-hidden="true"></span>
+                                                &nbsp;<span id="test-icon-btn">Отправить</span>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -370,6 +352,9 @@ $(document).ready(function() {
         $(this).blur();
     });
     
+     $(document).on('click', '#show-search-food-btn', function() {
+        $(this).blur();
+    });   
     
     ////// less unstructured:)
     
