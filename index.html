@@ -52,29 +52,21 @@
                 <h4 style="margin-top: 15px;">
                     ФудМаркет
                 </h4>
-                <span class="pull-right" style="margin-top: -35px;">
-                
-                        <a id="show-search-food-btn"class="btn btn-default btn-sm"  href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab" >
-                            <!--<span class="glyphicon glyphicon-search"></span>-->
-                                        <!--&nbsp;Поиск-->
-                                        Поиск
-                         </a>
-                        <a id="show-to-buy-list-btn" class="btn btn-default btn-sm" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
-                            <!--<span class="glyphicon glyphicon-list"></span>-->
-                                <!--&nbsp;Список-->
-                                Список
-                        </a>
-                        <a id="show-login-tab-btn" class="btn btn-default btn-sm" href="#login-tab" aria-controls="login-tab" role="tab" data-toggle="tab">
-                            <!--<span class="glyphicon glyphicon-log-in"></span>-->
-                                <!--&nbsp;Вход-->
-                                Вход
-                        </a>
-                        <a id="logout-btn" class="btn btn-default btn-sm" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
-                            <!--<span class="glyphicon glyphicon-log-out"></span>-->
-                                <!--&nbsp;Выйти-->
-                                Выйти
-                        </a>
-                    </span>
+                    <span class="pull-right" style="margin-top: -35px;">
+
+                        <ul class="nav nav-pills" style="display: inline-block;">
+                            <li id="serch-click-pill" class="active"><a id="show-search-food-btn"class="btn btn-default btn-sm"  href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab" >
+                                Поиск</a></li>
+                            <li id="list-pill"><a id="show-to-buy-list-btn" class="btn btn-default btn-sm" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                                Список</a></li>
+                            <li id="show-login-pill"><a id="show-login-tab-btn" class="btn btn-default btn-sm" href="#login-tab" aria-controls="login-tab" role="tab" data-toggle="tab">
+                                Вход</a></li>
+                        </ul>
+                        
+                        <button  style="margin-top: -35px;" id="logout-btn" type="button" class="btn btn-link" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
+                                Выйти</button>
+ 
+                    </span><!-- "pull-right"-->
             </div>
         </div><!--row-->
     </div><!--container-->
@@ -107,10 +99,10 @@
                     </div>    
                 </div>
                 
-                <iframe frameborder="0" allowtransparency="true" scrolling="no" 
-                    src="https://money.yandex.ru/embed/shop.xml?account=410013377738581&quickpay=shop&payment-type-choice=on&writer=seller&targets=%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF+%D0%BA+%D0%A4%D1%83%D0%B4%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D1%83+%D0%BD%D0%B0+1+%D0%B3%D0%BE%D0%B4.&targets-hint=&default-sum=49&button-text=01&mail=on&successURL=foodmarket.ml"
-                    width="450" height="198" style="margin-left: -30px; margin-top: 15px;"></iframe>
                 
+                <iframe frameborder="0" allowtransparency="true" scrolling="no"
+                    src="https://money.yandex.ru/embed/shop.xml?account=410013377738581&quickpay=shop&payment-type-choice=on&writer=seller&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%BA%D0%B0+%D1%80%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D1%87%D0%B8%D0%BA%D0%BE%D0%B2&targets-hint=&default-sum=49&button-text=04&mail=on&successURL=foodmarket.ml"
+                width="450" height="198" style="margin-left: -30px; margin-top: 15px;"></iframe>
                 
                 
             </div> <!-- Login Tab -->
@@ -332,15 +324,15 @@ $(document).ready(function() {
     $('#not-found-dishes').hide();
     
     $(document).on('click', '#show-to-buy-list-btn', function() {
-        $(this).blur();
+     
     });
     
     $(document).on('click', '#show-login-tab-btn', function() {
-        $(this).blur();
+     
     });
     
      $(document).on('click', '#show-search-food-btn', function() {
-        $(this).blur();
+      
     });   
     
     ////// less unstructured:)
@@ -789,6 +781,8 @@ $(document).ready(function() {
                 
                 $('#logout-btn').show();
                 $('#show-login-tab-btn').hide();
+                $('#show-login-pill').removeClass("active");
+                $('#serch-click-pill').addClass("active");
                 $('a[href="#main-tab"]').tab('show');
                 $('#email').val('');
                 $('#password').val('');
@@ -803,13 +797,11 @@ $(document).ready(function() {
         firebase.unauth();
         
         toBuyFoodList = []; // todo: due to its' global state
-        
         unLinkToBuyFoodList(authData);
-        
         authData = null;
-        
+        $("#serch-click-pill").addClass("active");
+        $('#list-pill').removeClass("active");
         $('#to-userlogin').val('');
-        
         $('#logout-btn').hide();
         $('#show-login-tab-btn').show();
         $('#about-to-buy-saving').show();
