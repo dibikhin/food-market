@@ -151,7 +151,7 @@
                         <!--    &nbsp;Добавить-->
                         <!--</a>-->
                         
-                        <a class="btn btn-default btn-sm recipe-btn" href="#recipe-tab" aria-controls="recipe-tab" role="tab" data-toggle="tab">
+                        <a id="recipe-btn" class="btn btn-default btn-sm" href="#recipe-tab" aria-controls="recipe-tab" role="tab" data-toggle="tab">
                             <span class="recipe-ix hidden"></span>
                             <span class="glyphicon glyphicon-eye-open"></span>
                             &nbsp;Рецепт
@@ -313,16 +313,12 @@ $(document).ready(function() {
     
     $('#not-found-dishes').hide();
     
-    $(document).on('click', '#show-to-buy-list-btn', function() {
-     
-    });
+    $(document).on('click', '#show-to-buy-list-btn', function() { });
     
-    $(document).on('click', '#show-login-tab-btn', function() {
-     
-    });
+    $(document).on('click', '#show-login-tab-btn', function() { });
     
-    $(document).on('click', '#show-search-food-btn', function() {
-      
+    $(document).on('click', '#serch-click-pill', function() {
+        $('a[href="#main-tab"]').tab('show');
     });   
     
     
@@ -591,12 +587,13 @@ $(document).ready(function() {
     
     
     //// recipe content view
-    $(document).on('click', '.recipe-btn', function() {
+    $(document).on('click', '#recipe-btn', function() {
         var recipeIx = $(this).find('.recipe-ix').text();
         var curRecipe = foundRecipes[recipeIx];
         
         // todo reformat recipe.steps to ul/li
         
+        $('#serch-click-pill').removeClass("active");
         $('#recipe-content').render(curRecipe, compiledRecipeDirective);
         $('#recipe-content').show();
     });
