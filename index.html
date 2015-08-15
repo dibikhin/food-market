@@ -55,15 +55,18 @@
                     <span class="pull-right" style="margin-top: -35px;">
 
                         <ul class="nav nav-pills" style="display: inline-block;">
-                            <li id="serch-click-pill" class="active"><a id="show-search-food-btn" class="btn btn-default btn-sm"  href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab" >
+                            <li id="serch-click-pill" class="active">
+                                <a style="padding: 5px 10px;" id="show-search-food-btn" class="btn btn-default btn-sm"  href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab" >
                                 Поиск</a></li>
-                            <li id="list-pill"><a id="show-to-buy-list-btn" class="btn btn-default btn-sm" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
+                            <li id="list-pill">
+                                <a style="padding: 5px 10px;" id="show-to-buy-list-btn" class="btn btn-default btn-sm" href="#to-buy-list-tab" aria-controls="to-buy-list-tab" role="tab" data-toggle="tab">
                                 Список</a></li>
-                            <li id="show-login-pill"><a id="show-login-tab-btn" class="btn btn-default btn-sm" href="#login-tab" aria-controls="login-tab" role="tab" data-toggle="tab">
+                            <li id="show-login-pill">
+                                <a style="padding: 5px 10px;" id="show-login-tab-btn" class="btn btn-default btn-sm" href="#login-tab" aria-controls="login-tab" role="tab" data-toggle="tab">
                                 Вход</a></li>
                         </ul>
                         
-                        <button  style="margin-top: -35px;" id="logout-btn" type="button" class="btn btn-link" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
+                        <button style="margin-top: -23px; padding: 0px 2px;" id="logout-btn" type="button" class="btn btn-link" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
                                 Выйти</button>
  
                     </span><!-- "pull-right"-->
@@ -329,11 +332,13 @@ $(document).ready(function() {
     var fillRecipesWithAbsents = function(fromRecipes, toRecipes, fillAll) {
         var _chosenFood = chosenFood();
         _.each(fromRecipes, function(recipe_val, recipe_id) { // value, key
-        	var dif = _.difference(recipe_val.foodIndex, _chosenFood); // note the order
+            var indexWithSearchType = _.union(recipe_val.foodIndex, [recipe_val.searchType]);
+        	var absent = _.difference(indexWithSearchType, _chosenFood); // note the order
+        	var absentFood = _.difference(absent, dishNames);
         	var _fillAll = !_.isUndefined(fillAll) && fillAll === true;
-            if (_fillAll || _.size(dif) < _.size(recipe_val.foodIndex) ) {
+            if (_fillAll || _.size(absent) < _.size(indexWithSearchType) ) {
                 recipe_val.ix = recipe_id;
-                recipe_val.absent = dif.join(' ');
+                recipe_val.absent = absentFood.join(' ');
                 toRecipes[recipe_id] = recipe_val;
             }
         });
@@ -386,20 +391,27 @@ $(document).ready(function() {
     
     
     //// init autocompletes
-    firebase.child('food').once('value', function(snapshot) {
-        $('#food-search').tokenfield({
-            delimiter: [',', ' '],
-            autocomplete: {
-                source: snapshot.val(), // it's not live
-                delay: 100,
+    var dishNames = [];
+    
+    firebase.child('food').once('value', function(foodSnapshot) {
+        firebase.child('dish_names').once('value', function(dishNamesSnapshot) {
+            dishNames = dishNamesSnapshot.val();
+            var foodAndDishes = _.union(foodSnapshot.val(), dishNames);
+            
+            $('#food-search').tokenfield({
+                delimiter: [',', ' '],
+                autocomplete: {
+                    source: foodAndDishes, // it's not live
+                    delay: 100,
+                    minLength: 2
+                }
+            });
+            
+            $('#to-buy-search').autocomplete({
+                source: foodSnapshot.val(), // it's not live too
                 minLength: 2
-            }
+            });
         });
-        
-        $('#to-buy-search').autocomplete({
-            source: snapshot.val(), // it's not live too
-            minLength: 2
-        });        
     });
     
     //// template engine
@@ -415,10 +427,7 @@ $(document).ready(function() {
     return time;
     };
 
-    var timeToHuman = function(){
-        
-        return minutesToHuman (this.time);
-        };
+    var timeToHuman = function() { return minutesToHuman (this.time); };
     
     var recipeItemDirective = {
         '.recipe-item': {
@@ -896,9 +905,9 @@ $(document).ready(function() {
         {
             name: 'Суп пюре из помидоров',
             time: 30,
-            qtys: 'На&nbsp;750&nbsp;г помидоров&nbsp;&mdash; 4&nbsp;ст. ложки масла, 2&nbsp;ст. ложки муки, 4&nbsp;стакана молока, 1&nbsp;чайную ложку сахара, 2&nbsp;ст. ложки риса для гарнира.',
+            qtys: 'На&nbsp;750&nbsp;г помидоров&nbsp;&mdash; 4&nbsp;ст. ложки масла, 2&nbsp;ст. ложки муки, 4&nbsp;стакана молока, 1&nbsp;чайную ложку сахара, 2&nbsp;ст. ложки риса.',
             foodIndex: ["Помидоры", "Молоко", "Мука", "Масло растительное", "Сахар", "Рис"],
-            steps: 'Приготовить молочный соус. Для этого в&nbsp;суповой кастрюле слегка поджарить муку с&nbsp;2&nbsp;ст. ложками масла, развести ее&nbsp;горячим молоком и&nbsp;все это вскипятить. Свежие помидоры разрезать на&nbsp;части, добавить одну столовую ложку масла, сахар&nbsp;и, закрыв, тушить в&nbsp;течение 10&ndash;15&nbsp;минут. Затем влить 3&nbsp;стакана воды, вскипятить, смешать с&nbsp;молочным соусом и&nbsp;варить на&nbsp;слабом огне 15&ndash;20&nbsp;минут, после этого взбить блендером и&nbsp;заправить маслом. Перед подачей на&nbsp;стол в&nbsp;суп положить рис, сваренный отдельно.',
+            steps: 'Рис промываем. Помидоры моем, нарезаем мелко, кладем в&nbsp;кастрюлю, обжариваем в&nbsp;масле. Заливаем помидоры молоком, добавляем сахар, доводим до&nbsp;кипения. Муку всыпаем в&nbsp;молоко, помешивая. Варим на&nbsp;слабом огне 20&nbsp;мин. Добавляем специи по&nbsp;вкусу. Перед подачей можно добавить сухарики или копчености.',
             type: 'Супы',
             searchType: "Суп-пюре"
         },
@@ -1013,7 +1022,6 @@ $(document).ready(function() {
         
     //     } else {
     //         _.each(_recipesList, function(_newRcp) {
-    //             _newRcp.foodIndex.push(_newRcp.searchType);
     //             recipesDb.push(_newRcp); // it's push to Firebase object, not array
     //         });
     //     }
@@ -1061,5 +1069,4 @@ $(document).ready(function() {
     <!-- todo: fully switch to tabs w/o show/hide-->
     <!-- todo: convert events to 'document on' -->
     <!-- todo: classes for masses, id for unique entities -->
-    
     
