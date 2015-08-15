@@ -332,9 +332,10 @@ $(document).ready(function() {
     var fillRecipesWithAbsents = function(fromRecipes, toRecipes, fillAll) {
         var _chosenFood = chosenFood();
         _.each(fromRecipes, function(recipe_val, recipe_id) { // value, key
-        	var dif = _.difference(recipe_val.foodIndex, _chosenFood); // note the order
+            var indexWithSearchType = _.union(recipe_val.foodIndex, [recipe_val.searchType]);
+        	var dif = _.difference(indexWithSearchType, _chosenFood); // note the order
         	var _fillAll = !_.isUndefined(fillAll) && fillAll === true;
-            if (_fillAll || _.size(dif) < _.size(recipe_val.foodIndex) ) {
+            if (_fillAll || _.size(dif) < _.size(indexWithSearchType) ) {
                 recipe_val.ix = recipe_id;
                 recipe_val.absent = dif.join(' ');
                 toRecipes[recipe_id] = recipe_val;
@@ -393,7 +394,7 @@ $(document).ready(function() {
         $('#food-search').tokenfield({
             delimiter: [',', ' '],
             autocomplete: {
-                source: snapshot.val(), // it's not live
+                source: _.union(snapshot.val(), ["Борщ"]), // it's not live
                 delay: 100,
                 minLength: 2
             }
