@@ -260,18 +260,22 @@ $('#resetFood').click(resetFood);
 var resetDishes  = function() {
     var recipesDb = firebase.child('recipes');
     
+    recipesDb.once('value', function(dataSnapshot) {
+     var dishName = [];  
+     _.each(dataSnapshot.val(), function(recipe_val, recipe_id) { });
+     });
     var _fillRecipes = function(error) {
         if (error) {
         
         } else {
             _.each(_recipesList, function(_newRcp) {
-                _newRcp.foodIndex.push(_newRcp.searchType);
+                
                 recipesDb.push(_newRcp); // it's push to Firebase object, not array
             });
         }
     };
     
-    recipesDb.remove(_fillRecipes);
+    // recipesDb.remove(_fillRecipes);
 }; 
     
 var resetFood  = function() {    
@@ -298,7 +302,7 @@ var resetFood  = function() {
     
     // _fillFood();
     
-    _foodDb.remove(_fillFood);
+    // _foodDb.remove(_fillFood);
     }; 
 });
 
