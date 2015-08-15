@@ -333,11 +333,12 @@ $(document).ready(function() {
         var _chosenFood = chosenFood();
         _.each(fromRecipes, function(recipe_val, recipe_id) { // value, key
             var indexWithSearchType = _.union(recipe_val.foodIndex, [recipe_val.searchType]);
-        	var dif = _.difference(indexWithSearchType, _chosenFood); // note the order
+        	var absent = _.difference(indexWithSearchType, _chosenFood); // note the order
+        	var absentFood = _.difference(absent, dishNames);
         	var _fillAll = !_.isUndefined(fillAll) && fillAll === true;
-            if (_fillAll || _.size(dif) < _.size(indexWithSearchType) ) {
+            if (_fillAll || _.size(absent) < _.size(indexWithSearchType) ) {
                 recipe_val.ix = recipe_id;
-                recipe_val.absent = dif.join(' ');
+                recipe_val.absent = absentFood.join(' ');
                 toRecipes[recipe_id] = recipe_val;
             }
         });
@@ -390,20 +391,27 @@ $(document).ready(function() {
     
     
     //// init autocompletes
-    firebase.child('food').once('value', function(snapshot) {
-        $('#food-search').tokenfield({
-            delimiter: [',', ' '],
-            autocomplete: {
-                source: _.union(snapshot.val(), ["Борщ"]), // it's not live
-                delay: 100,
+    var dishNames = [];
+    
+    firebase.child('food').once('value', function(foodSnapshot) {
+        firebase.child('dish_names').once('value', function(dishNamesSnapshot) {
+            dishNames = dishNamesSnapshot.val();
+            var foodAndDishes = _.union(foodSnapshot.val(), dishNames);
+            
+            $('#food-search').tokenfield({
+                delimiter: [',', ' '],
+                autocomplete: {
+                    source: foodAndDishes, // it's not live
+                    delay: 100,
+                    minLength: 2
+                }
+            });
+            
+            $('#to-buy-search').autocomplete({
+                source: foodSnapshot.val(), // it's not live too
                 minLength: 2
-            }
+            });
         });
-        
-        $('#to-buy-search').autocomplete({
-            source: snapshot.val(), // it's not live too
-            minLength: 2
-        });        
     });
     
     //// template engine
@@ -419,10 +427,7 @@ $(document).ready(function() {
     return time;
     };
 
-    var timeToHuman = function(){
-        
-        return minutesToHuman (this.time);
-        };
+    var timeToHuman = function() { return minutesToHuman (this.time); };
     
     var recipeItemDirective = {
         '.recipe-item': {
