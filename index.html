@@ -325,6 +325,28 @@ $(document).ready(function() {
     });   
     
     
+    //// helpers
+    var dayOfYear = function(){
+            var now = new Date();
+                var start = new Date(now.getFullYear(), 0, 0);
+                var diff = now - start;
+                var oneDay = 1000 * 60 * 60 * 24;
+                var day = Math.floor(diff / oneDay);
+                return day;
+        };
+    
+    var minutesToHuman = function(time){
+        var h = time / 60 ^ 0;
+        if (h) {
+            var m = time % 60;
+            if (m != 0) {time = h + ' ч ' + m + ' мин';}
+            else { time = h + ' ч ';}
+        } else {
+            time = time + ' мин';
+        }
+    return time;
+    };
+    
     ////// less unstructured:)
     
     //// logic
@@ -415,18 +437,6 @@ $(document).ready(function() {
     });
     
     //// template engine
-    var minutesToHuman = function(time){
-        var h = time / 60 ^ 0;
-        if (h) {
-            var m = time % 60;
-            if (m != 0) {time = h + ' ч ' + m + ' мин';}
-            else { time = h + ' ч ';}
-        } else {
-            time = time + ' мин';
-        }
-    return time;
-    };
-
     var timeToHuman = function() { return minutesToHuman (this.time); };
     
     var recipeItemDirective = {
@@ -540,23 +550,15 @@ $(document).ready(function() {
         e.attrs.label = capitalizedLowLabel;
         
         var lowerValue = e.attrs.value.toLowerCase();
-        // var capitalizedLowValue = capitalizeFirstLetter(lowerValue); 
         e.attrs.value = capitalizedLowLabel;
         
-      var dayOfYear = function(){
-            var now = new Date();
-                var start = new Date(now.getFullYear(), 0, 0);
-                var diff = now - start;
-                var oneDay = 1000 * 60 * 60 * 24;
-                var day = Math.floor(diff / oneDay);
-                return day;
-        };   
         // log food
+        var foodPath = '/food'
         var pathToUserLogsToday = 'logs/food/' + dayOfYear() + " " + new Date().toDateString();
         if(authData) {
-            pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid;
+            pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid + foodPath;
         } else {
-            pathToUserLogsToday = pathToUserLogsToday + '/_anons';
+            pathToUserLogsToday = pathToUserLogsToday + '/_anons' + foodPath;
         }
         
         firebase.child(pathToUserLogsToday).push(capitalizedLowLabel);
@@ -592,6 +594,17 @@ $(document).ready(function() {
         $('#not-found-dishes').hide();
         $('#invitation').hide();
         $('#found-recipes').show();
+        
+        // more logical doubling
+        var noFoodBtnPath = '/btns-nofood';
+        var pathToUserLogsToday = 'logs/food/' + dayOfYear() + " " + new Date().toDateString();
+        if(authData) {
+            pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid + noFoodBtnPath;
+        } else {
+            pathToUserLogsToday = pathToUserLogsToday + '/_anons' + noFoodBtnPath;
+        }
+        
+        firebase.child(pathToUserLogsToday).push('+');
     });
     
     
