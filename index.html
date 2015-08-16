@@ -293,10 +293,14 @@
 
 $(document).ready(function() {
     
-    //// backspase in search field causes navigate backwards
-    if (window.location.hostname === "foodmarket.ml"){
-        window.onbeforeunload = function(e) { return ('Внесенные изменения будут потеряны!'); };
-    };
+    // for a while
+    
+    // //// backspase in search field causes navigate backwards
+    // if (window.location.hostname === "foodmarket.ml"){
+    //     window.onbeforeunload = function(e) { return ('Внесенные изменения будут потеряны!'); };
+    // };
+    
+    // for a while ends
     
     
     //// curing lagging clicks at iPhones
@@ -312,16 +316,35 @@ $(document).ready(function() {
     };
     
     
+    //// logger
+    var fbzlog = function(logsRoot, logsCat, value) {
+        var pathToUserLogsToday = logsRoot + dayOfYear() + " " + new Date().toDateString();
+        if(authData) {
+            pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid + logsCat;
+        } else {
+            pathToUserLogsToday = pathToUserLogsToday + '/_anons' + logsCat;
+        }
+        
+        firebase.child(pathToUserLogsToday).push(value);          
+    };
+    
+    
     //// views, visual effects
     
     $('#not-found-dishes').hide();
     
-    $(document).on('click', '#show-to-buy-list-btn', function() { });
+    $(document).on('click', '#show-login-pill', function() {
+        fbzlog('logs/', '/btn_show_login_pil', '+');
+    });
     
-    $(document).on('click', '#show-login-tab-btn', function() { });
+    $(document).on('click', '#list-pill', function() {
+        fbzlog('logs/', '/btn_list_pil', '+');
+    });
     
     $(document).on('click', '#serch-click-pill', function() {
         $('a[href="#main-tab"]').tab('show');
+
+        fbzlog('logs/', '/btn_search_pil', '+');
     });   
     
     
@@ -552,16 +575,7 @@ $(document).ready(function() {
         var lowerValue = e.attrs.value.toLowerCase();
         e.attrs.value = capitalizedLowLabel;
         
-        // log food
-        var foodPath = '/food'
-        var pathToUserLogsToday = 'logs/food/' + dayOfYear() + " " + new Date().toDateString();
-        if(authData) {
-            pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid + foodPath;
-        } else {
-            pathToUserLogsToday = pathToUserLogsToday + '/_anons' + foodPath;
-        }
-        
-        firebase.child(pathToUserLogsToday).push(capitalizedLowLabel);
+        fbzlog('logs/', '/food', capitalizedLowLabel);
         
         $('#food-search-tokenfield').blur();
     });
@@ -595,16 +609,7 @@ $(document).ready(function() {
         $('#invitation').hide();
         $('#found-recipes').show();
         
-        // more logical doubling
-        var noFoodBtnPath = '/btns-nofood';
-        var pathToUserLogsToday = 'logs/food/' + dayOfYear() + " " + new Date().toDateString();
-        if(authData) {
-            pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid + noFoodBtnPath;
-        } else {
-            pathToUserLogsToday = pathToUserLogsToday + '/_anons' + noFoodBtnPath;
-        }
-        
-        firebase.child(pathToUserLogsToday).push('+');
+        fbzlog('logs/', '/btn_no_food', '+');
     });
     
     
