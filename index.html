@@ -160,7 +160,7 @@
                             &nbsp;Рецепт
                         </a>
                                     
-                        <a class="btn btn-default btn-sm show-more-dishes-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
+                        <a id="btn-yet" class="btn btn-default btn-sm show-more-dishes-btn" href="#main-tab" aria-controls="main-tab" role="tab" data-toggle="tab">
                             <span class="recipe-ix hidden"></span>
                             <span class="glyphicon glyphicon-list"></span>
                             <span class="recipe-type">&nbsp;Еще&nbsp;</span>
@@ -201,7 +201,7 @@
                                         &nbsp;Добавить в список
                                     </a>
                                     
-                                    <a class="btn btn-default btn-sm show-more-dishes-btn" href="#" aria-controls="" role="tab" data-toggle="tab"
+                                    <a id="btn-yet-recipe" class="btn btn-default btn-sm show-more-dishes-btn" href="#" aria-controls="" role="tab" data-toggle="tab"
                                     style="margin-top: 9px; margin-left: 5px;">
                                         <span class="recipe-ix hidden"></span>
                                         <span class="glyphicon glyphicon-list"></span>
@@ -228,7 +228,7 @@
                         <div class="form-group">
                             <input id="to-buy-search" type="text" class="form-control" placeholder="Что купить?" required
                             style="width: 110px; display: inline-block;">
-                            <button type="button" class="btn btn-default btn-sm addToList">
+                            <button id="add-list-btn" type="button" class="btn btn-default btn-sm addToList">
                                 <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                     &nbsp;Добавить
                             </button>
@@ -317,12 +317,12 @@ $(document).ready(function() {
     
     
     //// logger
-    var fbzlog = function(logsRoot, logsCat, value) {
+    var fbzlog = function(logsRoot, logsFolder, value) {
         var pathToUserLogsToday = logsRoot + dayOfYear() + " " + new Date().toDateString();
         if(authData) {
-            pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid + logsCat;
+            pathToUserLogsToday = pathToUserLogsToday + '/' + authData.uid + logsFolder;
         } else {
-            pathToUserLogsToday = pathToUserLogsToday + '/_anons' + logsCat;
+            pathToUserLogsToday = pathToUserLogsToday + '/_anons' + logsFolder;
         }
         
         firebase.child(pathToUserLogsToday).push(value);          
@@ -334,18 +334,24 @@ $(document).ready(function() {
     $('#not-found-dishes').hide();
     
     $(document).on('click', '#show-login-pill', function() {
-        fbzlog('logs/', '/btn_show_login_pil', '+');
+        fbzlog('logs/', '/pill_show_login', '+');
     });
     
     $(document).on('click', '#list-pill', function() {
-        fbzlog('logs/', '/btn_list_pil', '+');
+        fbzlog('logs/', '/pill_list', '+');
     });
     
     $(document).on('click', '#serch-click-pill', function() {
         $('a[href="#main-tab"]').tab('show');
 
-        fbzlog('logs/', '/btn_search_pil', '+');
-    });   
+        fbzlog('logs/', '/pill_search', '+');
+    }); 
+    $(document).on('click', '#btn-yet-recipe', function() {
+        fbzlog('logs/', '/btn_recipe_show_more', '+');
+    });
+        $(document).on('click', '#btn-yet', function() {
+        fbzlog('logs/', '/btn_recipe_item_show_more', '+');
+    });
     
     
     //// helpers
@@ -575,7 +581,7 @@ $(document).ready(function() {
         var lowerValue = e.attrs.value.toLowerCase();
         e.attrs.value = capitalizedLowLabel;
         
-        fbzlog('logs/', '/food', capitalizedLowLabel);
+        fbzlog('logs/', '/_food', capitalizedLowLabel);
         
         $('#food-search-tokenfield').blur();
     });
@@ -623,6 +629,7 @@ $(document).ready(function() {
         $('#serch-click-pill').removeClass("active");
         $('#recipe-content').render(curRecipe, compiledRecipeDirective);
         $('#recipe-content').show();
+        fbzlog('logs/', '/btn_recipe_show', '+');
     });
     
     var appendToList = function(itemToAdd) {
@@ -698,6 +705,7 @@ $(document).ready(function() {
                 appendToList(absentFood);
             }
         });
+    fbzlog('logs/', '/btn_recipe_add_to_list', '+');
     });
     
     
@@ -724,6 +732,7 @@ $(document).ready(function() {
             e.preventDefault(); 
             return false;
         }
+    fbzlog('logs/', '/btn_add_to_list', '+');        
     });
     
     
@@ -734,6 +743,7 @@ $(document).ready(function() {
             $('#to-buy-food-list').empty();
             }
         $('#clear-to-buy-list-btn').blur();
+        fbzlog('logs/', '/btn_clear_to_buy_list', '+');
 });
     //// send to another cook
     
