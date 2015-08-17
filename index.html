@@ -353,8 +353,31 @@ $(document).ready(function() {
         fbzlog('logs/', '/btn_recipe_item_show_more', '+');
     });
     
+
     
     //// helpers
+    var getQuery = function( query ) {
+        query = query.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+        var expr = "[\\?&]"+query+"=([^&#]*)";
+        var regex = new RegExp( expr );
+        var results = regex.exec( window.location.href );
+        if( results !== null ) {
+            return results[1];
+            return decodeURIComponent(results[1].replace(/\+/g, " "));
+        } else {
+            return false;
+        }
+    };
+    var showRecipeById = function(){
+        var _recipeId = getQuery('id');         
+        firebase.child('recipes/' + _recipeId).once('value', function(recipeSnapshot) {
+        showRecipe(recipeSnapshot.val());
+        });
+        $('a[href="#recipe-tab"]').tab('show');
+     };
+
+
+    
     var dayOfYear = function(){
             var now = new Date();
                 var start = new Date(now.getFullYear(), 0, 0);
@@ -427,6 +450,7 @@ $(document).ready(function() {
     
     var firebase = new Firebase("https://foodmarket.firebaseio.com/");
     
+  
     
     //// auto login
     authData = firebase.getAuth();
@@ -618,6 +642,11 @@ $(document).ready(function() {
         fbzlog('logs/', '/btn_no_food', '+');
     });
     
+    var showRecipe = function(curRecipe) {
+        $('#serch-click-pill').removeClass("active");
+        $('#recipe-content').render(curRecipe, compiledRecipeDirective);
+        $('#recipe-content').show();        
+    };
     
     //// recipe content view
     $(document).on('click', '#recipe-btn', function() {
@@ -625,13 +654,10 @@ $(document).ready(function() {
         var curRecipe = foundRecipes[recipeIx];
         
         // todo reformat recipe.steps to ul/li
-        
-        $('#serch-click-pill').removeClass("active");
-        $('#recipe-content').render(curRecipe, compiledRecipeDirective);
-        $('#recipe-content').show();
+        showRecipe();
         fbzlog('logs/', '/btn_recipe_show', '+');
     });
-    
+    showRecipeById();      
     var appendToList = function(itemToAdd) {
         $('#to-buy-food-list').prepend(
             '<div class="checkbox"><label><input type="checkbox" value="'
