@@ -112,6 +112,9 @@
             
             <!-- Main Tab -->
             <div role="tabpanel" class="tab-pane active" id="main-tab" style="margin-top: 60px;">
+                <h4 id="invitation">
+                    Введите продукты или блюда:
+                </h4>
                 <form>
                     <div class="form-group">
                         <input class="form-control" id="food-search" placeholder=
@@ -119,19 +122,21 @@
                         <!--Что есть или что хотите съесть?-->
                     </div>
                 </form>
-                <h4 id="invitation">
-                    Введите продукты или блюда.
-                </h4>
                 <p id="not-found-dishes">
                     Пока не найдены блюда с такими продуктами.
                 </p>
                 
                 <div class="row" style="margin-top: 20px;">
-                    <div class="col-xs-3 col-xs-offset-3 text-center col-md-4 col-md-offset-4">
-                        <button id="random-recipe" type="button" class="btn btn-default">
+                    <div class="col-xs-12 col-md-7 col-md-offset-3">
+                        <button id="random-recipe" type="button" class="btn btn-default btn-lg">
                             <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>
                                 &nbsp;Нет продуктов
                         </button>
+                        <a id="feedback-btn" type="button" class="btn btn-default" href="#feedback-tab" aria-controls="feedback-tab" role="tab" data-toggle="tab"
+                        style="margin-left:5px;">
+                            <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+                                &nbsp;Отзывы
+                        </a>
                     </div>
                 </div>
                 
@@ -215,7 +220,7 @@
 
             </div> <!-- recipe-tab -->
             
-            <!--To Buy Tab-->
+            <!-- To Buy Tab -->
             <div role="tabpanel" class="tab-pane" id="to-buy-list-tab" style="margin-top: 60px;">
                 <div id="to-buy-list">
                     <h3>
@@ -264,6 +269,25 @@
                 </div>
                 
             </div> <!--to-buy-list-tab-->
+            
+            <!-- Feedback Tab -->
+            <div role="tabpanel" class="tab-pane" id="feedback-tab" style="margin-top: 60px;">
+                <div class="example-chat l-demo-container">
+                    <h3>Как тебе Фудмаркет?</h3>
+                
+                    <div class="example-chat-toolbar" style="padding-top: 10px;">
+                        <label for="nameInput">Твое имя:</label>
+                        <input type="text" id="nameInput" class="form-control" style="display: inline-block; width: 150px;">
+                    </div>
+
+                    <input type="text" id="messageInput" class="form-control"  placeholder="Введи сообщение..."
+                    style="width: 70%; display: inline-block; margin-top: 15px;">
+                    <button id="send-message-btn" class="btn btn-default btn-sm" type="button">Отправить</button>
+                
+                    <ul id="example-messages" class="example-chat-messages list-unstyled" style="padding: 20px;"></ul>
+                </div>
+            </div> <!-- feedback-tab -->
+            
         </div> <!--tab-content-->
     </div> <!--col-->
 </div> <!--row-->
@@ -345,7 +369,13 @@ $(document).ready(function() {
         $('a[href="#main-tab"]').tab('show');
 
         fbzlog('logs/', '/btn_search_pil', '+');
-    });   
+    });
+    
+    $(document).on('click', '#feedback-btn', function() {
+        $('#serch-click-pill').removeClass('active');
+
+        fbzlog('logs/', '/btn_feedback', '+');
+    });
     
     
     //// helpers
@@ -1073,6 +1103,53 @@ $(document).ready(function() {
     // // _fillFood();
     
     // _foodDb.remove(_fillFood);
+   
+     // CREATE A REFERENCE TO FIREBASE
+  var messagesRef = new Firebase("https://foodmarket.firebaseio.com/chat");
+
+  // REGISTER DOM ELEMENTS
+  var messageField = $('#messageInput');
+  var nameField = $('#nameInput');
+  var messageList = $('#example-messages');
+
+    var addMessage = function () {
+        var username = nameField.val();
+        var message = messageField.val();
+        
+        if(!message) {
+            messageField.focus();
+        } else {
+            messagesRef.push({name:username, text:message});
+            messageField.val('');
+            
+            $('#send-message-btn').blur();
+            messageField.blur();
+        }
+    };
+    
+    messageField.keypress(function(e) { if (e.keyCode == 13) addMessage(); });
+    
+    $('#send-message-btn').click(addMessage);
+
+  // Add a callback that is triggered for each chat message.
+  messagesRef.on('child_added', function (snapshot) { //.limitToLast(10)
+    //GET DATA
+    var data = snapshot.val();
+    var username = data.name || "Аноним";
+    var message = data.text;
+
+    //CREATE ELEMENTS MESSAGE & SANITIZE TEXT
+    var messageElement = $("<li>");
+    var nameElement = $('<strong class="example-chat-username" style="padding-right: 10px;"></strong>');
+    nameElement.text(username);
+    messageElement.text(message).prepend(nameElement);
+
+    //ADD MESSAGE
+    messageList.prepend(messageElement)
+
+    //SCROLL TO BOTTOM OF MESSAGE LIST
+    // messageList[0].scrollTop = messageList[0].scrollHeight;
+  });
     
 });
 
